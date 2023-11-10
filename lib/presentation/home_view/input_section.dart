@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/main.dart';
@@ -6,12 +7,14 @@ import 'package:trinkgeld_app/models/my_text_field.dart';
 import 'package:trinkgeld_app/models/quality.dart';
 
 class InputSection extends ConsumerWidget {
-  InputSection({
+  const InputSection({
     super.key,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var parser = EmojiParser();
+    var emojiHeart = parser.info('heart');
     final appstate = ref.watch(refAppState);
     final appstateProvider = ref.read(
       refAppState.notifier,
@@ -75,6 +78,7 @@ class InputSection extends ConsumerWidget {
                   updateOnDrag: true,
                   onRatingUpdate: (rating) {
                     appstateProvider.setQualityByStars(rating.toInt());
+                    appstateProvider.setNet(appstate.net);
                   },
                 ),
               ],
@@ -87,9 +91,19 @@ class InputSection extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text('X'),
-                Text(appstate.quality != Quality.low ? 'X' : '-'),
-                Text(appstate.quality == Quality.high ? 'X' : '-'),
+                Text(
+                  appstate.quality == Quality.low
+                      ? '${parser.emojify(":face_with_open_mouth_vomiting:")}'
+                      : appstate.quality == Quality.mid
+                          ? '${parser.emojify(":triumph:")}'
+                          : appstate.quality == Quality.high
+                              ? '${parser.emojify(":sunglasses:")}'
+                              : '???'
+                                  '${parser.emojify(":unamused:")}',
+                  style: TextStyle(fontSize: 42),
+                ),
+                // Text(appstate.emoji != Emoji.low ? 'X' : '-'),
+                // Text(appstate.emoji == Emoji.high ? 'X' : '-'),
                 // appstate.quality == Quality.high ? const Text('X') :
               ],
             ),

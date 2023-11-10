@@ -23,6 +23,7 @@ extension QualityExtension on Quality {
     return Quality.high;
   }
 }
+
 // Dieser Teil des Codes definiert ein Enum namens "Quality" mit den Werten "low", "mid" und "high".
 
 // Es wird auch eine Erweiterung (Extension) für das Enum definiert, die eine Methode namens "stars" enthält. Diese Methode gibt je nach Wert des Enums eine entsprechende Anzahl von Sternen zurück. Wenn der Wert "low" ist, wird 1 zurückgegeben, wenn der Wert "mid" ist, wird 2 zurückgegeben, andernfalls wird 3 zurückgegeben.

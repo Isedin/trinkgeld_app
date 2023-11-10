@@ -34,7 +34,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
       ),
       body: Column(
         children: [
-          page == 0 ? InputSection() : const SettingsSection(),
+          page == 0 ? const InputSection() : const SettingsSection(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

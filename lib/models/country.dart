@@ -5,14 +5,18 @@ class Country {
   int percentageMid;
   int percentageHigh;
   int afterComma;
+  String flag;
+  // int ownTippingAmount;
 
-  Country({
+  Country( {
     required this.id,
     required this.name,
     required this.percentageLow,
     required this.percentageMid,
     required this.percentageHigh,
     required this.afterComma,
+    required this.flag,
+    // required this.ownTippingAmount,
   });
 
   Country copyWith({
@@ -22,6 +26,8 @@ class Country {
     int? percentageMid,
     int? percentageHigh,
     int? afterComma,
+    String? flag,
+    // int? ownTippingAmount,
   }) {
     return Country(
       id: id ?? this.id,
@@ -30,6 +36,8 @@ class Country {
       percentageMid: percentageMid ?? this.percentageMid,
       percentageHigh: percentageHigh ?? this.percentageHigh,
       afterComma: afterComma ?? this.afterComma,
+      flag: flag ?? this.flag,
+      // ownTippingAmount: ownTippingAmount ?? this.ownTippingAmount,
     );
   }
 
@@ -41,7 +49,8 @@ class Country {
       'percentageMid': percentageMid,
       'percentageHigh': percentageHigh,
       'afterComma': afterComma,
-
+      'flag': flag,
+      // 'ownTippingAmount': ownTippingAmount,
     };
   }
 
@@ -53,6 +62,8 @@ class Country {
       percentageMid: json['percentageMid'], 
       percentageHigh: json['percentageHigh'], 
       afterComma: json['afterComma'],
+      flag: json['flag'],
+      // ownTippingAmount: json['ownTippingAmount']
     );
   }
 }

@@ -8,7 +8,7 @@ class MyTextfield extends StatelessWidget {
   final void Function(String)? onChanged;
   // final controller = TextEditingController();
 
-  MyTextfield({
+  const MyTextfield({
     super.key,
     required this.labelText,
     this.textInputType,
@@ -25,14 +25,28 @@ class MyTextfield extends StatelessWidget {
         // controller: controller,
         onChanged: onChanged,
         decoration: InputDecoration(
-            enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white)),
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade400)),
-            fillColor: Colors.grey.shade200,
-            filled: true,
-            labelText: labelText,
-            hintStyle: TextStyle(color: Colors.grey[500])),
+          // labelText: 'pla pla',
+          suffixIcon: const Icon(Icons.euro),
+          // border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+          //       border: OutlineInputBorder(
+          //   borderRadius: BorderRadius.all(Radius.circular(30)),
+          //   borderSide: BorderSide(
+          //     width: 2.0,
+          //     style: BorderStyle.solid,
+          //   ),
+          // ),
+          enabledBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+              borderSide: BorderSide(color: Color.fromARGB(255, 170, 29, 29))),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey.shade400)),
+          fillColor: Colors.grey.shade200,
+          filled: true,
+          labelText: labelText,
+          hintStyle: TextStyle(
+            color: Colors.grey[500],
+          ),
+        ),
       ),
     );
   }

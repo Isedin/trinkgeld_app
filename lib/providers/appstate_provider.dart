@@ -1,74 +1,169 @@
+// ignore: unused_import
+import 'dart:developer';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/models/appstate.dart';
 import 'package:trinkgeld_app/models/country.dart';
+import 'package:trinkgeld_app/models/language.dart';
+import 'package:trinkgeld_app/models/override.dart';
 import 'package:trinkgeld_app/models/quality.dart';
 
 class AppstateProvider extends Notifier<Appstate> {
   @override
   Appstate build() {
     return Appstate(
-      countries: [
-        Country(
-          id: '1',
-          name: 'Deutschland',
-          percentageLow: 0,
-          percentageMid: 10,
-          percentageHigh: 15,
-          afterComma: 2,
-        ),
-        Country(
-          id: '2',
-          name: 'USA',
-          percentageLow: 25,
-          percentageMid: 30,
-          percentageHigh: 35,
-          afterComma: 2,
-        ),
-        Country(
-          id: '3',
-          name: 'Türkei',
-          percentageLow: 10,
-          percentageMid: 20,
-          percentageHigh: 30,
-          afterComma: 0,
-        ),
-        Country(
-          id: '4',
-          name: 'China',
-          percentageLow: 5,
-          percentageMid: 10,
-          percentageHigh: 15,
-          afterComma: 0,
-        ),
-        Country(
-          id: '5',
-          name: 'Frankreich',
-          percentageLow: 8,
-          percentageMid: 12,
-          percentageHigh: 15,
-          afterComma: 2,
-        ),
-      ],
-      net: 10000,
-      gros: 11000,
-      quality: Quality.mid,
-      selectedCountry: '4',
-      darkMode: false,
-    );
+        countries: [
+          Country(
+            id: '0',
+            name: 'ownTip',
+            percentageLow: 0,
+            percentageMid: 0,
+            percentageHigh: 0,
+            afterComma: 2,
+            flag: 'ownTip',
+          ),
+          Country(
+            id: '1',
+            name: 'Deutschland',
+            percentageLow: 0,
+            percentageMid: 10,
+            percentageHigh: 15,
+            afterComma: 2,
+            flag: ':flag-de:',
+          ),
+          Country(
+            id: '2',
+            name: 'USA',
+            percentageLow: 25,
+            percentageMid: 30,
+            percentageHigh: 35,
+            afterComma: 2,
+            flag: ':flag-us:',
+          ),
+          Country(
+            id: '3',
+            name: 'Türkei',
+            percentageLow: 10,
+            percentageMid: 20,
+            percentageHigh: 30,
+            afterComma: 0,
+            flag: ':flag-tr:',
+          ),
+          Country(
+            id: '4',
+            name: 'China',
+            percentageLow: 5,
+            percentageMid: 10,
+            percentageHigh: 15,
+            afterComma: 0,
+            flag: ':flag-cn:',
+          ),
+          Country(
+            id: '5',
+            name: 'Frankreich',
+            percentageLow: 8,
+            percentageMid: 12,
+            percentageHigh: 15,
+            afterComma: 2,
+            flag: ':flag-fr:',
+          ),
+          Country(
+            id: '6',
+            name: 'Italien',
+            percentageLow: 8,
+            percentageMid: 12,
+            percentageHigh: 15,
+            afterComma: 2,
+            flag: ':flag-it:',
+          ),
+          Country(
+            id: '7',
+            name: 'Spanien',
+            percentageLow: 8,
+            percentageMid: 12,
+            percentageHigh: 15,
+            afterComma: 2,
+            flag: ':flag-es:',
+          ),
+          Country(
+            id: '8',
+            name: 'Kroatien',
+            percentageLow: 8,
+            percentageMid: 12,
+            percentageHigh: 15,
+            afterComma: 2,
+            flag: ':flag-hr:',
+          ),
+          Country(
+            id: '9',
+            name: 'Großbritannien',
+            percentageLow: 8,
+            percentageMid: 12,
+            percentageHigh: 15,
+            afterComma: 2,
+            flag: ':flag-gb:',
+          ),
+          Country(
+            id: '10',
+            name: 'Österreich',
+            percentageLow: 8,
+            percentageMid: 12,
+            percentageHigh: 15,
+            afterComma: 2,
+            flag: ':flag-at:',
+          ),
+        ],
+        net: 10000,
+        gros: 11000,
+        quality: Quality.mid,
+        selectedCountry: '1',
+        darkMode: false,
+        overrides: [
+          TippOverride(
+            id: 'de',
+            quality: Quality.high,
+            percentage: 20,
+          ),
+        ],
+        ownTippingAmount: 20,
+        selectedLanguage: const German());
   }
 
   // ignore: body_might_complete_normally_nullable
   Country? getCountryById(String id) {
-    for (final c in state.countries) {
-      if (c.id == id) {
-        return c;
+    for (final country in state.countries) {
+      if (country.id == id) {
+        return country;
       }
     }
   }
 
   void setQuality(Quality quality) {
     state = state.copyWith(quality: quality);
-  } //   Die gegebene Codezeile definiert eine Funktion namens "setQuality", die einen Parameter vom Typ "Quality" erwartet. Diese Funktion aktualisiert den Wert der Eigenschaft "quality" des aktuellen Zustands (state) der Anwendung.
+  }
+
+  void changeOwnTippProfile({
+    required int min,
+    required int mid,
+    required int high,
+  }) {
+    Country ownEditedCountry = state.countries[0];
+    final changedCountry = ownEditedCountry.copyWith(
+        percentageLow: min, percentageMid: mid, percentageHigh: high);
+    List<Country> countryList = [...state.countries];
+    log(countryList.length.toString());
+    countryList.removeAt(0);
+    log(countryList.length.toString());
+    final newCountryList = [changedCountry, ...countryList];
+    state = state.copyWith(countries: newCountryList);
+  }
+
+  void changeLanguage(Language newLanguage) {
+    log('newLanguage: $newLanguage');
+    state = state.copyWith(selectedLanguage: newLanguage);
+  }
+
+  //   Die gegebene Codezeile definiert eine Funktion namens "setQuality", die einen Parameter vom Typ "Quality" erwartet. Diese Funktion aktualisiert den Wert der Eigenschaft "quality" des aktuellen Zustands (state) der Anwendung.
 
 // Die Funktion verwendet die Methode "copyWith" des aktuellen Zustands (state), um eine Kopie des aktuellen Zustands zu erstellen und dabei den neuen Wert für die Eigenschaft "quality" zu setzen. Die Methode "copyWith" wird aufgerufen, indem der neue Wert für die Eigenschaft "quality" als Argument übergeben wird.
 
@@ -120,5 +215,9 @@ class AppstateProvider extends Notifier<Appstate> {
       net: 0,
       gros: 0,
     );
+  }
+
+  void changeCountry(Country newCountry) {
+    state = state.copyWith(selectedCountry: newCountry.id);
   }
 }

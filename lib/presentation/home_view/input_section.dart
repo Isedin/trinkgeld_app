@@ -13,9 +13,16 @@ class InputSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    const borderMainSide = OutlineInputBorder(
+      borderRadius: BorderRadius.all(Radius.circular(30)),
+      borderSide: BorderSide(
+        width: 2.0,
+        style: BorderStyle.solid,
+      ),
+    );
     var parser = EmojiParser();
-    var emojiHeart = parser.info('heart');
     final appstate = ref.watch(refAppState);
+    final translate = appstate.selectedLanguage;
     final appstateProvider = ref.read(
       refAppState.notifier,
     );
@@ -39,10 +46,17 @@ class InputSection extends ConsumerWidget {
                 }
                 appstateProvider.setNet(intValue);
               },
-              labelText: 'Your bill amount',
+              labelText: translate.amount,
               textInputType: TextInputType.number,
               decoration: const InputDecoration(
-                border: OutlineInputBorder(),
+                border: borderMainSide,
+                labelStyle: TextStyle(
+                  color: Color.fromARGB(227, 217, 59, 59),
+                ),
+                suffixIcon: Icon(Icons.euro),
+                suffixIconColor: Colors.black,
+                focusedBorder: borderMainSide,
+                enabledBorder: borderMainSide,
               ),
             ),
           ),
@@ -50,9 +64,9 @@ class InputSection extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: SizedBox(child: Text(appstate.net.toString())),
           ),
-          const Text(
-            'Please rate the service!',
-            style: TextStyle(
+          Text(
+            translate.rating,
+            style: const TextStyle(
               fontSize: 25,
             ),
           ),
@@ -93,14 +107,14 @@ class InputSection extends ConsumerWidget {
               children: [
                 Text(
                   appstate.quality == Quality.low
-                      ? '${parser.emojify(":face_with_open_mouth_vomiting:")}'
+                      ? parser.emojify(":face_with_open_mouth_vomiting:")
                       : appstate.quality == Quality.mid
-                          ? '${parser.emojify(":triumph:")}'
+                          ? parser.emojify(":triumph:")
                           : appstate.quality == Quality.high
-                              ? '${parser.emojify(":sunglasses:")}'
+                              ? parser.emojify(":sunglasses:")
                               : '???'
                                   '${parser.emojify(":unamused:")}',
-                  style: TextStyle(fontSize: 42),
+                  style: const TextStyle(fontSize: 42),
                 ),
                 // Text(appstate.emoji != Emoji.low ? 'X' : '-'),
                 // Text(appstate.emoji == Emoji.high ? 'X' : '-'),
@@ -113,16 +127,16 @@ class InputSection extends ConsumerWidget {
             child: SizedBox(
               // height: 50,
               child: Text(
-                'Tip Amount: ${appstate.gros - appstate.net}',
+                '${translate.tippAmount}: ${appstate.gros - appstate.net}',
                 style: const TextStyle(
                   fontSize: 25,
                 ),
               ),
             ),
           ),
-          const Text(
-            'Total',
-            style: TextStyle(
+          Text(
+            translate.totalAmount,
+            style: const TextStyle(
               fontSize: 25,
             ),
           ),

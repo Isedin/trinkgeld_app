@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/main.dart';
 import 'package:trinkgeld_app/presentation/home_view/input_section.dart';
@@ -13,26 +16,55 @@ class HomeView extends ConsumerStatefulWidget {
 
 class _HomeViewState extends ConsumerState<HomeView> {
   int page = 0;
+
   @override
   Widget build(BuildContext context) {
-    // ignore: avoid_print
+    //appstate beinhgaltet slle Infornationen die ich brauche
     final appstate = ref.watch(refAppState);
-    final appstateProvider = ref.read(
-      refAppState.notifier,
-    );
+    final appstateProvider = ref.read(refAppState.notifier);
+    final parserString =
+        appstateProvider.getCountryById(appstate.selectedCountry)!.flag;
+    final translate = appstate.selectedLanguage;
+    final emojiLibrary = EmojiParser();
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: page == 0 ? const Text('TIPPING APP') : const Text('SETTINGS'),
+        title: Text(page == 0
+            ? appstate.selectedLanguage.title
+            : appstate.selectedLanguage.settings),
+        centerTitle: true,
         actions: [
-          Text(
-            appstateProvider.getCountryById(appstate.selectedCountry)?.name ??
-                'lkhlklklhhlk',
-          ),
+          // DropdownButton(items: items, onChanged: onChanged)
+          // Text(
+          // emojiLibrary.emojify( appstateProvider.getCountryById(appstate.selectedCountry)?.flag ??
+          //     'lkhlklklhhlk',
+          // ),
+          DropdownButton(
+              padding: const EdgeInsets.only(right: 12),
+              hint: Text(
+                emojiLibrary.emojify(parserString),
+                // appstateProvider.getCountryById(appstate.selectedCountry)?.flag ??
+                //     'lkhlklklhhlk',
+              ),
+              items: appstate.countries
+                  .map((country) => DropdownMenuItem(
+                        value: country,
+                        child: Text(
+                          emojiLibrary.emojify(country.flag),
+                        ),
+                      ))
+                  .toList(),
+              onChanged: (value) {
+                log(value.toString());
+                if (value != null) {
+                  appstateProvider.changeCountry(value);
+                }
+              }),
         ],
       ),
       body: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           page == 0 ? const InputSection() : const SettingsSection(),
         ],
@@ -48,46 +80,14 @@ class _HomeViewState extends ConsumerState<HomeView> {
           BottomNavigationBarItem(
             backgroundColor: Colors.green[900],
             icon: const Icon(Icons.calculate),
-            label: 'Calculate',
+            label: translate.bottomButtonCalculate,
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.settings),
+            label: translate.bottomButtonSettings,
           ),
         ],
       ),
     );
   }
 }
-
-
-// Row(
-          //   children: [
-          //     Expanded(
-          //       child: Container(
-          //         color: page == 0 ? Colors.green[900] : Colors.green[200],
-          //         child: Padding(
-          //           padding: const EdgeInsets.all(8.0),
-          //           child: Icon(
-          //             Icons.calculate,
-          //             color: Colors.white,
-          //             size: 50,
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //     Expanded(
-          //       child: Container(
-          //         color: page == 1 ? Colors.green[900] : Colors.green[200],
-          //         child: Padding(
-          //           padding: const EdgeInsets.all(8.0),
-          //           child: Icon(
-          //             color: Colors.white,
-          //             Icons.settings,
-          //             size: 50,
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // )

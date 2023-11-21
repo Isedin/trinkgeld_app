@@ -92,7 +92,6 @@ class InputSection extends ConsumerWidget {
                   updateOnDrag: true,
                   onRatingUpdate: (rating) {
                     appstateProvider.setQualityByStars(rating.toInt());
-                    appstateProvider.setNet(appstate.net);
                   },
                 ),
               ],

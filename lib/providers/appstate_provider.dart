@@ -113,8 +113,8 @@ class AppstateProvider extends Notifier<Appstate> {
             flag: ':flag-at:',
           ),
         ],
-        net: 10000,
-        gros: 11000,
+        net: 100,
+        gros: 110,
         quality: Quality.mid,
         selectedCountry: '1',
         darkMode: false,
@@ -143,24 +143,43 @@ class AppstateProvider extends Notifier<Appstate> {
   }
 
   void changeOwnTippProfile({
+    required Country country,
     required int min,
     required int mid,
     required int high,
   }) {
-    Country ownEditedCountry = state.countries[0];
-    final changedCountry = ownEditedCountry.copyWith(
+    // Country toEditCountry = state.countries[int.parse(country.id)];
+    final changedCountry = country.copyWith(
         percentageLow: min, percentageMid: mid, percentageHigh: high);
-    List<Country> countryList = [...state.countries];
-    log(countryList.length.toString());
-    countryList.removeAt(0);
-    log(countryList.length.toString());
-    final newCountryList = [changedCountry, ...countryList];
-    state = state.copyWith(countries: newCountryList);
+    List<Country> newCountryList = [];
+    for (Country c in state.countries) {
+      if (c.id == country.id) {
+        newCountryList.add(changedCountry);
+      } else {
+        newCountryList.add(c);
+      }
+    }
+
+    //  [changedCountry, ...countryList];
+    log('alte liste: ${state.countries}');
+    log('neue liste: $newCountryList');
+
+    final newState = state.copyWith(
+      countries: newCountryList,
+      selectedCountry: changedCountry.id,
+    );
+    state = newState;
+    log('done');
   }
 
   void changeLanguage(Language newLanguage) {
     log('newLanguage: $newLanguage');
     state = state.copyWith(selectedLanguage: newLanguage);
+  }
+
+  void changeCountry(Country newCountry) {
+    log('newCountry: $newCountry');
+    state = state.copyWith(selectedCountry: newCountry.id);
   }
 
   //   Die gegebene Codezeile definiert eine Funktion namens "setQuality", die einen Parameter vom Typ "Quality" erwartet. Diese Funktion aktualisiert den Wert der Eigenschaft "quality" des aktuellen Zustands (state) der Anwendung.
@@ -202,6 +221,7 @@ class AppstateProvider extends Notifier<Appstate> {
     } else {
       percentage = selectedCountry.percentageHigh;
     }
+    log('percentage: $percentage');
     final tippDouble = intValue * percentage / 100;
     final tipp = tippDouble.toInt();
     state = state.copyWith(
@@ -215,9 +235,5 @@ class AppstateProvider extends Notifier<Appstate> {
       net: 0,
       gros: 0,
     );
-  }
-
-  void changeCountry(Country newCountry) {
-    state = state.copyWith(selectedCountry: newCountry.id);
   }
 }

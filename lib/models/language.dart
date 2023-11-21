@@ -12,6 +12,10 @@ abstract class Language {
   String get bottomButtonCalculate;
   String get tippAmount;
   String get totalAmount;
+  String get ownQualityLevelHigh;
+  String get ownQualityLevelmid;
+  String get ownQualityLevellow;
+  String get ownTippSettingButton;
 }
 
 class German extends Language {
@@ -50,6 +54,18 @@ class German extends Language {
 
   @override
   String get totalAmount => 'Zuzahlende Betrag';
+
+  @override
+  String get ownQualityLevelHigh => 'Qualität hoch';
+
+  @override
+  String get ownQualityLevelmid => 'Qualität mitte';
+
+  @override
+  String get ownQualityLevellow => 'Qualität niedrig';
+
+  @override
+  String get ownTippSettingButton => 'Eigentrinkgeld Eingabe';
 }
 
 class English extends Language {
@@ -89,4 +105,16 @@ class English extends Language {
 
   @override
   String get totalAmount => 'Total';
+
+  @override
+  String get ownQualityLevelHigh => 'quality high';
+
+  @override
+  String get ownQualityLevelmid => 'quality mid';
+
+  @override
+  String get ownQualityLevellow => 'quality low';
+
+  @override
+  String get ownTippSettingButton => 'own tipp setting';
 }

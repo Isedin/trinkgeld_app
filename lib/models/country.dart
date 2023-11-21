@@ -8,7 +8,7 @@ class Country {
   String flag;
   // int ownTippingAmount;
 
-  Country( {
+  Country({
     required this.id,
     required this.name,
     required this.percentageLow,
@@ -54,18 +54,20 @@ class Country {
     };
   }
 
-  factory Country.fromJson(Map<String,dynamic> json) {
+  factory Country.fromJson(Map<String, dynamic> json) {
     return Country(
-      id: json['id'], 
-      name: json['name'], 
-      percentageLow: json['percentageLow'], 
-      percentageMid: json['percentageMid'], 
-      percentageHigh: json['percentageHigh'], 
+      id: json['id'],
+      name: json['name'],
+      percentageLow: json['percentageLow'],
+      percentageMid: json['percentageMid'],
+      percentageHigh: json['percentageHigh'],
       afterComma: json['afterComma'],
       flag: json['flag'],
       // ownTippingAmount: json['ownTippingAmount']
     );
   }
+  @override
+  String toString() {
+    return 'Country{id: $id, name: $name, percentageLow: $percentageLow, percentageMid: $percentageMid, percentageHigh: $percentageHigh, afterComma: $afterComma, flag: $flag}';
+  }
 }
-
-

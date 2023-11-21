@@ -5,20 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/main.dart';
-import 'package:trinkgeld_app/models/country.dart';
-import 'package:trinkgeld_app/presentation/home_view/widgets/macard.dart';
+import 'package:trinkgeld_app/presentation/home_view/widgets/dialog_widget.dart';
 
-class SettingsSection extends ConsumerStatefulWidget {
+class SettingsSection extends ConsumerWidget {
   const SettingsSection({
     super.key,
   });
-  @override
-  ConsumerState<SettingsSection> createState() => _settingsSectionState();
-}
 
-class _settingsSectionState extends ConsumerState<SettingsSection> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     const settingsButtonsBorder = OutlineInputBorder(
       borderRadius: BorderRadius.all(
         Radius.circular(
@@ -32,12 +27,9 @@ class _settingsSectionState extends ConsumerState<SettingsSection> {
     final appstateProvider = ref.read(
       refAppState.notifier,
     );
-    Country? ausgewaehltesLand;
     //appstate.countries
     //     .firstWhere((element) => element.id == appstate.selectedCountry);
-    double? lowPercentensios;
-    double? midPercentensios;
-    double? highPercentensios;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -118,73 +110,83 @@ class _settingsSectionState extends ConsumerState<SettingsSection> {
               //   ),
               // ),
               TextButton(
-            child: const Text('own tip setting'),
+            child: Text(translate.ownTippSettingButton),
             onPressed: () {
               showDialog(
                 context: context,
-                builder: (context) => Padding(
-                  padding: const EdgeInsets.only(
-                    top: 100,
-                    bottom: 100,
-                    left: 20,
-                    right: 20,
-                  ),
-                  child: MACard(
-                    color: Colors.blueGrey,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: DropdownButtonFormField(
-                            items: appstate.countries
-                                .map((country) => DropdownMenuItem(
-                                      value: country,
-                                      child: Text(
-                                        emojiLibrary.emojify(country.flag),
-                                      ),
-                                    ))
-                                .toList(),
-                            onChanged: (value) {
-                              ausgewaehltesLand = value;
-                              log(ausgewaehltesLand.toString());
-                            },
-                            decoration: const InputDecoration(
-                                hintText: 'ausgewähltes Land'),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Text('qualitylow'),
-                              Slider(
-                                onChanged: (value) {
-                                  lowPercentensios = value;
-                                  log('$lowPercentensios');
-                                },
-                                min: 0.0,
-                                max: 15.0,
-                                value: ausgewaehltesLand?.percentageLow
-                                        .toDouble() ??
-                                    0.0,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(padding: EdgeInsets.all(30)),
-                        IconButton(
-                            onPressed: () {
-                              lowPercentensios; //min %
-                              // TODO: weiter
-                              // appstateProvider.changeOwnTippProfile();
-                              log('edit own tip object!');
-                              Navigator.pop(context);
-                            },
-                            icon: Icon(Icons.accessibility_sharp))
-                      ],
-                    ),
-                  ),
+                builder: (context) => DialogWidget(
+                  ref: ref,
                 ),
+                // Padding(
+                //   padding: const EdgeInsets.only(
+                //     top: 100,
+                //     bottom: 100,
+                //     left: 20,
+                //     right: 20,
+                //   ),
+                //   child: MACard(
+                //     color: Colors.blueGrey,
+                //     child: Column(
+                //       children: [
+                //         Padding(
+                //           padding: const EdgeInsets.all(8.0),
+                //           child: DropdownButtonFormField(
+                //             items: appstate.countries
+                //                 .map((country) => DropdownMenuItem(
+                //                       value: country,
+                //                       child: Text(
+                //                         emojiLibrary.emojify(country.flag),
+                //                       ),
+                //                     ))
+                //                 .toList(),
+                //             onChanged: (value) {
+                //               Country? ausgewaehltesLand;
+                //               ausgewaehltesLand = value;
+                //               log(ausgewaehltesLand.toString());
+                //             },
+                //             decoration: const InputDecoration(
+                //                 hintText: 'ausgewähltes Land'),
+                //           ),
+                //         ),
+                //         Padding(
+                //           padding: const EdgeInsets.all(8.0),
+                //           child: Column(
+                //             children: [
+                //               const Text('qualitylow'),
+                //               Slider(
+                //                 activeColor: Colors.purple,
+                //                 inactiveColor: Colors.pinkAccent.shade200,
+                //                 onChanged: (newvalue) {
+                //                   setState(() {
+                //                     _currentSliderValue = newvalue;
+                //                   });
+                //                   lowPercentensios = newvalue;
+                //                   log('$newvalue');
+                //                 },
+                //                 min: 0.0,
+                //                 max: 15.0,
+                //                 value: _currentSliderValue,
+                //                 label: _currentSliderValue.round().toString(),
+                //                 // ausgewaehltesLand?.percentageLow
+                //                 //         .toDouble() ??
+                //                 //     0.0,
+                //               ),
+                //             ],
+                //           ),
+                //         ),
+                //         const Padding(padding: EdgeInsets.all(30)),
+                //         IconButton(
+                //             onPressed: () {
+                //               lowPercentensios; //min %
+                //               // appstateProvider.changeOwnTippProfile();
+                //               log('edit own tip object!');
+                //               Navigator.pop(context);
+                //             },
+                //             icon: const Icon(Icons.accessibility_sharp))
+                //       ],
+                //     ),
+                //   ),
+                // ),
               );
               log('message');
             },

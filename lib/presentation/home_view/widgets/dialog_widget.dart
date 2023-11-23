@@ -154,6 +154,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                 onPressed: () {
                   // lowPercentensios; //min %
                   if (appstate.selectedCountryObject != null) {
+                    log('start write override');
                     appstateProvider.changeOwnTippProfile(
                         country: appstate.selectedCountryObject!,
                         high: _sliderValueHigh.round(),

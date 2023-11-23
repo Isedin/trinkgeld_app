@@ -14,15 +14,6 @@ class AppstateProvider extends Notifier<Appstate> {
     return Appstate(
         countries: [
           Country(
-            id: '0',
-            name: 'ownTip',
-            percentageLow: 0,
-            percentageMid: 0,
-            percentageHigh: 0,
-            afterComma: 2,
-            flag: 'ownTip',
-          ),
-          Country(
             id: '1',
             name: 'Deutschland',
             percentageLow: 0,
@@ -113,18 +104,12 @@ class AppstateProvider extends Notifier<Appstate> {
             flag: ':flag-at:',
           ),
         ],
-        net: 100,
-        gros: 110,
+        net: 0,
+        gros: 0,
         quality: Quality.mid,
         selectedCountry: '1',
         darkMode: false,
-        overrides: [
-          TippOverride(
-            id: 'de',
-            quality: Quality.high,
-            percentage: 20,
-          ),
-        ],
+        overrides: [],
         ownTippingAmount: 20,
         selectedLanguage: const German());
   }
@@ -148,26 +133,24 @@ class AppstateProvider extends Notifier<Appstate> {
     required int mid,
     required int high,
   }) {
-    // Country toEditCountry = state.countries[int.parse(country.id)];
-    final changedCountry = country.copyWith(
-        percentageLow: min, percentageMid: mid, percentageHigh: high);
-    List<Country> newCountryList = [];
-    for (Country c in state.countries) {
-      if (c.id == country.id) {
-        newCountryList.add(changedCountry);
-      } else {
-        newCountryList.add(c);
-      }
+    //TODO: wir bekomen nicht mehr als ein land
+    final newOverrides = [...state.overrides.where((x) => x.id != country.id)];
+    if (min != country.percentageLow) {
+      newOverrides.add(
+          TippOverride(id: country.id, quality: Quality.low, percentage: min));
     }
-
-    //  [changedCountry, ...countryList];
-    log('alte liste: ${state.countries}');
-    log('neue liste: $newCountryList');
-
+    if (mid != country.percentageMid) {
+      newOverrides.add(
+          TippOverride(id: country.id, quality: Quality.mid, percentage: mid));
+    }
+    if (high != country.percentageHigh) {
+      newOverrides.add(TippOverride(
+          id: country.id, quality: Quality.high, percentage: high));
+    }
     final newState = state.copyWith(
-      countries: newCountryList,
-      selectedCountry: changedCountry.id,
+      overrides: newOverrides,
     );
+
     state = newState;
     log('done');
   }
@@ -209,18 +192,12 @@ class AppstateProvider extends Notifier<Appstate> {
   void setNet(int intValue) {
     final quality = state.quality;
     final selectedCountry = state.selectedCountryObject;
+    //TODO: check if null here.
     if (selectedCountry == null) {
       resetNet();
       return;
     }
-    final int percentage;
-    if (quality == Quality.low) {
-      percentage = selectedCountry.percentageLow;
-    } else if (quality == Quality.mid) {
-      percentage = selectedCountry.percentageMid;
-    } else {
-      percentage = selectedCountry.percentageHigh;
-    }
+    final int percentage = state.getRealTipPercentage(selectedCountry, quality);
     log('percentage: $percentage');
     final tippDouble = intValue * percentage / 100;
     final tipp = tippDouble.toInt();
@@ -228,6 +205,7 @@ class AppstateProvider extends Notifier<Appstate> {
       net: intValue,
       gros: intValue + tipp,
     );
+    log('${state.gros}, ${state.net} state  values}');
   }
 
   void resetNet() {

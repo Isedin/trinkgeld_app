@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:trinkgeld_app/models/country.dart';
 import 'package:trinkgeld_app/models/language.dart';
 import 'package:trinkgeld_app/models/override.dart';
@@ -32,7 +34,7 @@ class Appstate {
     Quality? quality,
     String? selectedCountry,
     bool? darkMode,
-    List? override,
+    List<TippOverride>? overrides,
     Language? selectedLanguage,
     int? ownTippingAmount,
   }) {
@@ -43,7 +45,7 @@ class Appstate {
       quality: quality ?? this.quality,
       selectedCountry: selectedCountry ?? this.selectedCountry,
       darkMode: darkMode ?? this.darkMode,
-      overrides: overrides,
+      overrides: overrides ?? this.overrides,
       selectedLanguage: selectedLanguage ?? this.selectedLanguage,
       ownTippingAmount: ownTippingAmount ?? this.ownTippingAmount,
     );
@@ -73,5 +75,22 @@ class Appstate {
     final tipp = tippDouble.toInt();
 
     return tipp;
+  }
+
+  int getRealTipPercentage(Country country, Quality quality) {
+    final applicablwOverrides =
+        overrides.where((o) => o.id == country.id && o.quality == quality);
+    if (applicablwOverrides.isNotEmpty) {
+      log('${applicablwOverrides.first.id}');
+      log('${applicablwOverrides.first.quality}');
+      log('${applicablwOverrides.first.percentage}');
+      return applicablwOverrides.first.percentage;
+    }
+    if (quality == Quality.low) {
+      return country.percentageLow;
+    } else if (quality == Quality.mid) {
+      return country.percentageMid;
+    }
+    return country.percentageHigh;
   }
 }

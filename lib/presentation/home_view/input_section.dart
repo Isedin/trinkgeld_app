@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -45,6 +47,8 @@ class InputSection extends ConsumerWidget {
                   return;
                 }
                 appstateProvider.setNet(intValue);
+                log('list of overrides: ${appstate.overrides.length}');
+                log('net: ${appstate.net},  gros: ${appstate.gros}');
               },
               labelText: translate.amount,
               textInputType: TextInputType.number,

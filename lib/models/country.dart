@@ -6,7 +6,6 @@ class Country {
   int percentageHigh;
   int afterComma;
   String flag;
-  // int ownTippingAmount;
 
   Country({
     required this.id,
@@ -16,7 +15,6 @@ class Country {
     required this.percentageHigh,
     required this.afterComma,
     required this.flag,
-    // required this.ownTippingAmount,
   });
 
   Country copyWith({
@@ -27,7 +25,6 @@ class Country {
     int? percentageHigh,
     int? afterComma,
     String? flag,
-    // int? ownTippingAmount,
   }) {
     return Country(
       id: id ?? this.id,
@@ -37,7 +34,6 @@ class Country {
       percentageHigh: percentageHigh ?? this.percentageHigh,
       afterComma: afterComma ?? this.afterComma,
       flag: flag ?? this.flag,
-      // ownTippingAmount: ownTippingAmount ?? this.ownTippingAmount,
     );
   }
 
@@ -50,7 +46,6 @@ class Country {
       'percentageHigh': percentageHigh,
       'afterComma': afterComma,
       'flag': flag,
-      // 'ownTippingAmount': ownTippingAmount,
     };
   }
 
@@ -63,7 +58,6 @@ class Country {
       percentageHigh: json['percentageHigh'],
       afterComma: json['afterComma'],
       flag: json['flag'],
-      // ownTippingAmount: json['ownTippingAmount']
     );
   }
   @override

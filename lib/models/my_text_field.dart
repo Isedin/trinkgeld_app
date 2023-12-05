@@ -6,7 +6,6 @@ class MyTextfield extends StatelessWidget {
   final String labelText;
   final TextInputType? textInputType;
   final void Function(String)? onChanged;
-  // final controller = TextEditingController();
 
   const MyTextfield({
     super.key,
@@ -22,19 +21,9 @@ class MyTextfield extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: TextField(
         keyboardType: textInputType,
-        // controller: controller,
         onChanged: onChanged,
         decoration: InputDecoration(
-          // labelText: 'pla pla',
           suffixIcon: const Icon(Icons.euro),
-          // border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-          //       border: OutlineInputBorder(
-          //   borderRadius: BorderRadius.all(Radius.circular(30)),
-          //   borderSide: BorderSide(
-          //     width: 2.0,
-          //     style: BorderStyle.solid,
-          //   ),
-          // ),
           enabledBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(30)),
               borderSide: BorderSide(color: Color.fromARGB(255, 170, 29, 29))),

@@ -62,7 +62,21 @@ class Appstate {
 
   int get gros => net + tipp;
 
+  int? overridePercentage(Quality quality) {
+    final fittingOverrides = overrides
+        .where((o) => o.id == selectedCountry && o.quality == quality)
+        .toList();
+    if (fittingOverrides.isNotEmpty) {
+      return fittingOverrides.first.percentage;
+    }
+    return null;
+  }
+
   int get tipp {
+    final oPercentage = overridePercentage(quality);
+    if (oPercentage != null) {
+      return oPercentage;
+    }
     final int percentage;
     if (quality == Quality.low) {
       percentage = selectedCountryObject.percentageLow;
@@ -81,7 +95,7 @@ class Appstate {
     final applicablwOverrides =
         overrides.where((o) => o.id == country.id && o.quality == quality);
     if (applicablwOverrides.isNotEmpty) {
-      log('${applicablwOverrides.first.id}');
+      log(applicablwOverrides.first.id);
       log('${applicablwOverrides.first.quality}');
       log('${applicablwOverrides.first.percentage}');
       return applicablwOverrides.first.percentage;

@@ -133,7 +133,6 @@ class AppstateProvider extends Notifier<Appstate> {
     required int mid,
     required int high,
   }) {
-    //TODO: wir bekomen nicht mehr als ein land
     final newOverrides = [...state.overrides.where((x) => x.id != country.id)];
     if (min != country.percentageLow) {
       newOverrides.add(
@@ -192,7 +191,7 @@ class AppstateProvider extends Notifier<Appstate> {
   void setNet(int intValue) {
     final quality = state.quality;
     final selectedCountry = state.selectedCountryObject;
-    //TODO: check if null here.
+    // ignore: unnecessary_null_comparison
     if (selectedCountry == null) {
       resetNet();
       return;

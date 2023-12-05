@@ -27,8 +27,6 @@ class SettingsSection extends ConsumerWidget {
     final appstateProvider = ref.read(
       refAppState.notifier,
     );
-    //appstate.countries
-    //     .firstWhere((element) => element.id == appstate.selectedCountry);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,30 +38,6 @@ class SettingsSection extends ConsumerWidget {
               border: settingsButtonsBorder,
               label: Text(appstate.selectedLanguage.ownName),
             ),
-            //     child: DropdownButtonHideUnderline(
-            //       child: DropdownButton(
-            //         value: appstate.selectedLanguage,
-            //         // items: [],
-            //         items: globalLanguageLibrary
-            //             .map(
-            //               (e) => DropdownMenuItem(
-            //                 value: e,
-            //                 child: Text(e.ownName),
-            //               ),
-            //             )
-            //             .toList(),
-            //         onChanged: (value) {
-            //           log('onChanged Language $value');
-            //           if (value != null) {
-            //             // appstateProvider.changeLanguage(value);
-            //           }
-            //         },
-            //       ),
-            //     ),
-            // ),
-            //   ),
-            //   );
-            // },
             items: globalLanguageLibrary
                 //  [],
                 .map(
@@ -101,15 +75,7 @@ class SettingsSection extends ConsumerWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child:
-              // TextFormField(
-              //   decoration: InputDecoration(
-              //     border: settingsButtonsBorder,
-              //     labelText: translate.ownTipping,
-              //     // hintText: 5% 10% 15%,
-              //   ),
-              // ),
-              TextButton(
+          child: TextButton(
             child: Text(translate.ownTippSettingButton),
             onPressed: () {
               showDialog(
@@ -117,76 +83,6 @@ class SettingsSection extends ConsumerWidget {
                 builder: (context) => DialogWidget(
                   ref: ref,
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.only(
-                //     top: 100,
-                //     bottom: 100,
-                //     left: 20,
-                //     right: 20,
-                //   ),
-                //   child: MACard(
-                //     color: Colors.blueGrey,
-                //     child: Column(
-                //       children: [
-                //         Padding(
-                //           padding: const EdgeInsets.all(8.0),
-                //           child: DropdownButtonFormField(
-                //             items: appstate.countries
-                //                 .map((country) => DropdownMenuItem(
-                //                       value: country,
-                //                       child: Text(
-                //                         emojiLibrary.emojify(country.flag),
-                //                       ),
-                //                     ))
-                //                 .toList(),
-                //             onChanged: (value) {
-                //               Country? ausgewaehltesLand;
-                //               ausgewaehltesLand = value;
-                //               log(ausgewaehltesLand.toString());
-                //             },
-                //             decoration: const InputDecoration(
-                //                 hintText: 'ausgewähltes Land'),
-                //           ),
-                //         ),
-                //         Padding(
-                //           padding: const EdgeInsets.all(8.0),
-                //           child: Column(
-                //             children: [
-                //               const Text('qualitylow'),
-                //               Slider(
-                //                 activeColor: Colors.purple,
-                //                 inactiveColor: Colors.pinkAccent.shade200,
-                //                 onChanged: (newvalue) {
-                //                   setState(() {
-                //                     _currentSliderValue = newvalue;
-                //                   });
-                //                   lowPercentensios = newvalue;
-                //                   log('$newvalue');
-                //                 },
-                //                 min: 0.0,
-                //                 max: 15.0,
-                //                 value: _currentSliderValue,
-                //                 label: _currentSliderValue.round().toString(),
-                //                 // ausgewaehltesLand?.percentageLow
-                //                 //         .toDouble() ??
-                //                 //     0.0,
-                //               ),
-                //             ],
-                //           ),
-                //         ),
-                //         const Padding(padding: EdgeInsets.all(30)),
-                //         IconButton(
-                //             onPressed: () {
-                //               lowPercentensios; //min %
-                //               // appstateProvider.changeOwnTippProfile();
-                //               log('edit own tip object!');
-                //               Navigator.pop(context);
-                //             },
-                //             icon: const Icon(Icons.accessibility_sharp))
-                //       ],
-                //     ),
-                //   ),
-                // ),
               );
               log('message');
             },
@@ -198,14 +94,13 @@ class SettingsSection extends ConsumerWidget {
             vertical: 3,
           ),
           child: Container(
-            // decoration: BoxDecoration(border: Border.all()),
             alignment: Alignment.center,
             height: 30,
-            width: 70,
+            width: 50,
             child: IconButton(
               icon: const Icon(
                 Icons.brightness_6,
-                size: 50,
+                size: 30,
               ),
               onPressed: () {
                 appstateProvider.switchDarkmode();

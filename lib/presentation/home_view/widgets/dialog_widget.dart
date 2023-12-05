@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/main.dart';
-import 'package:trinkgeld_app/models/country.dart';
+import 'package:trinkgeld_app/models/quality.dart';
 
 import 'macard.dart';
 
@@ -21,9 +21,6 @@ class _DialogWidgetState extends State<DialogWidget> {
   double _sliderValueMin = 5;
   double _sliderValueMid = 10;
   double _sliderValueHigh = 20;
-  // double? lowPercentensios;
-  // double? midPercentensios;
-  // double? highPercentensios;
   final emojiLibrary = EmojiParser();
   @override
   Widget build(BuildContext context) {
@@ -33,14 +30,17 @@ class _DialogWidgetState extends State<DialogWidget> {
     if (!isInitialized) {
       setState(() {
         _sliderValueMin =
-            appstate.selectedCountryObject!.percentageLow.toDouble();
+            appstate.overridePercentage(Quality.low)?.toDouble() ??
+                appstate.selectedCountryObject.percentageLow.toDouble();
         _sliderValueMid =
-            appstate.selectedCountryObject!.percentageMid.toDouble();
+            appstate.overridePercentage(Quality.mid)?.toDouble() ??
+                appstate.selectedCountryObject.percentageMid.toDouble();
         _sliderValueHigh =
-            appstate.selectedCountryObject!.percentageHigh.toDouble();
+            appstate.overridePercentage(Quality.high)?.toDouble() ??
+                appstate.selectedCountryObject.percentageHigh.toDouble();
         isInitialized = true;
       });
-      log('${appstate.selectedCountryObject!.name} ${appstate.selectedCountryObject!.percentageLow}');
+      log('${appstate.selectedCountryObject.name} ${appstate.selectedCountryObject.percentageLow}');
     }
     return Padding(
       padding: const EdgeInsets.only(
@@ -72,8 +72,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                   appstateProvider.changeCountry(value!);
                 },
                 decoration: InputDecoration(
-                    hintText: appstate.selectedCountryObject?.name ??
-                        'wähle ein Land'),
+                    hintText: appstate.selectedCountryObject.name),
               ),
             ),
             Padding(
@@ -90,7 +89,6 @@ class _DialogWidgetState extends State<DialogWidget> {
                       });
                       // lowPercentensios = newvalue;
                       log('$newvalue');
-                      // log('new lowPercentensios$lowPercentensios');
                     },
                     min: 0.0,
                     max: 100.0,
@@ -113,7 +111,6 @@ class _DialogWidgetState extends State<DialogWidget> {
                       setState(() {
                         _sliderValueMid = newvalue;
                       });
-                      // midPercentensios = newvalue;
                       log('$newvalue');
                     },
                     min: 0.0,
@@ -137,7 +134,6 @@ class _DialogWidgetState extends State<DialogWidget> {
                       setState(() {
                         _sliderValueHigh = newvalue;
                       });
-                      // highPercentensios = newvalue;
                       log('$newvalue');
                     },
                     min: 0.0,
@@ -152,15 +148,12 @@ class _DialogWidgetState extends State<DialogWidget> {
             const Padding(padding: EdgeInsets.all(30)),
             IconButton(
                 onPressed: () {
-                  // lowPercentensios; //min %
-                  if (appstate.selectedCountryObject != null) {
-                    log('start write override');
-                    appstateProvider.changeOwnTippProfile(
-                        country: appstate.selectedCountryObject!,
-                        high: _sliderValueHigh.round(),
-                        mid: _sliderValueMid.round(),
-                        min: _sliderValueMin.round());
-                  }
+                  log('start write override');
+                  appstateProvider.changeOwnTippProfile(
+                      country: appstate.selectedCountryObject,
+                      high: _sliderValueHigh.round(),
+                      mid: _sliderValueMid.round(),
+                      min: _sliderValueMin.round());
                   log('edit own tip object!');
                   Navigator.of(context).pop();
                 },

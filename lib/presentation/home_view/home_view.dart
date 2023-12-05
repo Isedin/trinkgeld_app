@@ -27,7 +27,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
     final translate = appstate.selectedLanguage;
     final emojiLibrary = EmojiParser();
     return Scaffold(
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.green,
         title: Text(page == 0
@@ -35,17 +35,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
             : appstate.selectedLanguage.settings),
         centerTitle: true,
         actions: [
-          // DropdownButton(items: items, onChanged: onChanged)
-          // Text(
-          // emojiLibrary.emojify( appstateProvider.getCountryById(appstate.selectedCountry)?.flag ??
-          //     'lkhlklklhhlk',
-          // ),
+          
           DropdownButton(
               padding: const EdgeInsets.only(right: 12),
               hint: Text(
                 emojiLibrary.emojify(parserString),
-                // appstateProvider.getCountryById(appstate.selectedCountry)?.flag ??
-                //     'lkhlklklhhlk',
               ),
               items: appstate.countries
                   .map((country) => DropdownMenuItem(
@@ -79,11 +73,17 @@ class _HomeViewState extends ConsumerState<HomeView> {
         items: [
           BottomNavigationBarItem(
             backgroundColor: Colors.green[900],
-            icon: const Icon(Icons.calculate),
+            icon: const Icon(
+              Icons.calculate,
+              size: 25,
+            ),
             label: translate.bottomButtonCalculate,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(
+              Icons.settings,
+              size: 25,
+            ),
             label: translate.bottomButtonSettings,
           ),
         ],

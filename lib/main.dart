@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/models/appstate.dart';
+import 'package:trinkgeld_app/models/bug_report_form.dart';
 import 'package:trinkgeld_app/models/language.dart';
 import 'package:trinkgeld_app/presentation/home_view/home_view.dart';
 import 'package:trinkgeld_app/providers/appstate_provider.dart';
@@ -17,6 +18,8 @@ final refAppState = NotifierProvider<AppstateProvider, Appstate>(
 const globalLanguageLibrary = [German(), English()];
 
 class MyApp extends ConsumerWidget {
+  // final String route = '/bugReportPage';
+
   const MyApp({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,6 +32,10 @@ class MyApp extends ConsumerWidget {
       themeMode: state.darkMode ? ThemeMode.dark : ThemeMode.light,
       debugShowCheckedModeBanner: false,
       home: const HomeView(),
+      // initialRoute: HomeView(),
+      routes: {
+        BugReportForm().route: (context) => BugReportForm(),
+      },
     );
   }
 }
@@ -63,39 +70,3 @@ Insgesamt initialisiert dieser Code die Flutter-Anwendung, konfiguriert den Zust
 2. Cupertino Design - created by Apple
 */
 
-
-
-//ReordableListView
-
-// class _GeordneteCountryListeState extends StatefulWidget {
-//   const _GeordneteCountryListeState({super.key});
-
-//   @override
-//   State<_GeordneteCountryListeState> createState() => _GeordneteCountryListeStateState();
-// }
-
-// class _GeordneteCountryListeStateState extends State<_GeordneteCountryListeState> {
-// final List<int> items = List<int>.generate(10, (int index) => index);
-
-
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return  ReorderableListView(
-//       children: List.generate(items.length, (index) => ListTile(
-//         key: Key('$index'),
-//         trailing: Icon(Icons.drag_handle_sharp),
-//       ),
-//       ),
-//       onReorder: (int (oldIndex, int newIndex) {
-//         setState(() {
-//           if (oldIndex < newIndex) {
-//             newIndex -=1;
-//           }
-//           final int item = items.removeAt(oldIndex);
-//           items.insert(newIndex, item);
-//           });
-//       }),
-//     );
-//   }
-// }

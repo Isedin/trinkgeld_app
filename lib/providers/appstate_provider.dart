@@ -10,8 +10,7 @@ import 'package:trinkgeld_app/models/quality.dart';
 
 class AppstateProvider extends Notifier<Appstate> {
   @override
-  Appstate build() {
-    return Appstate(
+  Appstate build() => Appstate(
         countries: [
           Country(
             id: '1',
@@ -112,7 +111,6 @@ class AppstateProvider extends Notifier<Appstate> {
         overrides: [],
         ownTippingAmount: 20,
         selectedLanguage: const German());
-  }
 
   // ignore: body_might_complete_normally_nullable
   Country? getCountryById(String id) {
@@ -196,7 +194,7 @@ class AppstateProvider extends Notifier<Appstate> {
       resetNet();
       return;
     }
-    final int percentage = state.getRealTipPercentage(selectedCountry, quality);
+    final percentage = state.getRealTipPercentage(selectedCountry, quality);
     log('percentage: $percentage');
     final tippDouble = intValue * percentage / 100;
     final tipp = tippDouble.toInt();

@@ -7,6 +7,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/main.dart';
 import 'package:trinkgeld_app/presentation/home_view/widgets/dialog_widget.dart';
 
+class MyBug extends StatelessWidget {
+  final route = 'mybug';
+  const MyBug({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp();
+  }
+}
+
 class SettingsSection extends ConsumerWidget {
   const SettingsSection({
     super.key,
@@ -58,19 +68,20 @@ class SettingsSection extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           child: TextFormField(
-            decoration: InputDecoration(
-              border: settingsButtonsBorder,
-              labelText: translate.bugReport,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: TextFormField(
             decoration: const InputDecoration(
               border: settingsButtonsBorder,
               labelText: 'FAQ',
             ),
+          ),
+        ),
+        //bugReport
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          child: TextButton(
+            child: Text(translate.bugReport),
+            onPressed: () {
+              Navigator.pushNamed(context, '/bugReportPage');
+            },
           ),
         ),
         Padding(

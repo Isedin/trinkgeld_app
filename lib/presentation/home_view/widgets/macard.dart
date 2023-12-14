@@ -27,8 +27,7 @@ class MACard extends StatelessWidget {
         padding = padding ?? const EdgeInsets.all(12.0);
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) => Container(
       // padding: padding,
       margin: margin,
       decoration: BoxDecoration(
@@ -52,5 +51,4 @@ class MACard extends StatelessWidget {
         ),
       ),
     );
-  }
 }

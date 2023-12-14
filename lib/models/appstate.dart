@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:trinkgeld_app/models/country.dart';
 import 'package:trinkgeld_app/models/language.dart';
 import 'package:trinkgeld_app/models/override.dart';
@@ -73,18 +72,20 @@ class Appstate {
   }
 
   int get tipp {
+    final int percentage;
     final oPercentage = overridePercentage(quality);
     if (oPercentage != null) {
-      return oPercentage;
-    }
-    final int percentage;
-    if (quality == Quality.low) {
-      percentage = selectedCountryObject.percentageLow;
-    } else if (quality == Quality.mid) {
-      percentage = selectedCountryObject.percentageMid;
+      percentage = oPercentage;
     } else {
-      percentage = selectedCountryObject.percentageHigh;
+      if (quality == Quality.low) {
+        percentage = selectedCountryObject.percentageLow;
+      } else if (quality == Quality.mid) {
+        percentage = selectedCountryObject.percentageMid;
+      } else {
+        percentage = selectedCountryObject.percentageHigh;
+      }
     }
+    
     final tippDouble = net * percentage / 100;
     final tipp = tippDouble.toInt();
 

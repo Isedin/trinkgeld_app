@@ -6,19 +6,19 @@ import 'package:trinkgeld_app/main.dart';
 class EmailValidation extends ConsumerStatefulWidget {
   final FocusNode thisNode = FocusNode();
   final FocusNode nextNode;
-  EmailValidation({super.key, required this.nextNode});
+  EmailValidation({required this.nextNode, super.key});
 
   @override
-  _EmailValidationState createState() => _EmailValidationState();
+  EmailValidationState createState() => EmailValidationState();
 }
 
-class _EmailValidationState extends ConsumerState<EmailValidation> {
+class EmailValidationState extends ConsumerState<EmailValidation> {
   //  List<TextEditingController> controllers;
   // List<FocusNode> focusNodes;
   TextEditingController emailController = TextEditingController();
 
   void validateEmail() {
-    final bool isValid = EmailValidator.validate(emailController.text.trim());
+    final isValid = EmailValidator.validate(emailController.text.trim());
 
     if (isValid) {
       ScaffoldMessenger.of(context)

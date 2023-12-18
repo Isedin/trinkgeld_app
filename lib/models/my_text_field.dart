@@ -8,16 +8,13 @@ class MyTextfield extends StatelessWidget {
   final void Function(String)? onChanged;
 
   const MyTextfield({
-    super.key,
-    required this.labelText,
+    required this.labelText, required InputDecoration decoration, super.key,
     this.textInputType,
     this.onChanged,
-    required InputDecoration decoration,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
+  Widget build(BuildContext context) => Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: TextField(
         keyboardType: textInputType,
@@ -38,7 +35,6 @@ class MyTextfield extends StatelessWidget {
         ),
       ),
     );
-  }
 }
 
 // Der oben gegebene Code definiert eine Klasse namens "MyTextfield", die von der Klasse "StatelessWidget" erbt. Diese Klasse stellt ein benutzerdefiniertes Textfeld-Widget dar.

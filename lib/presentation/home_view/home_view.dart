@@ -35,7 +35,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
             : appstate.selectedLanguage.settings),
         centerTitle: true,
         actions: [
-          
           DropdownButton(
               padding: const EdgeInsets.only(right: 12),
               hint: Text(
@@ -44,8 +43,16 @@ class _HomeViewState extends ConsumerState<HomeView> {
               items: appstate.countries
                   .map((country) => DropdownMenuItem(
                         value: country,
-                        child: Text(
-                          emojiLibrary.emojify(country.flag),
+                        child: Row(
+                          children: [
+                            Text(
+                              emojiLibrary.emojify(country.flag),
+                            ),
+                            Text(
+                              emojiLibrary.emojify(country.iso),
+                              style: const TextStyle(fontSize: 14.0 ),
+                            ),
+                          ],
                         ),
                       ))
                   .toList(),

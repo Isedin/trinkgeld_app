@@ -68,7 +68,12 @@ class _DialogWidgetState extends State<DialogWidget> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 3.0),
-                                child: Text(country.iso),
+                                child: Text(
+                                  country.iso,
+                                  style: const TextStyle(
+                                    fontSize: 14.0,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -99,7 +104,6 @@ class _DialogWidgetState extends State<DialogWidget> {
                       // lowPercentensios = newvalue;
                       log('$newvalue');
                     },
-                    min: 0.0,
                     max: 25.0,
                     divisions: 5,
                     value: _sliderValueMin,
@@ -122,7 +126,6 @@ class _DialogWidgetState extends State<DialogWidget> {
                       });
                       log('$newvalue');
                     },
-                    min: 0.0,
                     max: 50.0,
                     divisions: 10,
                     value: _sliderValueMid,
@@ -155,6 +158,8 @@ class _DialogWidgetState extends State<DialogWidget> {
             ),
             const Padding(padding: EdgeInsets.all(30)),
             IconButton(
+              color: Colors.green,
+              iconSize: 35,
               hoverColor: Colors.lightGreen,
               onPressed: () {
                 log('start write override');

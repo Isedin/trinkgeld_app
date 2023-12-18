@@ -19,10 +19,9 @@ class InputSection extends ConsumerWidget {
       borderRadius: BorderRadius.all(Radius.circular(30)),
       borderSide: BorderSide(
         width: 2.0,
-        style: BorderStyle.solid,
       ),
     );
-    var parser = EmojiParser();
+    final parser = EmojiParser();
     final appstate = ref.watch(refAppState);
     final translate = appstate.selectedLanguage;
     final appstateProvider = ref.read(
@@ -107,15 +106,14 @@ class InputSection extends ConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     appstate.quality == Quality.low
-                        ? parser.emojify(":disappointed:")
+                        ? parser.emojify(':disappointed:')
                         : appstate.quality == Quality.mid
-                            ? parser.emojify(":neutral_face:")
+                            ? parser.emojify(':neutral_face:')
                             : appstate.quality == Quality.high
-                                ? parser.emojify(":sunglasses:")
+                                ? parser.emojify(':sunglasses:')
                                 : '???'
                                     '${parser.emojify(":unamused:")}',
                     style: const TextStyle(fontSize: 42),

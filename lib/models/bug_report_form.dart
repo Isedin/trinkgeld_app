@@ -46,7 +46,7 @@ class BugReportForm extends ConsumerWidget {
                   //     hintText: 'Enter Your Email',
                   //   ),
                   // ),
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
                   TextField(

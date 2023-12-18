@@ -28,8 +28,7 @@ class Country {
     int? percentageHigh,
     int? afterComma,
     String? flag,
-  }) {
-    return Country(
+  }) => Country(
       id: id ?? this.id,
       name: name ?? this.name,
       iso: iso ?? this.iso,
@@ -39,10 +38,8 @@ class Country {
       afterComma: afterComma ?? this.afterComma,
       flag: flag ?? this.flag,
     );
-  }
 
-  Map<String, dynamic> toJson() {
-    return {
+  Map<String, dynamic> toJson() => {
       'id': id,
       'name': name,
       'iso': iso,
@@ -52,10 +49,8 @@ class Country {
       'afterComma': afterComma,
       'flag': flag,
     };
-  }
 
-  factory Country.fromJson(Map<String, dynamic> json) {
-    return Country(
+  factory Country.fromJson(Map<String, dynamic> json) => Country(
       id: json['id'],
       name: json['name'],
       iso: json['iso'],
@@ -65,9 +60,6 @@ class Country {
       afterComma: json['afterComma'],
       flag: json['flag'],
     );
-  }
   @override
-  String toString() {
-    return 'Country{id: $id, name: $name, percentageLow: $percentageLow, percentageMid: $percentageMid, percentageHigh: $percentageHigh, afterComma: $afterComma, flag: $flag}';
-  }
+  String toString() => 'Country{id: $id, name: $name, percentageLow: $percentageLow, percentageMid: $percentageMid, percentageHigh: $percentageHigh, afterComma: $afterComma, flag: $flag}';
 }

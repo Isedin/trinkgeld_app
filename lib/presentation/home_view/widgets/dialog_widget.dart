@@ -61,8 +61,16 @@ class _DialogWidgetState extends State<DialogWidget> {
                 items: appstate.countries
                     .map((country) => DropdownMenuItem(
                           value: country,
-                          child: Text(
-                            emojiLibrary.emojify(country.flag),
+                          child: Row(
+                            children: [
+                              Text(
+                                emojiLibrary.emojify(country.flag),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 3.0),
+                                child: Text(country.iso),
+                              ),
+                            ],
                           ),
                         ))
                     .toList(),
@@ -147,18 +155,20 @@ class _DialogWidgetState extends State<DialogWidget> {
             ),
             const Padding(padding: EdgeInsets.all(30)),
             IconButton(
-                onPressed: () {
-                  log('start write override');
-                  appstateProvider.changeOwnTippProfile(
-                      country: appstate.selectedCountryObject,
-                      high: _sliderValueHigh.round(),
-                      mid: _sliderValueMid.round(),
-                      min: _sliderValueMin.round());
-                  log('edit own tip object!');
-                  Navigator.of(context).pop();
-                },
-                // parser.emojify(":ok:")
-                icon: const Icon(Icons.directions_run_outlined))
+              hoverColor: Colors.lightGreen,
+              onPressed: () {
+                log('start write override');
+                appstateProvider.changeOwnTippProfile(
+                    country: appstate.selectedCountryObject,
+                    high: _sliderValueHigh.round(),
+                    mid: _sliderValueMid.round(),
+                    min: _sliderValueMin.round());
+                log('edit own tip object!');
+                Navigator.of(context).pop();
+              },
+              // parser.emojify(":ok:")
+              icon: const Icon(Icons.play_arrow),
+            ),
           ],
         ),
       ),

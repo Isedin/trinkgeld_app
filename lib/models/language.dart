@@ -20,10 +20,16 @@ abstract class Language {
   String get eMailInput;
   String get describeTheBug;
   String get eMailValidationFieldText;
+  String get emailValidConfirmValid;
+  String get emailValidConfirmInvalid;
+  // List get countryNames;
 }
 
 class German implements Language {
   const German();
+
+  @override
+  // List get countryNames => ['Deutschland', 'USA'];
 
   @override
   String get eMailValidationFieldText => 'Geben Sie Ihre Email ein';
@@ -84,11 +90,18 @@ class German implements Language {
 
   @override
   String get ownTippSettingButton => 'Eigentrinkgeld Eingabe';
+
+  @override
+  String get emailValidConfirmValid => 'Email correct';
+
+  @override
+  String get emailValidConfirmInvalid => 'Falsche Email';
 }
 
 class English implements Language {
   const English();
 
+  List get countryNames => ['Germany', 'USA'];
   @override
   String get eMailValidationFieldText => 'Your Email';
 
@@ -148,6 +161,12 @@ class English implements Language {
 
   @override
   String get ownTippSettingButton => 'own tipp setting';
+
+  @override
+  String get emailValidConfirmValid => 'Email correct';
+
+  @override
+  String get emailValidConfirmInvalid => 'Invalid Email';
 
 // Language({
 // required this.title,

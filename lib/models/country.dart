@@ -1,6 +1,7 @@
 class Country {
   String id;
   String name;
+  String iso;
   int percentageLow;
   int percentageMid;
   int percentageHigh;
@@ -10,6 +11,7 @@ class Country {
   Country({
     required this.id,
     required this.name,
+    required this.iso,
     required this.percentageLow,
     required this.percentageMid,
     required this.percentageHigh,
@@ -20,6 +22,7 @@ class Country {
   Country copyWith({
     String? id,
     String? name,
+    String? iso,
     int? percentageLow,
     int? percentageMid,
     int? percentageHigh,
@@ -29,6 +32,7 @@ class Country {
     return Country(
       id: id ?? this.id,
       name: name ?? this.name,
+      iso: iso ?? this.iso,
       percentageLow: percentageLow ?? this.percentageLow,
       percentageMid: percentageMid ?? this.percentageMid,
       percentageHigh: percentageHigh ?? this.percentageHigh,
@@ -41,6 +45,7 @@ class Country {
     return {
       'id': id,
       'name': name,
+      'iso': iso,
       'percentageLow': percentageLow,
       'percentageMid': percentageMid,
       'percentageHigh': percentageHigh,
@@ -53,6 +58,7 @@ class Country {
     return Country(
       id: json['id'],
       name: json['name'],
+      iso: json['iso'],
       percentageLow: json['percentageLow'],
       percentageMid: json['percentageMid'],
       percentageHigh: json['percentageHigh'],

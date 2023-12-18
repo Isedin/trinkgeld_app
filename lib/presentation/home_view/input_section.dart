@@ -111,9 +111,9 @@ class InputSection extends ConsumerWidget {
                 children: [
                   Text(
                     appstate.quality == Quality.low
-                        ? parser.emojify(":face_with_open_mouth_vomiting:")
+                        ? parser.emojify(":disappointed:")
                         : appstate.quality == Quality.mid
-                            ? parser.emojify(":triumph:")
+                            ? parser.emojify(":neutral_face:")
                             : appstate.quality == Quality.high
                                 ? parser.emojify(":sunglasses:")
                                 : '???'

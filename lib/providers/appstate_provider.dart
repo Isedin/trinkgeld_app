@@ -1,6 +1,5 @@
 // ignore: unused_import
 import 'dart:developer';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/models/appstate.dart';
 import 'package:trinkgeld_app/models/country.dart';
@@ -8,6 +7,7 @@ import 'package:trinkgeld_app/models/language.dart';
 import 'package:trinkgeld_app/models/override.dart';
 import 'package:trinkgeld_app/models/quality.dart';
 
+/// Klasse für die Verwaltung des App-Zustands
 class AppstateProvider extends Notifier<Appstate> {
   @override
   Appstate build() => Appstate(
@@ -223,18 +223,23 @@ class AppstateProvider extends Notifier<Appstate> {
       selectedLanguage: const German());
 
   // ignore: body_might_complete_normally_nullable
+
+  /// Methode zum Abrufen eines Landes anhand seiner ID
   Country? getCountryById(String id) {
     for (final country in state.countries) {
       if (country.id == id) {
         return country;
       }
     }
+    return null;
   }
 
+  /// Methode zum Festlegen der Qualität im App-Zustand
   void setQuality(Quality quality) {
     state = state.copyWith(quality: quality);
   }
 
+  /// Methode zum Ändern des eigenen Trinkgeldprofils für ein bestimmtes Land
   void changeOwnTippProfile({
     required Country country,
     required int min,
@@ -262,40 +267,30 @@ class AppstateProvider extends Notifier<Appstate> {
     log('done');
   }
 
+  /// Methode zum Ändern der Anwendungssprache im App-Zustand
   void changeLanguage(Language newLanguage) {
     log('newLanguage: $newLanguage');
     state = state.copyWith(selectedLanguage: newLanguage);
   }
 
+  /// Methode zum Ändern des ausgewählten Landes im App-Zustand
   void changeCountry(Country newCountry) {
     log('newCountry: $newCountry');
     state = state.copyWith(selectedCountry: newCountry.id);
   }
 
-  //   Die gegebene Codezeile definiert eine Funktion namens "setQuality", die einen Parameter vom Typ "Quality" erwartet. Diese Funktion aktualisiert den Wert der Eigenschaft "quality" des aktuellen Zustands (state) der Anwendung.
-
-// Die Funktion verwendet die Methode "copyWith" des aktuellen Zustands (state), um eine Kopie des aktuellen Zustands zu erstellen und dabei den neuen Wert für die Eigenschaft "quality" zu setzen. Die Methode "copyWith" wird aufgerufen, indem der neue Wert für die Eigenschaft "quality" als Argument übergeben wird.
-
-// Nachdem die Kopie des Zustands mit dem aktualisierten Wert erstellt wurde, wird der aktuelle Zustand (state) durch die neue Kopie ersetzt. Dadurch wird der Wert der Eigenschaft "quality" im aktuellen Zustand aktualisiert.
-
-// Insgesamt ermöglicht diese Codezeile das Aktualisieren des Werts der Eigenschaft "quality" im aktuellen Zustand der Anwendung durch Zuweisen einer neuen Qualität.
-
+  /// Methode zum Umschalten des Dunkelmodus im App-Zustand
   void switchDarkmode() {
     state = state.copyWith(darkMode: !state.darkMode);
   }
-//   Die gegebene Codezeile definiert eine Funktion namens "switchDarkmode", die keinen Parameter erwartet. Diese Funktion wechselt den Wert der Eigenschaft "darkMode" im aktuellen Zustand (state) der Anwendung.
 
-// Die Funktion verwendet die Methode "copyWith" des aktuellen Zustands (state), um eine Kopie des aktuellen Zustands zu erstellen und dabei den negierten Wert für die Eigenschaft "darkMode" zu setzen. Der negierte Wert wird durch den Ausdruck "!state.darkMode" erreicht, der den aktuellen Wert von "darkMode" umkehrt.
-
-// Nachdem die Kopie des Zustands mit dem aktualisierten Wert erstellt wurde, wird der aktuelle Zustand (state) durch die neue Kopie ersetzt. Dadurch wird der Wert der Eigenschaft "darkMode" im aktuellen Zustand aktualisiert.
-
-// Insgesamt ermöglicht diese Codezeile das Umschalten des Werts der Eigenschaft "darkMode" im aktuellen Zustand der Anwendung zwischen true und false.
-
+  /// Methode zum Festlegen der Qualität basierend auf der Anzahl der Sterne
   void setQualityByStars(int stars) {
     final quality = QualityExtension.fromStars(stars);
     setQuality(quality);
   }
 
+   /// Methode zum Festlegen des Nettobetrags im App-Zustand
   void setNet(int intValue) {
     final quality = state.quality;
     final selectedCountry = state.selectedCountryObject;
@@ -315,6 +310,7 @@ class AppstateProvider extends Notifier<Appstate> {
     log('${state.gros}, ${state.net} state  values}');
   }
 
+  /// Methode zum Zurücksetzen des Nettobetrags im App-Zustand
   void resetNet() {
     state = state.copyWith(
       net: 0,

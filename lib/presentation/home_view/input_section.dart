@@ -8,7 +8,9 @@ import 'package:trinkgeld_app/main.dart';
 import 'package:trinkgeld_app/models/my_text_field.dart';
 import 'package:trinkgeld_app/models/quality.dart';
 
+/// Klasse für eine Eingabe-Sektion, erweitert von ConsumerWidget
 class InputSection extends ConsumerWidget {
+    /// Konstruktor für die InputSection-Klasse mit optionalem Schlüssel
   const InputSection({
     super.key,
   });

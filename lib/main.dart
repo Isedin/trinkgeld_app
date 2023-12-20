@@ -6,24 +6,30 @@ import 'package:trinkgeld_app/models/language.dart';
 import 'package:trinkgeld_app/presentation/home_view/home_view.dart';
 import 'package:trinkgeld_app/providers/appstate_provider.dart';
 
+/// Variable, die eine Referenz auf den Anwendungszustand enthält
 WidgetRef? globalRef;
 void main() {
-  //diese Funktion lässt oberen import package laufen
   runApp(const ProviderScope(child: MyApp()));
 }
 
+/// Definition eines NotifierProviders für den App-Zustand
 final refAppState = NotifierProvider<AppstateProvider, Appstate>(
   () => AppstateProvider(),
 );
-///das ist eine Variable die zwei Sprachen speichert!
+
+/// Liste von verfügbaren Sprachen
 const globalLanguageLibrary = [German(), English()];
 
+/// Haupt-Widget für die Anwendung
 class MyApp extends ConsumerWidget {
 
+/// Konstruktor für MyApp-Widget
   const MyApp({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    /// Abrufen des aktuellen App-Zustands über den Provider
     final state = ref.watch(refAppState);
+    /// Setzen der globalen Ref-Variable auf die aktuelle Referenz
     globalRef = ref;
     final a = ThemeData.light(useMaterial3: true);
     return MaterialApp(

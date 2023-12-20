@@ -3,24 +3,34 @@ import 'package:trinkgeld_app/models/country.dart';
 import 'package:trinkgeld_app/models/language.dart';
 import 'package:trinkgeld_app/models/override.dart';
 import 'package:trinkgeld_app/models/quality.dart';
-///Root der App.
+
+/// Klasse, die den Zustand der App repräsentiert
 class Appstate {
-  ///Country List.
+  /// Liste von Ländern
   List<Country> countries;
+
+  /// Liste von individuellen Trinkgeldprofil-Überschreibungen
   List<TippOverride> overrides;
-  ///netto Wert.
+
+  ///Nettobetrag
   int net;
-  ///Qualität
+
+  /// Qualität des Service
   Quality quality;
-  ///Variable die das ausgewählte Land speichert.
+
+  /// ID des ausgewählten Landes
   String selectedCountry;
-  ///Boolische Variable, die ob Hintergrund der App dark oder light ist speichert.
+
+  /// Dunkelmodus aktiviert oder deaktiviert
   bool darkMode;
-  ///Ausgewählte Sprache.
+
+  /// Ausgewählte Sprache
   Language selectedLanguage;
-  ///Trinkgeldbetrag, den der User selbe eintragen kann.
+
+  /// Individueller Trinkgeldbetrag
   int ownTippingAmount;
-///Appstate daten
+
+  /// Konstruktor für die Initialisierung des Zustands
   Appstate({
     required this.countries,
     required this.net,
@@ -32,7 +42,8 @@ class Appstate {
     required this.ownTippingAmount,
     required int gros,
   });
-///copyWith Methode, die die Daten von Appstate herauszieht.
+
+  /// Methode zum Erstellen einer Kopie des Zustands mit möglichen Änderungen
   Appstate copyWith({
     List<Country>? countries,
     int? net,
@@ -43,18 +54,20 @@ class Appstate {
     List<TippOverride>? overrides,
     Language? selectedLanguage,
     int? ownTippingAmount,
-  }) => Appstate(
-      countries: countries ?? this.countries,
-      net: net ?? this.net,
-      gros: gros ?? this.gros,
-      quality: quality ?? this.quality,
-      selectedCountry: selectedCountry ?? this.selectedCountry,
-      darkMode: darkMode ?? this.darkMode,
-      overrides: overrides ?? this.overrides,
-      selectedLanguage: selectedLanguage ?? this.selectedLanguage,
-      ownTippingAmount: ownTippingAmount ?? this.ownTippingAmount,
-    );
-///Objekt des ausgewähltes Land
+  }) =>
+      Appstate(
+        countries: countries ?? this.countries,
+        net: net ?? this.net,
+        gros: gros ?? this.gros,
+        quality: quality ?? this.quality,
+        selectedCountry: selectedCountry ?? this.selectedCountry,
+        darkMode: darkMode ?? this.darkMode,
+        overrides: overrides ?? this.overrides,
+        selectedLanguage: selectedLanguage ?? this.selectedLanguage,
+        ownTippingAmount: ownTippingAmount ?? this.ownTippingAmount,
+      );
+
+  /// Methode zur Rückgabe des ausgewählten Landes als Objekt
   Country get selectedCountryObject {
     for (final c in countries) {
       if (c.id == selectedCountry) {
@@ -63,9 +76,11 @@ class Appstate {
     }
     return countries.first;
   }
-/// gros ist die Variagle, die den Bruttowert von Trinkgeld Betrag ergibt. 
+
+  /// Methode zur Berechnung des Bruttobetrags (Nettobetrag + Trinkgeld)
   int get gros => net + tipp;
 
+  /// Methode zur Überprüfung, ob es eine individuelle Trinkgeldprofil-Überschreibung für die ausgewählte Qualität gibt
   int? overridePercentage(Quality quality) {
     final fittingOverrides = overrides
         .where((o) => o.id == selectedCountry && o.quality == quality)
@@ -75,7 +90,8 @@ class Appstate {
     }
     return null;
   }
-/// tipp Variable speichert den Wert von durch die Formel ausgerechnete Trinkgeld
+
+  /// Methode zur Berechnung des Trinkgelds basierend auf der ausgewählten Qualität und individuellen Überschreibungen
   int get tipp {
     final int percentage;
     final oPercentage = overridePercentage(quality);
@@ -90,13 +106,14 @@ class Appstate {
         percentage = selectedCountryObject.percentageHigh;
       }
     }
-    
+
     final tippDouble = net * percentage / 100;
     final tipp = tippDouble.toInt();
 
     return tipp;
   }
 
+  /// Methode zur Rückgabe des tatsächlichen Trinkgeldprozentsatzes für ein bestimmtes Land und Qualität
   int getRealTipPercentage(Country country, Quality quality) {
     final applicablwOverrides =
         overrides.where((o) => o.id == country.id && o.quality == quality);

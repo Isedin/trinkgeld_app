@@ -8,8 +8,12 @@ import 'package:trinkgeld_app/models/quality.dart';
 
 import 'macard.dart';
 
+/// Die Klasse DialogWidget repräsentiert ein StatefulWidget für die Anzeige von Dialogen.
 class DialogWidget extends StatefulWidget {
+  /// WidgetRef ist eine Instanz, die verwendet wird, um auf den Zustand und die Services des Widgets zuzugreifen.
   final WidgetRef ref;
+
+  /// Konstruktor für die Initialisierung von Instanzvariablen.
   const DialogWidget({required this.ref, super.key});
 
   @override

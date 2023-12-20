@@ -7,17 +7,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/main.dart';
 import 'package:trinkgeld_app/presentation/home_view/widgets/dialog_widget.dart';
 
+/// Widget-Klasse für MyBug
 class MyBug extends StatelessWidget {
+  /// Route für das Widget
   final route = 'mybug';
+
+  /// Konstruktor für MyBug
   const MyBug({super.key});
 
+  /// Überschreiben der build-Methode
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp();
-  }
+
+  /// Rückgabe eines MaterialApp-Widgets (aktuell ohne konkreten Inhalt)
+  Widget build(BuildContext context) => const MaterialApp();
 }
 
+/// Widget-Klasse für Einstellungen
 class SettingsSection extends ConsumerWidget {
+  /// Konstruktor für SettingsSection mit optionalem Schlüssel
   const SettingsSection({
     super.key,
   });

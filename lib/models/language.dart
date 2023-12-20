@@ -1,36 +1,79 @@
+/// Abstrakte Klasse Language, die als Schnittstelle für verschiedene Sprachen dient.
 abstract class Language {
   // const Language._();
+  ///auf Deutsch: "Trinkgeld App" und auf English: "Tipping App".
   String get title;
+
+  ///auf Deutsch: "Sprache" und auf English: "language"
   String get language;
+
+  ///auf Deutsch: "Deutsch" und auf English:  "English"
   String get ownName;
+
+  ///auf Deutsch: "Rechnungsbetrag" und auf English: "Your bill amount"
   String get amount;
+
+  ///auf Deutsch: "Einstellungen" und auf English: "Settings"
   String get settings;
+
+  ///auf Deutsch: "Bewerten!" und auf English: "Please rate the service!"
   String get rating;
+
+  ///auf Deutsch: "Eigenes Tringeld %" und auf English: "Custom Tipping %"
   String get ownTipping;
+
+  ///auf Deutsch: "Fehler melden!" und auf English: "Report a bug!"
   String get bugReport;
+
+  ///auf Deutsch: "Einstellung" und auf English: "Settings"
   String get bottomButtonSettings;
+
+  ///auf Deutsch: "Rechnen" und auf English: "Calculate"
   String get bottomButtonCalculate;
+
+  ///auf Deutsch: "Trinkgeld Betrag" und auf English: "Tip Amount"
   String get tippAmount;
+
+  ///auf Deutsch: "Zuzahlende Betrag" und auf English: "Total"
   String get totalAmount;
+
+  ///auf Deutsch: "Qualität hoch" und auf English: "quality high"
   String get ownQualityLevelHigh;
+
+  ///auf Deutsch: "Qualität mitte" und auf English: "quality mid"
   String get ownQualityLevelmid;
+
+  ///auf Deutsch: "Qualität niedrig" und auf English: "quality low"
   String get ownQualityLevellow;
+
+  ///auf Deutsch: "Eigentrinkgeld Eingabe" und auf English: "own tipp setting"
   String get ownTippSettingButton;
+
+  ///auf Deutsch: "Fehlermeldung Formular" und auf English: "Bug Report Form"
   String get bugReportAppBarTitle;
+
+  ///auf Deutsch: "Geben Sie Ihre E-Mail ein" und auf English: "Your E-Mail"
   String get eMailInput;
+
+  ///auf Deutsch: "Bitte den Fehler beschreiben!" und auf English: "Please describe the bug!"
   String get describeTheBug;
+
+  ///auf Deutsch: "Geben Sie Ihre Email ein" und auf English: "Your Email"
   String get eMailValidationFieldText;
-  String get emailValidConfirmValid;
-  String get emailValidConfirmInvalid;
-  // List get countryNames;
+
+  ///auf Deutsch: "Email correct" und auf English: "Email correct"
+  String get emailValidConfirmationValid;
+
+  ///auf Deutsch: "Falsche Email" und auf English: "Invalid Email"
+  String get emailValidConfirmationInvalid;
 }
 
+/// Konkrete Implementierung für die deutsche Sprache.
 class German implements Language {
+  ///Die Variable German, die die Überschriften und etc. im Deutschen speichert.
   const German();
 
   @override
-  // List get countryNames => ['Deutschland', 'USA'];
-
   @override
   String get eMailValidationFieldText => 'Geben Sie Ihre Email ein';
 
@@ -92,16 +135,18 @@ class German implements Language {
   String get ownTippSettingButton => 'Eigentrinkgeld Eingabe';
 
   @override
-  String get emailValidConfirmValid => 'Email correct';
+  String get emailValidConfirmationValid => 'Email correct';
 
   @override
-  String get emailValidConfirmInvalid => 'Falsche Email';
+  String get emailValidConfirmationInvalid => 'Falsche Email';
 }
 
+/// Konkrete Implementierung für die englische Sprache.
 class English implements Language {
+  ///Die Variable English, die die Überschriften und etc. im Deutschen speichert.
+
   const English();
 
-  List get countryNames => ['Germany', 'USA'];
   @override
   String get eMailValidationFieldText => 'Your Email';
 
@@ -163,10 +208,10 @@ class English implements Language {
   String get ownTippSettingButton => 'own tipp setting';
 
   @override
-  String get emailValidConfirmValid => 'Email correct';
+  String get emailValidConfirmationValid => 'Email correct';
 
   @override
-  String get emailValidConfirmInvalid => 'Invalid Email';
+  String get emailValidConfirmationInvalid => 'Invalid Email';
 
 // Language({
 // required this.title,

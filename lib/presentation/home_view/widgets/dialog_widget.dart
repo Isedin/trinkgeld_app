@@ -175,7 +175,6 @@ class _DialogWidgetState extends State<DialogWidget> {
                 log('edit own tip object!');
                 Navigator.of(context).pop();
               },
-              // parser.emojify(":ok:")
               icon: const Icon(Icons.play_arrow),
             ),
           ],

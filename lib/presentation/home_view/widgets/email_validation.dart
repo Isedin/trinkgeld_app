@@ -41,15 +41,7 @@ class EmailValidationState extends ConsumerState<EmailValidation> {
     }
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   focusNodes = List.generate(2, (index) => FocusNode());
-  //   controllers = List.generate(2, (index) {
-  //     final focu = TextEditingController();
-  //   }
-  // }
-
+  
   @override
   Widget build(BuildContext context) {
     final appstate = ref.watch(refAppState);
@@ -77,9 +69,7 @@ class EmailValidationState extends ConsumerState<EmailValidation> {
                 labelText: translate.eMailValidationFieldText,
 
                 border: settingsButtonsBorder,
-                // enabledBorder: OutlineInputBorder(
-                //     borderRadius: BorderRadius.circular(30),
-                //     borderSide: const BorderSide(color: Colors.green)),
+                
               ),
             ),
           ),

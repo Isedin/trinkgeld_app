@@ -56,7 +56,6 @@ class SettingsSection extends ConsumerWidget {
               label: Text(appstate.selectedLanguage.ownName),
             ),
             items: globalLanguageLibrary
-                //  [],
                 .map(
                   (e) => DropdownMenuItem(
                     value: e,
@@ -81,7 +80,6 @@ class SettingsSection extends ConsumerWidget {
             ),
           ),
         ),
-        //bugReport
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           child: TextButton(

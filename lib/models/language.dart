@@ -143,7 +143,7 @@ class German implements Language {
 
 /// Konkrete Implementierung für die englische Sprache.
 class English implements Language {
-  ///Die Variable English, die die Überschriften und etc. im Deutschen speichert.
+  ///Die Variable English, die die Überschriften und etc. im Englischen speichert.
 
   const English();
 

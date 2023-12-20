@@ -46,7 +46,6 @@ class MACard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        // padding: padding,
         margin: margin,
         decoration: BoxDecoration(
           border: Border.all(width: borderWidth),
@@ -58,7 +57,6 @@ class MACard extends StatelessWidget {
             )
           ],
           borderRadius: BorderRadius.circular(borderRadius),
-          // color: color,
         ),
         child: Material(
           type: MaterialType.card,

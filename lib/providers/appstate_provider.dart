@@ -1,4 +1,3 @@
-// ignore: unused_import
 import 'dart:developer';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/models/appstate.dart';
@@ -222,8 +221,6 @@ class AppstateProvider extends Notifier<Appstate> {
       ownTippingAmount: 20,
       selectedLanguage: const German());
 
-  // ignore: body_might_complete_normally_nullable
-
   /// Methode zum Abrufen eines Landes anhand seiner ID
   Country? getCountryById(String id) {
     for (final country in state.countries) {
@@ -290,7 +287,7 @@ class AppstateProvider extends Notifier<Appstate> {
     setQuality(quality);
   }
 
-   /// Methode zum Festlegen des Nettobetrags im App-Zustand
+  /// Methode zum Festlegen des Nettobetrags im App-Zustand
   void setNet(int intValue) {
     final quality = state.quality;
     final selectedCountry = state.selectedCountryObject;

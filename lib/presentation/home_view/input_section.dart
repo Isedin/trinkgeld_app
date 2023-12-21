@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -10,7 +9,7 @@ import 'package:trinkgeld_app/models/quality.dart';
 
 /// Klasse für eine Eingabe-Sektion, erweitert von ConsumerWidget
 class InputSection extends ConsumerWidget {
-    /// Konstruktor für die InputSection-Klasse mit optionalem Schlüssel
+  /// Konstruktor für die InputSection-Klasse mit optionalem Schlüssel
   const InputSection({
     super.key,
   });
@@ -111,9 +110,9 @@ class InputSection extends ConsumerWidget {
                 children: [
                   Text(
                     appstate.quality == Quality.low
-                        ? parser.emojify(':disappointed:')
+                        ? parser.emojify(':neutral_face:')
                         : appstate.quality == Quality.mid
-                            ? parser.emojify(':neutral_face:')
+                            ? parser.emojify(':wink:')
                             : appstate.quality == Quality.high
                                 ? parser.emojify(':sunglasses:')
                                 : '???'

@@ -45,86 +45,92 @@ class SettingsSection extends ConsumerWidget {
       refAppState.notifier,
     );
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: DropdownButtonFormField(
-            decoration: InputDecoration(
-              border: settingsButtonsBorder,
-              label: Text(appstate.selectedLanguage.ownName),
-            ),
-            items: globalLanguageLibrary
-                .map(
-                  (e) => DropdownMenuItem(
-                    value: e,
-                    child: Text(e.ownName),
-                  ),
-                )
-                .toList(),
-            onChanged: (value) {
-              log('onChanged Language $value');
-              if (value != null) {
-                appstateProvider.changeLanguage(value);
-              }
-            },
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: TextFormField(
-            decoration: const InputDecoration(
-              border: settingsButtonsBorder,
-              labelText: 'FAQ',
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: TextButton(
-            child: Text(translate.bugReport),
-            onPressed: () {
-              Navigator.pushNamed(context, '/bugReportPage');
-            },
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: TextButton(
-            child: Text(translate.ownTippSettingButton),
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => DialogWidget(
-                  ref: ref,
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: DropdownButtonFormField(
+                decoration: InputDecoration(
+                  border: settingsButtonsBorder,
+                  label: Text(appstate.selectedLanguage.ownName),
                 ),
-              );
-              log('message');
-            },
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 15,
-            vertical: 3,
-          ),
-          child: Container(
-            alignment: Alignment.center,
-            height: 30,
-            width: 50,
-            child: IconButton(
-              icon: const Icon(
-                Icons.brightness_6,
-                size: 30,
+                items: globalLanguageLibrary
+                    .map(
+                      (e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(e.ownName),
+                      ),
+                    )
+                    .toList(),
+                onChanged: (value) {
+                  log('onChanged Language $value');
+                  if (value != null) {
+                    appstateProvider.changeLanguage(value);
+                  }
+                },
               ),
-              onPressed: () {
-                appstateProvider.switchDarkmode();
-              },
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  border: settingsButtonsBorder,
+                  labelText: 'FAQ',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+              child: TextButton(
+                child: Text(translate.bugReport),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/bugReportPage');
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+              child: TextButton(
+                child: Text(translate.ownTippSettingButton),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => SingleChildScrollView(
+                      child: DialogWidget(
+                        ref: ref,
+                      ),
+                    ),
+                  );
+                  log('message');
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 3,
+              ),
+              child: Container(
+                alignment: Alignment.center,
+                height: 30,
+                width: 50,
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.brightness_6,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    appstateProvider.switchDarkmode();
+                  },
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

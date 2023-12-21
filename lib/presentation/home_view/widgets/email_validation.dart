@@ -65,7 +65,6 @@ class EmailValidationState extends ConsumerState<EmailValidation> {
               controller: emailController,
               focusNode: widget.thisNode,
               decoration: InputDecoration(
-                hintText: 'Enter Email',
                 labelText: translate.eMailValidationFieldText,
 
                 border: settingsButtonsBorder,

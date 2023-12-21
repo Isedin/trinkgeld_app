@@ -39,40 +39,49 @@ class BugReportForm extends ConsumerWidget {
         backgroundColor: Colors.green,
         title: Text(translate.bugReportAppBarTitle),
       ),
-      body: Column(
-        children: [
-          SafeArea(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  /// Widget für die E-Mail-Validierung mit einem Fokusnode für die Navigation.
-                  EmailValidation(
-                    nextNode: describeTheBugNode,
+      body: Expanded(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SafeArea(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      /// Widget für die E-Mail-Validierung mit einem Fokusnode für die Navigation.
+                      EmailValidation(
+                        nextNode: describeTheBugNode,
+                      ),
+                      // TextFormField(
+                      //   decoration: InputDecoration(
+                      //     border: settingsButtonsBorder,
+                      //     label: Text(translate.eMailInput),
+                      //     hintText: 'Enter Your Email',
+                      //   ),
+                      // ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      SafeArea(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextField(
+                            maxLines: null,
+                            focusNode: describeTheBugNode,
+                            decoration: InputDecoration(
+                              border: settingsButtonsBorder,
+                              label: Text(translate.describeTheBug),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  // TextFormField(
-                  //   decoration: InputDecoration(
-                  //     border: settingsButtonsBorder,
-                  //     label: Text(translate.eMailInput),
-                  //     hintText: 'Enter Your Email',
-                  //   ),
-                  // ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  TextField(
-                    maxLines: null,
-                    focusNode: describeTheBugNode,
-                    decoration: InputDecoration(
-                      border: settingsButtonsBorder,
-                      label: Text(translate.describeTheBug),
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

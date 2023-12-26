@@ -4,12 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/main.dart';
+import 'package:trinkgeld_app/models/quality.dart';
 
 import 'macard.dart';
 
+/// Die Klasse DialogWidget repräsentiert ein StatefulWidget für die Anzeige von Dialogen.
 class DialogWidget extends StatefulWidget {
+  /// WidgetRef ist eine Instanz, die verwendet wird, um auf den Zustand und die Services des Widgets zuzugreifen.
   final WidgetRef ref;
-  const DialogWidget({super.key, required this.ref});
+
+  /// Konstruktor für die Initialisierung von Instanzvariablen.
+  const DialogWidget({required this.ref, super.key});
 
   @override
   State<DialogWidget> createState() => _DialogWidgetState();
@@ -20,23 +25,24 @@ class _DialogWidgetState extends State<DialogWidget> {
   double _sliderValueMin = 5;
   double _sliderValueMid = 10;
   double _sliderValueHigh = 20;
-  // double? lowPercentensios;
-  // double? midPercentensios;
-  // double? highPercentensios;
   final emojiLibrary = EmojiParser();
   @override
   Widget build(BuildContext context) {
+    // var parser = EmojiParser();
     final appstate = widget.ref.watch(refAppState);
     final appstateProvider = widget.ref.read(refAppState.notifier);
     final translate = appstate.selectedLanguage;
     if (!isInitialized) {
       setState(() {
-        _sliderValueMin = appstate.selectedCountryObject!.percentageLow.toDouble();
-        _sliderValueMid = appstate.selectedCountryObject!.percentageMid.toDouble();
-        _sliderValueHigh = appstate.selectedCountryObject!.percentageHigh.toDouble();
+        _sliderValueMin = appstate.overridePercentage(Quality.low)?.toDouble() ??
+            appstate.selectedCountryObject.percentageLow.toDouble();
+        _sliderValueMid = appstate.overridePercentage(Quality.mid)?.toDouble() ??
+            appstate.selectedCountryObject.percentageMid.toDouble();
+        _sliderValueHigh = appstate.overridePercentage(Quality.high)?.toDouble() ??
+            appstate.selectedCountryObject.percentageHigh.toDouble();
         isInitialized = true;
       });
-      log('${appstate.selectedCountryObject!.name} ${appstate.selectedCountryObject!.percentageLow}');
+      log('${appstate.selectedCountryObject.name} ${appstate.selectedCountryObject.percentageLow}');
     }
     return Padding(
       padding: const EdgeInsets.only(
@@ -56,8 +62,21 @@ class _DialogWidgetState extends State<DialogWidget> {
                 items: appstate.countries
                     .map((country) => DropdownMenuItem(
                           value: country,
-                          child: Text(
-                            emojiLibrary.emojify(country.flag),
+                          child: Row(
+                            children: [
+                              Text(
+                                emojiLibrary.emojify(country.flag),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 3.0),
+                                child: Text(
+                                  country.iso,
+                                  style: const TextStyle(
+                                    fontSize: 14.0,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ))
                     .toList(),
@@ -67,7 +86,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                   });
                   appstateProvider.changeCountry(value!);
                 },
-                decoration: InputDecoration(hintText: appstate.selectedCountryObject?.name ?? 'wähle ein Land'),
+                decoration: InputDecoration(hintText: appstate.selectedCountryObject.name),
               ),
             ),
             Padding(
@@ -77,18 +96,16 @@ class _DialogWidgetState extends State<DialogWidget> {
                   Text(translate.ownQualityLevellow),
                   Slider(
                     activeColor: Colors.purple,
-                    inactiveColor: Colors.pinkAccent.shade200,
+                    inactiveColor: Colors.green,
                     onChanged: (newvalue) {
                       setState(() {
                         _sliderValueMin = newvalue;
                       });
                       // lowPercentensios = newvalue;
                       log('$newvalue');
-                      // log('new lowPercentensios$lowPercentensios');
                     },
-                    min: 0.0,
-                    max: 100.0,
-                    divisions: 20,
+                    max: 25.0,
+                    divisions: 5,
                     value: _sliderValueMin,
                     label: _sliderValueMin.round().toString(),
                   ),
@@ -102,17 +119,15 @@ class _DialogWidgetState extends State<DialogWidget> {
                   Text(translate.ownQualityLevelmid),
                   Slider(
                     activeColor: Colors.purple,
-                    inactiveColor: Colors.pinkAccent.shade200,
+                    inactiveColor: Colors.green,
                     onChanged: (newvalue) {
                       setState(() {
                         _sliderValueMid = newvalue;
                       });
-                      // midPercentensios = newvalue;
                       log('$newvalue');
                     },
-                    min: 0.0,
-                    max: 100.0,
-                    divisions: 20,
+                    max: 50.0,
+                    divisions: 10,
                     value: _sliderValueMid,
                     label: _sliderValueMid.round().toString(),
                   ),
@@ -126,17 +141,15 @@ class _DialogWidgetState extends State<DialogWidget> {
                   Text(translate.ownQualityLevelHigh),
                   Slider(
                     activeColor: Colors.purple,
-                    inactiveColor: Colors.pinkAccent.shade200,
+                    inactiveColor: Colors.green,
                     onChanged: (newvalue) {
                       setState(() {
                         _sliderValueHigh = newvalue;
                       });
-                      // highPercentensios = newvalue;
                       log('$newvalue');
                     },
-                    min: 0.0,
                     max: 100.0,
-                    divisions: 20,
+                    divisions: 10,
                     value: _sliderValueHigh,
                     label: _sliderValueHigh.round().toString(),
                   ),
@@ -145,19 +158,21 @@ class _DialogWidgetState extends State<DialogWidget> {
             ),
             const Padding(padding: EdgeInsets.all(30)),
             IconButton(
-                onPressed: () {
-                  // lowPercentensios; //min %
-                  if (appstate.selectedCountryObject != null) {
-                    appstateProvider.changeOwnTippProfile(
-                        country: appstate.selectedCountryObject!,
-                        high: _sliderValueHigh.round(),
-                        mid: _sliderValueMid.round(),
-                        min: _sliderValueMin.round());
-                  }
-                  log('edit own tip object!');
-                  Navigator.of(context).pop();
-                },
-                icon: const Icon(Icons.accessibility_sharp))
+              color: Colors.green,
+              iconSize: 35,
+              hoverColor: Colors.lightGreen,
+              onPressed: () {
+                log('start write override');
+                appstateProvider.changeOwnTippProfile(
+                    country: appstate.selectedCountryObject,
+                    high: _sliderValueHigh.round(),
+                    mid: _sliderValueMid.round(),
+                    min: _sliderValueMin.round());
+                log('edit own tip object!');
+                Navigator.of(context).pop();
+              },
+              icon: const Icon(Icons.play_arrow),
+            ),
           ],
         ),
       ),

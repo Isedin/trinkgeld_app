@@ -1,15 +1,14 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:trinkgeld_app/main.dart';
 import 'package:trinkgeld_app/models/quality.dart';
+import 'package:trinkgeld_app/providers/_providers.dart';
 
 import 'macard.dart';
 
 /// Die Klasse DialogWidget repräsentiert ein StatefulWidget für die Anzeige von Dialogen.
-class DialogWidget extends StatefulWidget {
+class DialogWidget extends ConsumerStatefulWidget {
   /// WidgetRef ist eine Instanz, die verwendet wird, um auf den Zustand und die Services des Widgets zuzugreifen.
   final WidgetRef ref;
 
@@ -17,18 +16,18 @@ class DialogWidget extends StatefulWidget {
   const DialogWidget({required this.ref, super.key});
 
   @override
-  State<DialogWidget> createState() => _DialogWidgetState();
+  ConsumerState<DialogWidget> createState() => _DialogWidgetState();
 }
 
-class _DialogWidgetState extends State<DialogWidget> {
+class _DialogWidgetState extends ConsumerState<DialogWidget> {
   bool isInitialized = false;
   double _sliderValueMin = 5;
   double _sliderValueMid = 10;
   double _sliderValueHigh = 20;
-  final emojiLibrary = EmojiParser();
+
   @override
   Widget build(BuildContext context) {
-    // var parser = EmojiParser();
+    final emojiParser = ref.watch(refEmojiParser);
     final appstate = widget.ref.watch(refAppState);
     final appstateProvider = widget.ref.read(refAppState.notifier);
     final translate = appstate.selectedLanguage;
@@ -65,7 +64,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                           child: Row(
                             children: [
                               Text(
-                                emojiLibrary.emojify(country.flag),
+                                emojiParser.emojify(country.flag),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 3.0),

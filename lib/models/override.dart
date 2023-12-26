@@ -12,7 +12,7 @@ class TippOverride {
   final int percentage;
 
   /// Konstruktor für die Initialisierung der Instanzvariablen.
-  TippOverride({
+  const TippOverride({
     required this.id,
     required this.quality,
     required this.percentage,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:trinkgeld_app/main.dart';
 import 'package:trinkgeld_app/presentation/home_view/widgets/email_validation.dart';
+import 'package:trinkgeld_app/providers/_providers.dart';
 
 /// Die Klasse BugReportForm erweitert ConsumerWidget, was darauf hinweist, dass es sich um einen Widget handelt, der auf Änderungen reagieren kann.
 class BugReportForm extends ConsumerWidget {

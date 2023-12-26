@@ -1,27 +1,9 @@
-// ignore_for_file: unused_local_variable
-
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:trinkgeld_app/main.dart';
 import 'package:trinkgeld_app/models/language.dart';
 import 'package:trinkgeld_app/presentation/home_view/widgets/dialog_widget.dart';
-
-/// Widget-Klasse für MyBug
-class MyBug extends StatelessWidget {
-  /// Route für das Widget
-  final route = 'mybug';
-
-  /// Konstruktor für MyBug
-  const MyBug({super.key});
-
-  /// Überschreiben der build-Methode
-  @override
-
-  /// Rückgabe eines MaterialApp-Widgets (aktuell ohne konkreten Inhalt)
-  Widget build(BuildContext context) => const MaterialApp();
-}
+import 'package:trinkgeld_app/providers/_providers.dart';
 
 /// Widget-Klasse für Einstellungen
 class SettingsSection extends ConsumerWidget {
@@ -39,7 +21,6 @@ class SettingsSection extends ConsumerWidget {
         ),
       ),
     );
-    final emojiLibrary = EmojiParser();
     final appstate = ref.watch(refAppState);
     final translate = appstate.selectedLanguage;
     final appstateProvider = ref.read(
@@ -58,7 +39,7 @@ class SettingsSection extends ConsumerWidget {
                   border: settingsButtonsBorder,
                   label: Text(appstate.selectedLanguage.ownName),
                 ),
-                items: globalLanguageLibrary
+                items: const [German(), English()]
                     .map(
                       (e) => DropdownMenuItem(
                         value: e,

@@ -75,30 +75,12 @@ class AppstateProvider extends Notifier<Appstate> {
 
   /// Methode zum Festlegen des Nettobetrags im App-Zustand
   void setNet(int intValue) {
-    final quality = state.quality;
-    final selectedCountry = state.selectedCountryObject;
-    // ignore: unnecessary_null_comparison
-    if (selectedCountry == null) {
-      resetNet();
-      return;
-    }
-    final percentage = state.getRealTipPercentage(selectedCountry, quality);
-    log('percentage: $percentage');
-    final tippDouble = intValue * percentage / 100;
-    final tipp = tippDouble.toInt();
-    state = state.copyWith(
-      net: intValue,
-      gros: intValue + tipp,
-    );
-    log('${state.gros}, ${state.net} state  values}');
+    state = state.copyWith(net: intValue);
   }
 
   /// Methode zum Zurücksetzen des Nettobetrags im App-Zustand
   void resetNet() {
-    state = state.copyWith(
-      net: 0,
-      gros: 0,
-    );
+    state = state.copyWith(net: 0);
   }
 
   static const _example = Appstate(
@@ -305,7 +287,6 @@ class AppstateProvider extends Notifier<Appstate> {
       ),
     ],
     net: 100,
-    gros: 110,
     quality: Quality.mid,
     selectedCountry: '1',
     darkMode: false,

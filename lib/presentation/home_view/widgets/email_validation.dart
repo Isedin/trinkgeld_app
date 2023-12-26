@@ -1,7 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:trinkgeld_app/main.dart';
+import 'package:trinkgeld_app/providers/_providers.dart';
 
 /// Die Klasse EmailValidation ist ein StatefulWidget für die Eingabe und Validierung von E-Mail-Adressen.
 class EmailValidation extends ConsumerStatefulWidget {
@@ -31,17 +31,14 @@ class EmailValidationState extends ConsumerState<EmailValidation> {
     final isValid = EmailValidator.validate(emailController.text.trim());
 
     if (isValid) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Valid Email')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Valid Email')));
       widget.nextNode.requestFocus();
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Not a Valid Email')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Not a Valid Email')));
       widget.thisNode.requestFocus();
     }
   }
 
-  
   @override
   Widget build(BuildContext context) {
     final appstate = ref.watch(refAppState);
@@ -66,9 +63,7 @@ class EmailValidationState extends ConsumerState<EmailValidation> {
               focusNode: widget.thisNode,
               decoration: InputDecoration(
                 labelText: translate.eMailValidationFieldText,
-
                 border: settingsButtonsBorder,
-                
               ),
             ),
           ),

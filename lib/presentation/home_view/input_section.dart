@@ -1,11 +1,10 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:trinkgeld_app/main.dart';
-import 'package:trinkgeld_app/models/my_text_field.dart';
 import 'package:trinkgeld_app/models/quality.dart';
+import 'package:trinkgeld_app/presentation/home_view/widgets/my_text_field.dart';
+import 'package:trinkgeld_app/providers/_providers.dart';
 
 /// Klasse für eine Eingabe-Sektion, erweitert von ConsumerWidget
 class InputSection extends ConsumerWidget {
@@ -22,7 +21,7 @@ class InputSection extends ConsumerWidget {
         width: 2.0,
       ),
     );
-    final parser = EmojiParser();
+    final parser = ref.watch(refEmojiParser);
     final appstate = ref.watch(refAppState);
     final translate = appstate.selectedLanguage;
     final appstateProvider = ref.read(
@@ -102,7 +101,6 @@ class InputSection extends ConsumerWidget {
                 ],
               ),
             ),
-            // ignore: prefer_const_constructors
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Row(

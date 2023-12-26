@@ -7,31 +7,31 @@ import 'package:trinkgeld_app/models/quality.dart';
 /// Klasse, die den Zustand der App repräsentiert
 class Appstate {
   /// Liste von Ländern
-  List<Country> countries;
+  final List<Country> countries;
 
   /// Liste von individuellen Trinkgeldprofil-Überschreibungen
-  List<TippOverride> overrides;
+  final List<TippOverride> overrides;
 
   ///Nettobetrag
-  int net;
+  final int net;
 
   /// Qualität des Service
-  Quality quality;
+  final Quality quality;
 
   /// ID des ausgewählten Landes
-  String selectedCountry;
+  final String selectedCountry;
 
   /// Dunkelmodus aktiviert oder deaktiviert
-  bool darkMode;
+  final bool darkMode;
 
   /// Ausgewählte Sprache
-  Language selectedLanguage;
+  final Language selectedLanguage;
 
   /// Individueller Trinkgeldbetrag
-  int ownTippingAmount;
+  final int ownTippingAmount;
 
   /// Konstruktor für die Initialisierung des Zustands
-  Appstate({
+  const Appstate({
     required this.countries,
     required this.net,
     required this.quality,
@@ -40,14 +40,12 @@ class Appstate {
     required this.overrides,
     required this.selectedLanguage,
     required this.ownTippingAmount,
-    required int gros,
   });
 
   /// Methode zum Erstellen einer Kopie des Zustands mit möglichen Änderungen
   Appstate copyWith({
     List<Country>? countries,
     int? net,
-    int? gros,
     Quality? quality,
     String? selectedCountry,
     bool? darkMode,
@@ -58,7 +56,6 @@ class Appstate {
       Appstate(
         countries: countries ?? this.countries,
         net: net ?? this.net,
-        gros: gros ?? this.gros,
         quality: quality ?? this.quality,
         selectedCountry: selectedCountry ?? this.selectedCountry,
         darkMode: darkMode ?? this.darkMode,

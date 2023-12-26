@@ -5,7 +5,7 @@ class TippOverride {
   final Quality quality;
   final int percentage;
 
-  TippOverride({
+  const TippOverride({
     required this.id,
     required this.quality,
     required this.percentage,

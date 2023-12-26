@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/main.dart';
+import 'package:trinkgeld_app/models/language.dart';
 import 'package:trinkgeld_app/presentation/home_view/widgets/dialog_widget.dart';
 
 class SettingsSection extends ConsumerWidget {
@@ -64,8 +65,7 @@ class SettingsSection extends ConsumerWidget {
             //   ),
             //   );
             // },
-            items: globalLanguageLibrary
-                //  [],
+            items: [German(), English()]
                 .map(
                   (e) => DropdownMenuItem(
                     value: e,

@@ -4,16 +4,16 @@ import 'package:trinkgeld_app/models/override.dart';
 import 'package:trinkgeld_app/models/quality.dart';
 
 class Appstate {
-  List<Country> countries;
-  List<TippOverride> overrides;
-  int net;
-  Quality quality;
-  String selectedCountry;
-  bool darkMode;
-  Language selectedLanguage;
-  int ownTippingAmount;
+  final List<Country> countries;
+  final List<TippOverride> overrides;
+  final int net;
+  final Quality quality;
+  final String selectedCountry;
+  final bool darkMode;
+  final Language selectedLanguage;
+  final int ownTippingAmount;
 
-  Appstate({
+  const Appstate({
     required this.countries,
     required this.net,
     required this.quality,
@@ -32,7 +32,7 @@ class Appstate {
     Quality? quality,
     String? selectedCountry,
     bool? darkMode,
-    List? override,
+    List<TippOverride>? override,
     Language? selectedLanguage,
     int? ownTippingAmount,
   }) {

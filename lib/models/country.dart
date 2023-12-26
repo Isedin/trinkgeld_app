@@ -1,14 +1,14 @@
 class Country {
-  String id;
-  String name;
-  int percentageLow;
-  int percentageMid;
-  int percentageHigh;
-  int afterComma;
-  String flag;
+  final String id;
+  final String name;
+  final int percentageLow;
+  final int percentageMid;
+  final int percentageHigh;
+  final int afterComma;
+  final String flag;
   // int ownTippingAmount;
 
-  Country({
+  const Country({
     required this.id,
     required this.name,
     required this.percentageLow,
@@ -56,13 +56,13 @@ class Country {
 
   factory Country.fromJson(Map<String, dynamic> json) {
     return Country(
-      id: json['id'],
-      name: json['name'],
-      percentageLow: json['percentageLow'],
-      percentageMid: json['percentageMid'],
-      percentageHigh: json['percentageHigh'],
-      afterComma: json['afterComma'],
-      flag: json['flag'],
+      id: json['id'] as String,
+      name: json['name'] as String,
+      percentageLow: json['percentageLow'] as int,
+      percentageMid: json['percentageMid'] as int,
+      percentageHigh: json['percentageHigh'] as int,
+      afterComma: json['afterComma'] as int,
+      flag: json['flag'] as String,
       // ownTippingAmount: json['ownTippingAmount']
     );
   }

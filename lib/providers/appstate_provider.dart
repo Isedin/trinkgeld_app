@@ -10,132 +10,15 @@ import 'package:trinkgeld_app/models/quality.dart';
 
 class AppstateProvider extends Notifier<Appstate> {
   @override
-  Appstate build() {
-    return Appstate(
-        countries: [
-          Country(
-            id: '0',
-            name: 'ownTip',
-            percentageLow: 0,
-            percentageMid: 0,
-            percentageHigh: 0,
-            afterComma: 2,
-            flag: 'ownTip',
-          ),
-          Country(
-            id: '1',
-            name: 'Deutschland',
-            percentageLow: 0,
-            percentageMid: 10,
-            percentageHigh: 15,
-            afterComma: 2,
-            flag: ':flag-de:',
-          ),
-          Country(
-            id: '2',
-            name: 'USA',
-            percentageLow: 25,
-            percentageMid: 30,
-            percentageHigh: 35,
-            afterComma: 2,
-            flag: ':flag-us:',
-          ),
-          Country(
-            id: '3',
-            name: 'Türkei',
-            percentageLow: 10,
-            percentageMid: 20,
-            percentageHigh: 30,
-            afterComma: 0,
-            flag: ':flag-tr:',
-          ),
-          Country(
-            id: '4',
-            name: 'China',
-            percentageLow: 5,
-            percentageMid: 10,
-            percentageHigh: 15,
-            afterComma: 0,
-            flag: ':flag-cn:',
-          ),
-          Country(
-            id: '5',
-            name: 'Frankreich',
-            percentageLow: 8,
-            percentageMid: 12,
-            percentageHigh: 15,
-            afterComma: 2,
-            flag: ':flag-fr:',
-          ),
-          Country(
-            id: '6',
-            name: 'Italien',
-            percentageLow: 8,
-            percentageMid: 12,
-            percentageHigh: 15,
-            afterComma: 2,
-            flag: ':flag-it:',
-          ),
-          Country(
-            id: '7',
-            name: 'Spanien',
-            percentageLow: 8,
-            percentageMid: 12,
-            percentageHigh: 15,
-            afterComma: 2,
-            flag: ':flag-es:',
-          ),
-          Country(
-            id: '8',
-            name: 'Kroatien',
-            percentageLow: 8,
-            percentageMid: 12,
-            percentageHigh: 15,
-            afterComma: 2,
-            flag: ':flag-hr:',
-          ),
-          Country(
-            id: '9',
-            name: 'Großbritannien',
-            percentageLow: 8,
-            percentageMid: 12,
-            percentageHigh: 15,
-            afterComma: 2,
-            flag: ':flag-gb:',
-          ),
-          Country(
-            id: '10',
-            name: 'Österreich',
-            percentageLow: 8,
-            percentageMid: 12,
-            percentageHigh: 15,
-            afterComma: 2,
-            flag: ':flag-at:',
-          ),
-        ],
-        net: 100,
-        gros: 110,
-        quality: Quality.mid,
-        selectedCountry: '1',
-        darkMode: false,
-        overrides: [
-          TippOverride(
-            id: 'de',
-            quality: Quality.high,
-            percentage: 20,
-          ),
-        ],
-        ownTippingAmount: 20,
-        selectedLanguage: const German());
-  }
+  Appstate build() => _example;
 
-  // ignore: body_might_complete_normally_nullable
   Country? getCountryById(String id) {
     for (final country in state.countries) {
       if (country.id == id) {
         return country;
       }
     }
+    return null;
   }
 
   void setQuality(Quality quality) {
@@ -149,8 +32,7 @@ class AppstateProvider extends Notifier<Appstate> {
     required int high,
   }) {
     // Country toEditCountry = state.countries[int.parse(country.id)];
-    final changedCountry = country.copyWith(
-        percentageLow: min, percentageMid: mid, percentageHigh: high);
+    final changedCountry = country.copyWith(percentageLow: min, percentageMid: mid, percentageHigh: high);
     List<Country> newCountryList = [];
     for (Country c in state.countries) {
       if (c.id == country.id) {
@@ -159,11 +41,28 @@ class AppstateProvider extends Notifier<Appstate> {
         newCountryList.add(c);
       }
     }
-
     //  [changedCountry, ...countryList];
     log('alte liste: ${state.countries}');
     log('neue liste: $newCountryList');
+    final newState = state.copyWith(
+      countries: newCountryList,
+      selectedCountry: changedCountry.id,
+    );
+    state = newState;
+    log('done');
+  }
 
+  void changeOwnTippProfile2({
+    required Country country,
+    required int min,
+    required int mid,
+    required int high,
+  }) {
+    // Country toEditCountry = state.countries[int.parse(country.id)];
+    final changedCountry = country.copyWith(percentageLow: min, percentageMid: mid, percentageHigh: high);
+    final newCountryList = state.countries.map((e) => e.id == country.id ? changedCountry : e).toList();
+    log('alte liste: ${state.countries}');
+    log('neue liste: $newCountryList');
     final newState = state.copyWith(
       countries: newCountryList,
       selectedCountry: changedCountry.id,
@@ -236,4 +135,122 @@ class AppstateProvider extends Notifier<Appstate> {
       gros: 0,
     );
   }
+
+  static const _example = Appstate(
+    countries: [
+      Country(
+        id: '0',
+        name: 'ownTip',
+        percentageLow: 0,
+        percentageMid: 0,
+        percentageHigh: 0,
+        afterComma: 2,
+        flag: 'ownTip',
+      ),
+      Country(
+        id: '1',
+        name: 'Deutschland',
+        percentageLow: 0,
+        percentageMid: 10,
+        percentageHigh: 15,
+        afterComma: 2,
+        flag: ':flag-de:',
+      ),
+      Country(
+        id: '2',
+        name: 'USA',
+        percentageLow: 25,
+        percentageMid: 30,
+        percentageHigh: 35,
+        afterComma: 2,
+        flag: ':flag-us:',
+      ),
+      Country(
+        id: '3',
+        name: 'Türkei',
+        percentageLow: 10,
+        percentageMid: 20,
+        percentageHigh: 30,
+        afterComma: 0,
+        flag: ':flag-tr:',
+      ),
+      Country(
+        id: '4',
+        name: 'China',
+        percentageLow: 5,
+        percentageMid: 10,
+        percentageHigh: 15,
+        afterComma: 0,
+        flag: ':flag-cn:',
+      ),
+      Country(
+        id: '5',
+        name: 'Frankreich',
+        percentageLow: 8,
+        percentageMid: 12,
+        percentageHigh: 15,
+        afterComma: 2,
+        flag: ':flag-fr:',
+      ),
+      Country(
+        id: '6',
+        name: 'Italien',
+        percentageLow: 8,
+        percentageMid: 12,
+        percentageHigh: 15,
+        afterComma: 2,
+        flag: ':flag-it:',
+      ),
+      Country(
+        id: '7',
+        name: 'Spanien',
+        percentageLow: 8,
+        percentageMid: 12,
+        percentageHigh: 15,
+        afterComma: 2,
+        flag: ':flag-es:',
+      ),
+      Country(
+        id: '8',
+        name: 'Kroatien',
+        percentageLow: 8,
+        percentageMid: 12,
+        percentageHigh: 15,
+        afterComma: 2,
+        flag: ':flag-hr:',
+      ),
+      Country(
+        id: '9',
+        name: 'Großbritannien',
+        percentageLow: 8,
+        percentageMid: 12,
+        percentageHigh: 15,
+        afterComma: 2,
+        flag: ':flag-gb:',
+      ),
+      Country(
+        id: '10',
+        name: 'Österreich',
+        percentageLow: 8,
+        percentageMid: 12,
+        percentageHigh: 15,
+        afterComma: 2,
+        flag: ':flag-at:',
+      ),
+    ],
+    net: 100,
+    gros: 110,
+    quality: Quality.mid,
+    selectedCountry: '1',
+    darkMode: false,
+    overrides: [
+      TippOverride(
+        id: 'de',
+        quality: Quality.high,
+        percentage: 20,
+      ),
+    ],
+    ownTippingAmount: 20,
+    selectedLanguage: German(),
+  );
 }

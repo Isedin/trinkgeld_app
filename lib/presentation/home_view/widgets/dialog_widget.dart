@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/main.dart';
-import 'package:trinkgeld_app/models/country.dart';
 
 import 'macard.dart';
 
@@ -32,12 +31,9 @@ class _DialogWidgetState extends State<DialogWidget> {
     final translate = appstate.selectedLanguage;
     if (!isInitialized) {
       setState(() {
-        _sliderValueMin =
-            appstate.selectedCountryObject!.percentageLow.toDouble();
-        _sliderValueMid =
-            appstate.selectedCountryObject!.percentageMid.toDouble();
-        _sliderValueHigh =
-            appstate.selectedCountryObject!.percentageHigh.toDouble();
+        _sliderValueMin = appstate.selectedCountryObject!.percentageLow.toDouble();
+        _sliderValueMid = appstate.selectedCountryObject!.percentageMid.toDouble();
+        _sliderValueHigh = appstate.selectedCountryObject!.percentageHigh.toDouble();
         isInitialized = true;
       });
       log('${appstate.selectedCountryObject!.name} ${appstate.selectedCountryObject!.percentageLow}');
@@ -71,9 +67,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                   });
                   appstateProvider.changeCountry(value!);
                 },
-                decoration: InputDecoration(
-                    hintText: appstate.selectedCountryObject?.name ??
-                        'wähle ein Land'),
+                decoration: InputDecoration(hintText: appstate.selectedCountryObject?.name ?? 'wähle ein Land'),
               ),
             ),
             Padding(

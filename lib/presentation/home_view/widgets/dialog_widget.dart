@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+// hallo
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/models/quality.dart';
@@ -33,12 +33,15 @@ class _DialogWidgetState extends ConsumerState<DialogWidget> {
     final translate = appstate.selectedLanguage;
     if (!isInitialized) {
       setState(() {
-        _sliderValueMin = appstate.overridePercentage(Quality.low)?.toDouble() ??
-            appstate.selectedCountryObject.percentageLow.toDouble();
-        _sliderValueMid = appstate.overridePercentage(Quality.mid)?.toDouble() ??
-            appstate.selectedCountryObject.percentageMid.toDouble();
-        _sliderValueHigh = appstate.overridePercentage(Quality.high)?.toDouble() ??
-            appstate.selectedCountryObject.percentageHigh.toDouble();
+        _sliderValueMin =
+            appstate.overridePercentage(Quality.low)?.toDouble() ??
+                appstate.selectedCountryObject.percentageLow.toDouble();
+        _sliderValueMid =
+            appstate.overridePercentage(Quality.mid)?.toDouble() ??
+                appstate.selectedCountryObject.percentageMid.toDouble();
+        _sliderValueHigh =
+            appstate.overridePercentage(Quality.high)?.toDouble() ??
+                appstate.selectedCountryObject.percentageHigh.toDouble();
         isInitialized = true;
       });
       log('${appstate.selectedCountryObject.name} ${appstate.selectedCountryObject.percentageLow}');
@@ -85,7 +88,8 @@ class _DialogWidgetState extends ConsumerState<DialogWidget> {
                   });
                   appstateProvider.changeCountry(value!);
                 },
-                decoration: InputDecoration(hintText: appstate.selectedCountryObject.name),
+                decoration: InputDecoration(
+                    hintText: appstate.selectedCountryObject.name),
               ),
             ),
             Padding(

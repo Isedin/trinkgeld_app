@@ -2,31 +2,31 @@
 class Country {
   /// Instanzvariablen zur Speicherung von Länderinformationen:
   /// id
-  String id;
+  final String id;
 
   ///Name
-  String name;
+  final String name;
 
   ///iso Zeichen von dem einzelnen Land
-  String iso;
+  final String iso;
 
   ///das niedrigste Prozent
-  int percentageLow;
+  final int percentageLow;
 
   ///das mittlere Prozent
-  int percentageMid;
+  final int percentageMid;
 
   ///das höchste Prozent
-  int percentageHigh;
+  final int percentageHigh;
 
   ///Nachkomma Stellen
-  int afterComma;
+  final int afterComma;
 
   ///Flagge des Landes
-  String flag;
+  final String flag;
 
   /// Konstruktor für die Initialisierung von Instanzvariablen.
-  Country({
+  const Country({
     required this.id,
     required this.name,
     required this.iso,
@@ -73,14 +73,14 @@ class Country {
 
   /// Factory-Methode zum Erstellen eines Country-Objekts aus JSON-Daten.
   factory Country.fromJson(Map<String, dynamic> json) => Country(
-        id: json['id'],
-        name: json['name'],
-        iso: json['iso'],
-        percentageLow: json['percentageLow'],
-        percentageMid: json['percentageMid'],
-        percentageHigh: json['percentageHigh'],
-        afterComma: json['afterComma'],
-        flag: json['flag'],
+        id: json['id'] as String,
+        name: json['name'] as String,
+        iso: json['iso'] as String,
+        percentageLow: json['percentageLow'] as int,
+        percentageMid: json['percentageMid'] as int,
+        percentageHigh: json['percentageHigh'] as int,
+        afterComma: json['afterComma'] as int,
+        flag: json['flag'] as String,
       );
   @override
   String toString() =>

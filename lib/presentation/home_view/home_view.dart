@@ -1,10 +1,9 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:trinkgeld_app/main.dart';
 import 'package:trinkgeld_app/presentation/home_view/input_section.dart';
 import 'package:trinkgeld_app/presentation/home_view/settings_section.dart';
+import 'package:trinkgeld_app/providers/_providers.dart';
 
 /// Die Klasse HomeView repräsentiert die Hauptansicht der App.
 class HomeView extends ConsumerStatefulWidget {
@@ -27,24 +26,21 @@ class _HomeViewState extends ConsumerState<HomeView> {
     // Der Zugriff auf den App-Zustandsanbieter ermöglicht das Aktualisieren des Zustands.
     final appstateProvider = ref.read(refAppState.notifier);
     // Abrufen der Länderflagge als Emoji für die aktuell ausgewählte Sprache.
-    final parserString =
-        appstateProvider.getCountryById(appstate.selectedCountry)!.flag;
+    final flagEmoji = appstateProvider.getCountryById(appstate.selectedCountry)!.flag;
     final translate = appstate.selectedLanguage;
-    final emojiLibrary = EmojiParser();
+    final emojiParser = ref.watch(refEmojiParser);
     // Rückgabewert des Widgets, ein Scaffold mit AppBar, Body und BottomNavigationBar.
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text(page == 0
-            ? appstate.selectedLanguage.title
-            : appstate.selectedLanguage.settings),
+        title: Text(page == 0 ? appstate.selectedLanguage.title : appstate.selectedLanguage.settings),
         centerTitle: true,
         actions: [
           DropdownButton(
               padding: const EdgeInsets.only(right: 12),
               hint: Text(
-                emojiLibrary.emojify(parserString),
+                emojiParser.emojify(flagEmoji),
               ),
               items: appstate.countries
                   .map((country) => DropdownMenuItem(
@@ -52,10 +48,10 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         child: Row(
                           children: [
                             Text(
-                              emojiLibrary.emojify(country.flag),
+                              emojiParser.emojify(country.flag),
                             ),
                             Text(
-                              emojiLibrary.emojify(country.iso),
+                              emojiParser.emojify(country.iso),
                               style: const TextStyle(fontSize: 14.0),
                             ),
                           ],

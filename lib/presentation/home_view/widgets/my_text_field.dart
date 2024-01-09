@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-// ignore: unnecessary_import
-import 'package:flutter/widgets.dart';
 
 /// Widget MyTextfield ist ein benutzerdefiniertes Textfeld, das eine einfache Umhüllung für das Flutter-TextField bietet.
 class MyTextfield extends StatelessWidget {
@@ -32,10 +30,8 @@ class MyTextfield extends StatelessWidget {
             suffixIcon: const Icon(Icons.euro),
             enabledBorder: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(30)),
-                borderSide:
-                    BorderSide(color: Color.fromARGB(255, 170, 29, 29))),
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade400)),
+                borderSide: BorderSide(color: Color.fromARGB(255, 170, 29, 29))),
+            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey.shade400)),
             fillColor: Colors.grey.shade200,
             filled: true,
             labelText: labelText,

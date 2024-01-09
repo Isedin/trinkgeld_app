@@ -22,7 +22,7 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
-  # avoid_print: false  # Uncomment to disable the `avoid_print` rule
+    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
     always_declare_return_types: true
     # always_put_control_body_on_new_line
     always_put_required_named_parameters_first: true
@@ -142,6 +142,5 @@ linter:
     void_checks: true
     # avoid_print: false  # Uncomment to disable the `avoid_print` rule
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
-
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

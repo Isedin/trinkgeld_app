@@ -209,10 +209,6 @@ class AppstateProvider extends Notifier<Appstate> {
   void setNet(int intValue) {
     final quality = state.quality;
     final selectedCountry = state.selectedCountryObject;
-    if (selectedCountry == null) {
-      resetNet();
-      return;
-    }
     final int percentage;
     if (quality == Quality.low) {
       percentage = selectedCountry.percentageLow;

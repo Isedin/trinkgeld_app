@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/main.dart';
-import 'package:trinkgeld_app/models/country.dart';
 
 import 'macard.dart';
 
@@ -33,14 +32,14 @@ class _DialogWidgetState extends State<DialogWidget> {
     if (!isInitialized) {
       setState(() {
         _sliderValueMin =
-            appstate.selectedCountryObject!.percentageLow.toDouble();
+            appstate.selectedCountryObject.percentageLow.toDouble();
         _sliderValueMid =
-            appstate.selectedCountryObject!.percentageMid.toDouble();
+            appstate.selectedCountryObject.percentageMid.toDouble();
         _sliderValueHigh =
-            appstate.selectedCountryObject!.percentageHigh.toDouble();
+            appstate.selectedCountryObject.percentageHigh.toDouble();
         isInitialized = true;
       });
-      log('${appstate.selectedCountryObject!.name} ${appstate.selectedCountryObject!.percentageLow}');
+      log('${appstate.selectedCountryObject.name} ${appstate.selectedCountryObject.percentageLow}');
     }
     return Padding(
       padding: const EdgeInsets.only(
@@ -153,14 +152,12 @@ class _DialogWidgetState extends State<DialogWidget> {
             IconButton(
                 onPressed: () {
                   // lowPercentensios; //min %
-                  if (appstate.selectedCountryObject != null) {
-                    appstateProvider.changeOwnTippProfile(
-                        country: appstate.selectedCountryObject!,
-                        high: _sliderValueHigh.round(),
-                        mid: _sliderValueMid.round(),
-                        min: _sliderValueMin.round());
-                  }
-                  log('edit own tip object!');
+                  appstateProvider.changeOwnTippProfile(
+                      country: appstate.selectedCountryObject,
+                      high: _sliderValueHigh.round(),
+                      mid: _sliderValueMid.round(),
+                      min: _sliderValueMin.round());
+                                  log('edit own tip object!');
                   Navigator.of(context).pop();
                 },
                 icon: const Icon(Icons.accessibility_sharp))

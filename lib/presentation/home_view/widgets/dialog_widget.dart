@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/main.dart';
-import 'package:trinkgeld_app/models/quality.dart';
 
 import 'macard.dart';
 
@@ -35,14 +34,11 @@ class _DialogWidgetState extends State<DialogWidget> {
     if (!isInitialized) {
       setState(() {
         _sliderValueMin =
-            appstate.overridePercentage(Quality.low)?.toDouble() ??
-                appstate.selectedCountryObject.percentageLow.toDouble();
+            appstate.selectedCountryObject.percentageLow.toDouble();
         _sliderValueMid =
-            appstate.overridePercentage(Quality.mid)?.toDouble() ??
-                appstate.selectedCountryObject.percentageMid.toDouble();
+            appstate.selectedCountryObject.percentageMid.toDouble();
         _sliderValueHigh =
-            appstate.overridePercentage(Quality.high)?.toDouble() ??
-                appstate.selectedCountryObject.percentageHigh.toDouble();
+            appstate.selectedCountryObject.percentageHigh.toDouble();
         isInitialized = true;
       });
       log('${appstate.selectedCountryObject.name} ${appstate.selectedCountryObject.percentageLow}');

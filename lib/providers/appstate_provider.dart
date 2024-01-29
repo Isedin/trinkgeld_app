@@ -11,12 +11,17 @@ class AppstateProvider extends Notifier<Appstate> {
   @override
   Appstate build() => _example;
 
+/// Diese Methode sucht nach einem Land anhand seiner ID in der Liste von Ländern im Zustand (state).
   Country? getCountryById(String id) {
+/// Iteriere durch die Liste von Ländern im Zustand.
     for (final country in state.countries) {
+      /// Überprüfe, ob die ID des aktuellen Landes mit der gesuchten ID übereinstimmt.
       if (country.id == id) {
+        /// Falls die ID übereinstimmt, gibt das Land zurück.
         return country;
       }
     }
+    /// Wenn keine Übereinstimmung gefunden wurde, wird null zurückgegeben.
     return null;
   }
 

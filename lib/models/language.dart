@@ -96,7 +96,7 @@ class German implements Language {
   String get ownName => 'Deutsch';
 
   @override
-  String get amount => 'Rechnungsbetrag';
+  String get amount => 'Betrag';
 
   @override
   String get settings => 'Einstellungen';
@@ -117,10 +117,10 @@ class German implements Language {
   String get bottomButtonCalculate => 'Rechnen';
 
   @override
-  String get tippAmount => 'Trinkgeld Betrag';
+  String get tippAmount => 'Trinkgeld';
 
   @override
-  String get totalAmount => 'Zuzahlende Betrag';
+  String get totalAmount => 'Zu zahlen';
 
   @override
   String get ownQualityLevelHigh => 'Qualität hoch';
@@ -175,7 +175,7 @@ class English implements Language {
   String get settings => 'Settings';
 
   @override
-  String get rating => 'Please rate the service!';
+  String get rating => 'Rate the service!';
 
   @override
   String get ownTipping => 'Custom Tipping %';

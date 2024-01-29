@@ -64,10 +64,7 @@ class InputSection extends ConsumerWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: SizedBox(child: Text(appstate.net.toString())),
-            ),
+            
             Text(
               translate.rating,
               style: const TextStyle(
@@ -138,7 +135,12 @@ class InputSection extends ConsumerWidget {
                 fontSize: 25,
               ),
             ),
-            Text(appstate.gros.toString()),
+            Text(appstate.gros.toString(),
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold
+            ),
+            ),
           ],
         ),
       ),

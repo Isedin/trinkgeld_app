@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
 import 'package:trinkgeld_app/presentation/home_view/widgets/email_validation.dart';
 import 'package:trinkgeld_app/providers/_providers.dart';
 
@@ -7,6 +8,7 @@ import 'package:trinkgeld_app/providers/_providers.dart';
 class BugReportForm extends ConsumerWidget {
   /// FocusNode für das Eingabefeld "describeTheBug".
   final describeTheBugNode = FocusNode();
+  final bugTextController = TextEditingController();
 
   /// Die Route, die dieser Bildschirm repräsentiert.
   final String route = '/bugReportPage';
@@ -39,45 +41,48 @@ class BugReportForm extends ConsumerWidget {
         backgroundColor: Colors.green,
         title: Text(translate.bugReportAppBarTitle),
       ),
-      body: Expanded(
+      body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SafeArea(
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      /// Widget für die E-Mail-Validierung mit einem Fokusnode für die Navigation.
-                      EmailValidation(
-                        nextNode: describeTheBugNode,
-                      ),
-                      // TextFormField(
-                      //   decoration: InputDecoration(
-                      //     border: settingsButtonsBorder,
-                      //     label: Text(translate.eMailInput),
-                      //     hintText: 'Enter Your Email',
-                      //   ),
-                      // ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      SafeArea(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            maxLines: null,
-                            focusNode: describeTheBugNode,
-                            decoration: InputDecoration(
-                              border: settingsButtonsBorder,
-                              label: Text(translate.describeTheBug),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+              /// Widget für die E-Mail-Validierung mit einem Fokusnode für die Navigation.
+              EmailValidation(
+                nextNode: describeTheBugNode,
+              ),
+              // TextFormField(
+              //   decoration: InputDecoration(
+              //     border: settingsButtonsBorder,
+              //     label: Text(translate.eMailInput),
+              //     hintText: 'Enter Your Email',
+              //   ),
+              // ),
+              const SizedBox(
+                height: 25,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: bugTextController,
+                  maxLines: null,
+                  focusNode: describeTheBugNode,
+                  decoration: InputDecoration(
+                    border: settingsButtonsBorder,
+                    label: Text(translate.describeTheBug),
                   ),
                 ),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  final uri = Uri.parse('https://capis.cdemy.de/appbug.php');
+                  final map = <String, dynamic>{};
+                  map['app'] = 'Trinkgeld';
+                  map['subject'] = 'XXXX';
+                  map['body'] = bugTextController.text;
+                  final http.Response response =
+                      await http.post(uri, body: map);
+                },
+                child: const Text('Senden'),
               ),
             ],
           ),

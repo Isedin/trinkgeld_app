@@ -36,14 +36,24 @@ class SettingsSection extends ConsumerWidget {
               padding: const EdgeInsets.all(8.0),
               child: DropdownButtonFormField(
                 decoration: InputDecoration(
+                  enabledBorder: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30),
+                    ),
+                  ),
                   border: settingsButtonsBorder,
                   label: Text(appstate.selectedLanguage.ownName),
                 ),
-                items: const [German(), English()]
+                items: [const German(), const English()]
                     .map(
                       (e) => DropdownMenuItem(
                         value: e,
-                        child: Text(e.ownName),
+                        child: Text(
+                          e.ownName,
+                          style: const TextStyle(
+                            backgroundColor: Color.fromARGB(255, 190, 195, 184),
+                          ),
+                        ),
                       ),
                     )
                     .toList(),
@@ -57,17 +67,22 @@ class SettingsSection extends ConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  border: settingsButtonsBorder,
-                  labelText: 'FAQ',
+              child: SingleChildScrollView(
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    border: settingsButtonsBorder,
+                    labelText: 'FAQ',
+                  ),
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               child: TextButton(
-                child: Text(translate.bugReport),
+                child: Text(
+                  translate.bugReport,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
                 onPressed: () {
                   Navigator.pushNamed(context, '/bugReportPage');
                 },
@@ -76,7 +91,10 @@ class SettingsSection extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               child: TextButton(
-                child: Text(translate.ownTippSettingButton),
+                child: Text(translate.ownTippSettingButton,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold
+                ),),
                 onPressed: () {
                   showDialog(
                     context: context,
@@ -97,8 +115,8 @@ class SettingsSection extends ConsumerWidget {
               ),
               child: Container(
                 alignment: Alignment.center,
-                height: 30,
-                width: 50,
+                height: 50,
+                width: 60,
                 child: IconButton(
                   icon: const Icon(
                     Icons.brightness_6,

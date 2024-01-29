@@ -29,10 +29,11 @@ class MyTextfield extends StatelessWidget {
           decoration: InputDecoration(
             suffixIcon: const Icon(Icons.euro),
             enabledBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30)),
+                borderRadius: BorderRadius.all(Radius.circular(30),
+                ),
                 borderSide: BorderSide(color: Color.fromARGB(255, 170, 29, 29))),
             focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey.shade400)),
-            fillColor: Colors.grey.shade200,
+            fillColor: const Color.fromARGB(255, 193, 209, 174),
             filled: true,
             labelText: labelText,
             hintStyle: TextStyle(

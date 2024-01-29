@@ -8,4 +8,5 @@ final refAppState = NotifierProvider<AppstateProvider, Appstate>(
   () => AppstateProvider(),
 );
 
+/// Definition einer Instanz des Providers für den EmojiParser
 final refEmojiParser = Provider<EmojiParser>((ref) => EmojiParser());

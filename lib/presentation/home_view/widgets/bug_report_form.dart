@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
@@ -84,7 +86,7 @@ class BugReportForm extends ConsumerWidget {
                   final response =
                       await http.post(uri, body: map);
                       if (response.statusCode == 200) {
-                        print('success');
+                        log('success');
                       }
                 },
                 child: const Text('Senden'),

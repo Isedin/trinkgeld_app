@@ -12,7 +12,7 @@ class MyPageView extends StatefulWidget {
 }
 
 class _MyPageViewState extends State<MyPageView> {
-  final controller = PageController(initialPage: 0);
+  final controller = PageController();
 
   @override
   Widget build(BuildContext context) => Scaffold(

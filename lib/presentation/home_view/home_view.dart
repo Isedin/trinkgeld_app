@@ -19,7 +19,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
   // Variable zur Verfolgung der aktuellen Seite (0 für Berechnungen, 1 für Einstellungen).
   int page = 0;
 
-  final controller = PageController(initialPage: 0);
+  final controller = PageController();
 
   // void initState() {
   //   controller.addListener(() {

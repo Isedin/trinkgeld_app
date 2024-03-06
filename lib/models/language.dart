@@ -66,12 +66,18 @@ abstract class Language {
 
   ///auf Deutsch: "Falsche Email" und auf English: "Invalid Email"
   String get emailValidConfirmationInvalid;
+
+///auf Deutsch und auf Englisch "Impressum"
+  String get impressum;
 }
 
 /// Konkrete Implementierung für die deutsche Sprache.
 class German implements Language {
   ///Die Variable German, die die Überschriften und etc. im Deutschen speichert.
   const German();
+
+  @override
+  String get impressum => 'Impressum';
 
   @override
   @override
@@ -148,6 +154,9 @@ class English implements Language {
   const English();
 
   @override
+  String get impressum => 'Impressum';
+
+  @override
   String get eMailValidationFieldText => 'Your Email';
 
   @override
@@ -205,7 +214,7 @@ class English implements Language {
   String get ownQualityLevellow => 'quality low';
 
   @override
-  String get ownTippSettingButton => 'own tipp setting';
+  String get ownTippSettingButton => 'Own tipp setting';
 
   @override
   String get emailValidConfirmationValid => 'Email correct';

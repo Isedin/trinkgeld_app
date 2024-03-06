@@ -1,4 +1,6 @@
 import 'dart:developer';
+import 'package:cdemy_impressum_package/cdemy_impressum_package.dart';
+import 'package:cdemy_impressum_package/en_cdemy_impressum_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/models/language.dart';
@@ -91,10 +93,10 @@ class SettingsSection extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               child: TextButton(
-                child: Text(translate.ownTippSettingButton,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold
-                ),),
+                child: Text(
+                  translate.ownTippSettingButton,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
                 onPressed: () {
                   showDialog(
                     context: context,
@@ -105,6 +107,39 @@ class SettingsSection extends ConsumerWidget {
                     ),
                   );
                   log('message');
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+              child: TextButton(
+                child: Text(
+                  translate.impressum,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: translate is English
+                                ? const Text('Impressum')
+                                : const Text('Impressum der App'),
+                            content: translate is English
+                                ? const EnImpressumWidget(
+                                    appName: 'Tipping App',
+                                    appVersion: 1.0,
+                                  )
+                                : const ImpressumWidget(
+                                    appName: 'Trinkgeld App', appVersion: 1.0),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: translate is German
+                                    ? const Text('Schließen')
+                                    : const Text('close'),
+                              )
+                            ],
+                          ));
                 },
               ),
             ),

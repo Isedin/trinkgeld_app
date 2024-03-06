@@ -19,6 +19,14 @@ class _HomeViewState extends ConsumerState<HomeView> {
   // Variable zur Verfolgung der aktuellen Seite (0 für Berechnungen, 1 für Einstellungen).
   int page = 0;
 
+  final controller = PageController(initialPage: 0);
+
+  // void initState() {
+  //   controller.addListener(() {
+  //     print('Ä');
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     // Der Zustand (State) der App wird überwacht, um Änderungen zu erkennen.
@@ -26,20 +34,23 @@ class _HomeViewState extends ConsumerState<HomeView> {
     // Der Zugriff auf den App-Zustandsanbieter ermöglicht das Aktualisieren des Zustands.
     final appstateProvider = ref.read(refAppState.notifier);
     // Abrufen der Länderflagge als Emoji für die aktuell ausgewählte Sprache.
-    final flagEmoji = appstateProvider.getCountryById(appstate.selectedCountry)!.flag;
+    final flagEmoji =
+        appstateProvider.getCountryById(appstate.selectedCountry)!.flag;
     final translate = appstate.selectedLanguage;
     final emojiParser = ref.watch(refEmojiParser);
     // Rückgabewert des Widgets, ein Scaffold mit AppBar, Body und BottomNavigationBar.
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text(page == 0 ? appstate.selectedLanguage.title : appstate.selectedLanguage.settings),
+        title: Text(page == 0
+            ? appstate.selectedLanguage.title
+            : appstate.selectedLanguage.settings),
         centerTitle: true,
         actions: [
           DropdownButton(
               padding: const EdgeInsets.only(right: 12),
-              
               hint: Text(
                 emojiParser.emojify(flagEmoji),
               ),
@@ -67,19 +78,34 @@ class _HomeViewState extends ConsumerState<HomeView> {
               }),
         ],
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          page == 0 ? const InputSection() : const SettingsSection(),
+      // body: PageView(
+      //   // mainAxisSize: MainAxisSize.min,
+      //   controller: controller,
+      //   children: [
+      //     page == 0 ? const InputSection() : const SettingsSection(),
+      //   ],
+      // ),
+      body: PageView(
+        onPageChanged: (value) {
+          setState(() {
+            page = value;
+          });
+        },
+        controller: controller,
+        children: const [
+          InputSection(),
+          SettingsSection(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (zahl) {
           setState(() {
+            // page = zahl;
+            controller.jumpToPage(zahl);
             page = zahl;
           });
         },
-        currentIndex: page,
+        // currentIndex: page,
         items: [
           BottomNavigationBarItem(
             backgroundColor: Colors.green[900],

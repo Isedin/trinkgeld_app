@@ -24,7 +24,7 @@ class MyApp extends ConsumerWidget {
       darkTheme: ThemeData.dark(useMaterial3: false),
       themeMode: state.darkMode ? ThemeMode.dark : ThemeMode.light,
       debugShowCheckedModeBanner: false,
-      home: const HomeView(),
+      home:   const HomeView(),
       routes: {
         BugReportForm().route: (context) => BugReportForm(),
       },

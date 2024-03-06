@@ -8,6 +8,8 @@ import 'package:trinkgeld_app/providers/_providers.dart';
 class BugReportForm extends ConsumerWidget {
   /// FocusNode für das Eingabefeld "describeTheBug".
   final describeTheBugNode = FocusNode();
+
+  ///Überprüft den Text der im Feld Bug Report eingegeben wird
   final bugTextController = TextEditingController();
 
   /// Die Route, die dieser Bildschirm repräsentiert.
@@ -79,8 +81,11 @@ class BugReportForm extends ConsumerWidget {
                   map['app'] = 'Trinkgeld';
                   map['subject'] = 'XXXX';
                   map['body'] = bugTextController.text;
-                  final http.Response response =
+                  final response =
                       await http.post(uri, body: map);
+                      if (response.statusCode == 200) {
+                        print('success');
+                      }
                 },
                 child: const Text('Senden'),
               ),

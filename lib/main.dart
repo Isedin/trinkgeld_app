@@ -31,13 +31,7 @@ class _MyAppState extends ConsumerState<MyApp> {
   Widget build(
     BuildContext context,
   ) {
-    // SystemChrome.setPreferredOrientations([
-    //   DeviceOrientation.landscapeLeft,
-    //   DeviceOrientation.portraitUp,
-    //   DeviceOrientation.landscapeRight,
-    //   DeviceOrientation.portraitDown
-    // ]);
-
+    
     /// Abrufen des aktuellen App-Zustands über den Provider
     final state = ref.watch(refAppState);
 

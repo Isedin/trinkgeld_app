@@ -126,7 +126,11 @@ class SettingsSection extends ConsumerWidget {
                                     appName: 'Tipping App',
                                     appVersion: '1.0',
                                   )
-                                : const ImpressumWidget(appName: 'Trinkgeld App', appVersion: '1.0'),
+                                : const ImpressumWidget(
+                                    appName: 'Trinkgeld App',
+                                    appVersion: '1.0',
+                                    locale: 'de',
+                                  ),
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.pop(context),

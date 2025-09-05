@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/models/quality.dart';
 import 'package:trinkgeld_app/providers/_providers.dart';
 
+import '../../../models/quality.dart';
+import '../../../providers/_providers.dart';
 import 'macard.dart';
 
 /// Die Klasse DialogWidget repräsentiert ein StatefulWidget für die Anzeige von Dialogen.
@@ -26,26 +28,28 @@ class _DialogWidgetState extends ConsumerState<DialogWidget> {
   double _sliderValueHigh = 20;
 
   @override
+  void initState() {
+    super.initState();
+    final appstate = widget.ref.read(refAppState);
+    _sliderValueMin =
+        appstate.overridePercentage(Quality.low)?.toDouble() ??
+        appstate.selectedCountryObject.percentageLow.toDouble();
+    _sliderValueMid =
+        appstate.overridePercentage(Quality.mid)?.toDouble() ??
+        appstate.selectedCountryObject.percentageMid.toDouble();
+    _sliderValueHigh =
+        appstate.overridePercentage(Quality.high)?.toDouble() ??
+        appstate.selectedCountryObject.percentageHigh.toDouble();
+    isInitialized = true;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final emojiParser = ref.watch(refEmojiParser);
     final appstate = widget.ref.watch(refAppState);
     final appstateProvider = widget.ref.read(refAppState.notifier);
     final translate = appstate.selectedLanguage;
-    if (!isInitialized) {
-      setState(() {
-        _sliderValueMin =
-            appstate.overridePercentage(Quality.low)?.toDouble() ??
-                appstate.selectedCountryObject.percentageLow.toDouble();
-        _sliderValueMid =
-            appstate.overridePercentage(Quality.mid)?.toDouble() ??
-                appstate.selectedCountryObject.percentageMid.toDouble();
-        _sliderValueHigh =
-            appstate.overridePercentage(Quality.high)?.toDouble() ??
-                appstate.selectedCountryObject.percentageHigh.toDouble();
-        isInitialized = true;
-      });
-      log('${appstate.selectedCountryObject.name} ${appstate.selectedCountryObject.percentageLow}');
-    }
+
     return Padding(
       padding: const EdgeInsets.only(
         top: 100,
@@ -62,25 +66,23 @@ class _DialogWidgetState extends ConsumerState<DialogWidget> {
               child: DropdownButtonFormField(
                 value: appstate.selectedCountryObject,
                 items: appstate.countries
-                    .map((country) => DropdownMenuItem(
-                          value: country,
-                          child: Row(
-                            children: [
-                              Text(
-                                emojiParser.emojify(country.flag),
+                    .map(
+                      (country) => DropdownMenuItem(
+                        value: country,
+                        child: Row(
+                          children: [
+                            Text(emojiParser.emojify(country.flag)),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 3.0),
+                              child: Text(
+                                country.iso,
+                                style: const TextStyle(fontSize: 14.0),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 3.0),
-                                child: Text(
-                                  country.iso,
-                                  style: const TextStyle(
-                                    fontSize: 14.0,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ))
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
                     .toList(),
                 onChanged: (value) {
                   setState(() {
@@ -89,7 +91,8 @@ class _DialogWidgetState extends ConsumerState<DialogWidget> {
                   appstateProvider.changeCountry(value!);
                 },
                 decoration: InputDecoration(
-                    hintText: appstate.selectedCountryObject.name),
+                  hintText: appstate.selectedCountryObject.name,
+                ),
               ),
             ),
             Padding(
@@ -167,10 +170,11 @@ class _DialogWidgetState extends ConsumerState<DialogWidget> {
               onPressed: () {
                 log('start write override');
                 appstateProvider.changeOwnTippProfile(
-                    country: appstate.selectedCountryObject,
-                    high: _sliderValueHigh.round(),
-                    mid: _sliderValueMid.round(),
-                    min: _sliderValueMin.round());
+                  country: appstate.selectedCountryObject,
+                  high: _sliderValueHigh.round(),
+                  mid: _sliderValueMid.round(),
+                  min: _sliderValueMin.round(),
+                );
                 log('edit own tip object!');
                 Navigator.of(context).pop();
               },

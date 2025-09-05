@@ -32,11 +32,7 @@ class BugReportForm extends ConsumerWidget {
     final appstate = ref.watch(refAppState);
     final translate = appstate.selectedLanguage;
     const settingsButtonsBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(
-          30,
-        ),
-      ),
+      borderRadius: BorderRadius.all(Radius.circular(30)),
     );
 
     /// Rückgabewert des Widgets, ein Scaffold für die gesamte Seite.
@@ -51,9 +47,7 @@ class BugReportForm extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               /// Widget für die E-Mail-Validierung mit einem Fokusnode für die Navigation.
-              EmailValidation(
-                nextNode: describeTheBugNode,
-              ),
+              EmailValidation(nextNode: describeTheBugNode),
               // TextFormField(
               //   decoration: InputDecoration(
               //     border: settingsButtonsBorder,
@@ -61,9 +55,7 @@ class BugReportForm extends ConsumerWidget {
               //     hintText: 'Enter Your Email',
               //   ),
               // ),
-              const SizedBox(
-                height: 25,
-              ),
+              const SizedBox(height: 25),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
@@ -83,11 +75,10 @@ class BugReportForm extends ConsumerWidget {
                   map['app'] = 'Trinkgeld';
                   map['subject'] = 'XXXX';
                   map['body'] = bugTextController.text;
-                  final response =
-                      await http.post(uri, body: map);
-                      if (response.statusCode == 200) {
-                        log('success');
-                      }
+                  final response = await http.post(uri, body: map);
+                  if (response.statusCode == 200) {
+                    log('success');
+                  }
                 },
                 child: const Text('Senden'),
               ),

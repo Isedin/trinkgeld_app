@@ -1,4 +1,4 @@
-import 'package:trinkgeld_app/models/quality.dart';
+import 'quality.dart';
 
 /// Die Klasse TippOverride repräsentiert eine Konfiguration für individuelle Trinkgeldraten.
 class TippOverride {

@@ -1,8 +1,8 @@
 import 'dart:developer';
-import 'package:trinkgeld_app/models/country.dart';
-import 'package:trinkgeld_app/models/language.dart';
-import 'package:trinkgeld_app/models/override.dart';
-import 'package:trinkgeld_app/models/quality.dart';
+import 'country.dart';
+import 'language.dart';
+import 'override.dart';
+import 'quality.dart';
 
 /// Klasse, die den Zustand der App repräsentiert
 class Appstate {
@@ -52,17 +52,16 @@ class Appstate {
     List<TippOverride>? overrides,
     Language? selectedLanguage,
     int? ownTippingAmount,
-  }) =>
-      Appstate(
-        countries: countries ?? this.countries,
-        net: net ?? this.net,
-        quality: quality ?? this.quality,
-        selectedCountry: selectedCountry ?? this.selectedCountry,
-        darkMode: darkMode ?? this.darkMode,
-        overrides: overrides ?? this.overrides,
-        selectedLanguage: selectedLanguage ?? this.selectedLanguage,
-        ownTippingAmount: ownTippingAmount ?? this.ownTippingAmount,
-      );
+  }) => Appstate(
+    countries: countries ?? this.countries,
+    net: net ?? this.net,
+    quality: quality ?? this.quality,
+    selectedCountry: selectedCountry ?? this.selectedCountry,
+    darkMode: darkMode ?? this.darkMode,
+    overrides: overrides ?? this.overrides,
+    selectedLanguage: selectedLanguage ?? this.selectedLanguage,
+    ownTippingAmount: ownTippingAmount ?? this.ownTippingAmount,
+  );
 
   /// Methode zur Rückgabe des ausgewählten Landes als Objekt
   Country get selectedCountryObject {
@@ -79,7 +78,9 @@ class Appstate {
 
   /// Methode zur Überprüfung, ob es eine individuelle Trinkgeldprofil-Überschreibung für die ausgewählte Qualität gibt
   int? overridePercentage(Quality quality) {
-    final fittingOverrides = overrides.where((o) => o.id == selectedCountry && o.quality == quality).toList();
+    final fittingOverrides = overrides
+        .where((o) => o.id == selectedCountry && o.quality == quality)
+        .toList();
     if (fittingOverrides.isNotEmpty) {
       return fittingOverrides.first.percentage;
     }
@@ -110,7 +111,9 @@ class Appstate {
 
   /// Methode zur Rückgabe des tatsächlichen Trinkgeldprozentsatzes für ein bestimmtes Land und Qualität
   int getRealTipPercentage(Country country, Quality quality) {
-    final applicablwOverrides = overrides.where((o) => o.id == country.id && o.quality == quality);
+    final applicablwOverrides = overrides.where(
+      (o) => o.id == country.id && o.quality == quality,
+    );
     if (applicablwOverrides.isNotEmpty) {
       log(applicablwOverrides.first.id);
       log('${applicablwOverrides.first.quality}');

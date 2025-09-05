@@ -5,6 +5,10 @@ import 'package:trinkgeld_app/presentation/home_view/home_view.dart';
 import 'package:trinkgeld_app/presentation/home_view/widgets/bug_report_form.dart';
 import 'package:trinkgeld_app/providers/_providers.dart';
 
+import 'presentation/home_view/home_view.dart';
+import 'presentation/home_view/widgets/bug_report_form.dart';
+import 'providers/_providers.dart';
+
 /// Variable, die eine Referenz auf den Anwendungszustand enthält
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,7 +16,7 @@ void main() {
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.portraitUp,
     DeviceOrientation.landscapeRight,
-    DeviceOrientation.portraitDown
+    DeviceOrientation.portraitDown,
   ]);
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -28,10 +32,7 @@ class MyApp extends ConsumerStatefulWidget {
 
 class _MyAppState extends ConsumerState<MyApp> {
   @override
-  Widget build(
-    BuildContext context,
-  ) {
-    
+  Widget build(BuildContext context) {
     /// Abrufen des aktuellen App-Zustands über den Provider
     final state = ref.watch(refAppState);
 
@@ -42,9 +43,7 @@ class _MyAppState extends ConsumerState<MyApp> {
       themeMode: state.darkMode ? ThemeMode.dark : ThemeMode.light,
       debugShowCheckedModeBanner: false,
       home: const HomeView(),
-      routes: {
-        BugReportForm().route: (context) => BugReportForm(),
-      },
+      routes: {BugReportForm().route: (context) => BugReportForm()},
     );
   }
 }

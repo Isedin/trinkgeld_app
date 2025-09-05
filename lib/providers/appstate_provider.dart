@@ -1,19 +1,21 @@
 import 'dart:developer';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:trinkgeld_app/models/appstate.dart';
-import 'package:trinkgeld_app/models/country.dart';
-import 'package:trinkgeld_app/models/language.dart';
-import 'package:trinkgeld_app/models/override.dart';
-import 'package:trinkgeld_app/models/quality.dart';
+
+import '../models/appstate.dart';
+import '../models/country.dart';
+import '../models/language.dart';
+import '../models/override.dart' show TippOverride;
+import '../models/quality.dart';
 
 /// Klasse für die Verwaltung des App-Zustands
 class AppstateProvider extends Notifier<Appstate> {
   @override
   Appstate build() => _example;
 
-/// Diese Methode sucht nach einem Land anhand seiner ID in der Liste von Ländern im Zustand (state).
+  /// Diese Methode sucht nach einem Land anhand seiner ID in der Liste von Ländern im Zustand (state).
   Country? getCountryById(String id) {
-/// Iteriere durch die Liste von Ländern im Zustand.
+    /// Iteriere durch die Liste von Ländern im Zustand.
     for (final country in state.countries) {
       /// Überprüfe, ob die ID des aktuellen Landes mit der gesuchten ID übereinstimmt.
       if (country.id == id) {
@@ -21,6 +23,7 @@ class AppstateProvider extends Notifier<Appstate> {
         return country;
       }
     }
+
     /// Wenn keine Übereinstimmung gefunden wurde, wird null zurückgegeben.
     return null;
   }
@@ -39,17 +42,21 @@ class AppstateProvider extends Notifier<Appstate> {
   }) {
     final newOverrides = [...state.overrides.where((x) => x.id != country.id)];
     if (min != country.percentageLow) {
-      newOverrides.add(TippOverride(id: country.id, quality: Quality.low, percentage: min));
+      newOverrides.add(
+        TippOverride(id: country.id, quality: Quality.low, percentage: min),
+      );
     }
     if (mid != country.percentageMid) {
-      newOverrides.add(TippOverride(id: country.id, quality: Quality.mid, percentage: mid));
+      newOverrides.add(
+        TippOverride(id: country.id, quality: Quality.mid, percentage: mid),
+      );
     }
     if (high != country.percentageHigh) {
-      newOverrides.add(TippOverride(id: country.id, quality: Quality.high, percentage: high));
+      newOverrides.add(
+        TippOverride(id: country.id, quality: Quality.high, percentage: high),
+      );
     }
-    final newState = state.copyWith(
-      overrides: newOverrides,
-    );
+    final newState = state.copyWith(overrides: newOverrides);
 
     state = newState;
     log('done');
@@ -295,13 +302,7 @@ class AppstateProvider extends Notifier<Appstate> {
     quality: Quality.mid,
     selectedCountry: '1',
     darkMode: false,
-    overrides: [
-      TippOverride(
-        id: 'de',
-        quality: Quality.high,
-        percentage: 20,
-      ),
-    ],
+    overrides: [TippOverride(id: 'de', quality: Quality.high, percentage: 20)],
     ownTippingAmount: 20,
     selectedLanguage: German(),
   );

@@ -302,7 +302,7 @@ class AppstateProvider extends Notifier<Appstate> {
     quality: Quality.mid,
     selectedCountry: '1',
     darkMode: false,
-    overrides: [TippOverride(id: 'de', quality: Quality.high, percentage: 20)],
+    overrides: [TippOverride(id: '1', quality: Quality.high, percentage: 20)],
     ownTippingAmount: 20,
     selectedLanguage: German(),
   );

@@ -66,11 +66,21 @@ class Appstate {
   /// Methode zur Rückgabe des ausgewählten Landes als Objekt
   Country get selectedCountryObject {
     for (final c in countries) {
-      if (c.id == selectedCountry) {
-        return c;
-      }
+      if (c.id == selectedCountry) return c;
     }
-    return countries.first;
+    // Fallback, falls Liste leer/ID nicht vorhanden ist
+    return countries.isNotEmpty
+        ? countries.first
+        : const Country(
+            id: '0',
+            name: '—',
+            iso: '—',
+            percentageLow: 0,
+            percentageMid: 0,
+            percentageHigh: 0,
+            afterComma: 2,
+            flag: ':grey_question:',
+          );
   }
 
   /// Methode zur Berechnung des Bruttobetrags (Nettobetrag + Trinkgeld)

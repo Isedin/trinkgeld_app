@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math' as math;
 import 'country.dart';
 import 'language.dart';
 import 'override.dart';
@@ -52,16 +53,17 @@ class Appstate {
     List<TippOverride>? overrides,
     Language? selectedLanguage,
     int? ownTippingAmount,
-  }) => Appstate(
-    countries: countries ?? this.countries,
-    net: net ?? this.net,
-    quality: quality ?? this.quality,
-    selectedCountry: selectedCountry ?? this.selectedCountry,
-    darkMode: darkMode ?? this.darkMode,
-    overrides: overrides ?? this.overrides,
-    selectedLanguage: selectedLanguage ?? this.selectedLanguage,
-    ownTippingAmount: ownTippingAmount ?? this.ownTippingAmount,
-  );
+  }) =>
+      Appstate(
+        countries: countries ?? this.countries,
+        net: net ?? this.net,
+        quality: quality ?? this.quality,
+        selectedCountry: selectedCountry ?? this.selectedCountry,
+        darkMode: darkMode ?? this.darkMode,
+        overrides: overrides ?? this.overrides,
+        selectedLanguage: selectedLanguage ?? this.selectedLanguage,
+        ownTippingAmount: ownTippingAmount ?? this.ownTippingAmount,
+      );
 
   /// Methode zur Rückgabe des ausgewählten Landes als Objekt
   Country get selectedCountryObject {
@@ -119,16 +121,49 @@ class Appstate {
     return tipp;
   }
 
+  /// as double without rounding to country decimals
+  double get tippDouble {
+    final int percentage = overridePercentage(quality) ??
+        (quality == Quality.low
+            ? selectedCountryObject.percentageLow
+            : quality == Quality.mid
+                ? selectedCountryObject.percentageMid
+                : selectedCountryObject.percentageHigh);
+
+    return net * (percentage / 100.0);
+  }
+
+  /// helper to round to country decimals
+  double _roundTo(double v, int decimals) {
+    final p = math.pow(10, decimals);
+    return (v * p).round() / p;
+  }
+
+  /// rounded to country decimals
+  double get tippRounded =>
+      _roundTo(tippDouble, selectedCountryObject.afterComma);
+
+  /// total (net + tip) rounded to country decimals
+  double get grossRounded =>
+      _roundTo(net + tippDouble, selectedCountryObject.afterComma);
+
+  /// formatted tip as string with country decimals
+  String get tippFormatted =>
+      tippRounded.toStringAsFixed(selectedCountryObject.afterComma);
+
+  String get grossFormatted =>
+      grossRounded.toStringAsFixed(selectedCountryObject.afterComma);
+
   /// Methode zur Rückgabe des tatsächlichen Trinkgeldprozentsatzes für ein bestimmtes Land und Qualität
   int getRealTipPercentage(Country country, Quality quality) {
-    final applicablwOverrides = overrides.where(
+    final applicableOverrides = overrides.where(
       (o) => o.id == country.id && o.quality == quality,
     );
-    if (applicablwOverrides.isNotEmpty) {
-      log(applicablwOverrides.first.id);
-      log('${applicablwOverrides.first.quality}');
-      log('${applicablwOverrides.first.percentage}');
-      return applicablwOverrides.first.percentage;
+    if (applicableOverrides.isNotEmpty) {
+      log(applicableOverrides.first.id);
+      log('${applicableOverrides.first.quality}');
+      log('${applicableOverrides.first.percentage}');
+      return applicableOverrides.first.percentage;
     }
     if (quality == Quality.low) {
       return country.percentageLow;

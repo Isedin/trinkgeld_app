@@ -26,15 +26,24 @@ class EmailValidationState extends ConsumerState<EmailValidation> {
   /// Ein Controller für die Eingabe der E-Mail-Adresse.
   TextEditingController emailController = TextEditingController();
 
+  @override
+  void dispose() {
+    emailController.dispose();
+    widget.thisNode.dispose();
+    super.dispose();
+  }
+
   /// Methode zur Validierung der eingegebenen E-Mail-Adresse.
   void validateEmail() {
     final isValid = EmailValidator.validate(emailController.text.trim());
 
     if (isValid) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Valid Email')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Valid Email')));
       widget.nextNode.requestFocus();
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Not a Valid Email')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Not a Valid Email')));
       widget.thisNode.requestFocus();
     }
   }

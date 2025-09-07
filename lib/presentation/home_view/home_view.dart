@@ -21,12 +21,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
 
   final controller = PageController();
 
-  // void initState() {
-  //   controller.addListener(() {
-  //     print('Ä');
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     // Der Zustand (State) der App wird überwacht, um Änderungen zu erkennen.
@@ -34,20 +28,18 @@ class _HomeViewState extends ConsumerState<HomeView> {
     // Der Zugriff auf den App-Zustandsanbieter ermöglicht das Aktualisieren des Zustands.
     final appstateProvider = ref.read(refAppState.notifier);
     // Abrufen der Länderflagge als Emoji für die aktuell ausgewählte Sprache.
-    final flagEmoji = appstateProvider.getCountryById(appstate.selectedCountry)!.flag;
+    final flagEmoji =
+        appstateProvider.getCountryById(appstate.selectedCountry)!.flag;
     final translate = appstate.selectedLanguage;
     final emojiParser = ref.watch(refEmojiParser);
-    // Rückgabewert des Widgets, ein Scaffold mit AppBar, Body und BottomNavigationBar.
-    // if (MediaQuery.of(context).orientation.name != Orientation.portrait.name) {
-    //   setState(() {
-    //     // MediaQuery.of(context).orientation= Orientation.landscape;
-    //   });
-    // }
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text(page == 0 ? appstate.selectedLanguage.title : appstate.selectedLanguage.settings),
+        title: Text(page == 0
+            ? appstate.selectedLanguage.title
+            : appstate.selectedLanguage.settings),
         centerTitle: true,
         actions: [
           DropdownButton(
@@ -79,13 +71,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
               }),
         ],
       ),
-      // body: PageView(
-      //   // mainAxisSize: MainAxisSize.min,
-      //   controller: controller,
-      //   children: [
-      //     page == 0 ? const InputSection() : const SettingsSection(),
-      //   ],
-      // ),
       body: PageView(
         onPageChanged: (value) {
           setState(() {
@@ -106,7 +91,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
             page = zahl;
           });
         },
-        // currentIndex: page,
         items: [
           BottomNavigationBarItem(
             backgroundColor: Colors.green[900],

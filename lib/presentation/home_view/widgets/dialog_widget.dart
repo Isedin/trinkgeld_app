@@ -31,14 +31,11 @@ class _DialogWidgetState extends ConsumerState<DialogWidget> {
   void initState() {
     super.initState();
     final appstate = widget.ref.read(refAppState);
-    _sliderValueMin =
-        appstate.overridePercentage(Quality.low)?.toDouble() ??
+    _sliderValueMin = appstate.overridePercentage(Quality.low)?.toDouble() ??
         appstate.selectedCountryObject.percentageLow.toDouble();
-    _sliderValueMid =
-        appstate.overridePercentage(Quality.mid)?.toDouble() ??
+    _sliderValueMid = appstate.overridePercentage(Quality.mid)?.toDouble() ??
         appstate.selectedCountryObject.percentageMid.toDouble();
-    _sliderValueHigh =
-        appstate.overridePercentage(Quality.high)?.toDouble() ??
+    _sliderValueHigh = appstate.overridePercentage(Quality.high)?.toDouble() ??
         appstate.selectedCountryObject.percentageHigh.toDouble();
     isInitialized = true;
   }
@@ -87,6 +84,8 @@ class _DialogWidgetState extends ConsumerState<DialogWidget> {
                 onChanged: (value) {
                   setState(() {
                     _sliderValueMin = value!.percentageLow.toDouble();
+                    _sliderValueMid = value.percentageMid.toDouble();
+                    _sliderValueHigh = value.percentageHigh.toDouble();
                   });
                   appstateProvider.changeCountry(value!);
                 },

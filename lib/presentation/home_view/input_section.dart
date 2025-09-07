@@ -104,14 +104,11 @@ class InputSection extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  appstate.quality == Quality.low
-                      ? parser.emojify(':neutral_face:')
-                      : appstate.quality == Quality.mid
-                          ? parser.emojify(':wink:')
-                          : appstate.quality == Quality.high
-                              ? parser.emojify(':sunglasses:')
-                              : '???'
-                                  '${parser.emojify(":unamused:")}',
+                  switch (appstate.quality) {
+                    Quality.low => parser.emojify(':neutral_face:'),
+                    Quality.mid => parser.emojify(':wink:'),
+                    Quality.high => parser.emojify(':sunglasses:'),
+                  },
                   style: const TextStyle(fontSize: 42),
                 ),
               ],
@@ -122,10 +119,8 @@ class InputSection extends ConsumerWidget {
             child: SizedBox(
               // height: 50,
               child: Text(
-                '${translate.tippAmount}: ${appstate.gros - appstate.net}',
-                style: const TextStyle(
-                  fontSize: 25,
-                ),
+                '${translate.tippAmount}: ${appstate.tippFormatted}',
+                style: const TextStyle(fontSize: 25),
               ),
             ),
           ),
@@ -136,7 +131,7 @@ class InputSection extends ConsumerWidget {
             ),
           ),
           Text(
-            appstate.gros.toString(),
+            appstate.grossFormatted,
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ],

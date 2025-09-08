@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/presentation/home_view/home_view.dart';
 import 'package:trinkgeld_app/presentation/home_view/widgets/bug_report_form.dart';
 import 'package:trinkgeld_app/providers/_providers.dart';
+import 'package:trinkgeld_app/theme/app_theme.dart';
 
 // import 'presentation/home_view/home_view.dart';
 // import 'presentation/home_view/widgets/bug_report_form.dart';
@@ -38,8 +39,8 @@ class _MyAppState extends ConsumerState<MyApp> {
 
     /// Setzen der globalen Ref-Variable auf die aktuelle Referenz
     return MaterialApp(
-      theme: ThemeData.light(useMaterial3: true),
-      darkTheme: ThemeData.dark(useMaterial3: false),
+      theme: buildAppTheme(),
+      darkTheme: buildAppTheme(dark: true),
       themeMode: state.darkMode ? ThemeMode.dark : ThemeMode.light,
       debugShowCheckedModeBanner: false,
       home: const HomeView(),

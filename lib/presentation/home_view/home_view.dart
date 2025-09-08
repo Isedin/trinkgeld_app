@@ -36,7 +36,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.green[200],
         title: Text(page == 0
             ? appstate.selectedLanguage.title
             : appstate.selectedLanguage.settings),

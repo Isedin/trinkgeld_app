@@ -5,7 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/models/quality.dart';
 import 'package:trinkgeld_app/presentation/home_view/widgets/amounts_display.dart';
 import 'package:trinkgeld_app/presentation/home_view/widgets/currency_suffix.dart';
+import 'package:trinkgeld_app/presentation/home_view/widgets/currency_toggle.dart';
 import 'package:trinkgeld_app/presentation/home_view/widgets/my_text_field.dart';
+import 'package:trinkgeld_app/presentation/shared/header_card.dart';
 import 'package:trinkgeld_app/providers/_providers.dart';
 
 // import '../../models/appstate.dart';
@@ -37,125 +39,91 @@ class InputSection extends ConsumerWidget {
 
     final localCurrencyCode = appstate.selectedCountryObject.currencyCode;
 
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 10,
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: HeaderCard(
+            title: translate.title,
+            subtitle: appstate.selectedCountryObject.name,
+            trailing: CurrencyToggle(localCode: localCurrencyCode),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 3,
-              vertical: 15,
-            ),
-            child: MyTextfield(
-              onChanged: (value) {
-                final intValue = int.tryParse(value);
-                if (intValue == null) {
-                  appstateProvider.resetNet();
-                  return;
-                }
-                appstateProvider.setNet(intValue);
-                log('list of overrides: ${appstate.overrides.length}');
-                log('net: ${appstate.net},  gros: ${appstate.gros}');
-              },
-              labelText: translate.amount,
-              textInputType: TextInputType.number,
-              decoration: InputDecoration(
-                border: borderMainSide,
-                labelStyle: const TextStyle(
-                  color: Color.fromARGB(227, 217, 59, 59),
-                ),
-                suffixIcon:
-                    CurrencySuffix(localCurrencyCode: localCurrencyCode),
-                suffixIconColor: Colors.black,
-                focusedBorder: borderMainSide,
-                enabledBorder: borderMainSide,
-                fillColor: const Color.fromARGB(255, 193, 209, 174),
-                filled: true,
-                labelText: translate.amount,
-                hintStyle: TextStyle(color: Colors.grey[500]),
+        ),
+
+        // Unos iznosa
+        SliverToBoxAdapter(
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(translate.amount,
+                      style: Theme.of(context).textTheme.titleMedium),
+                  const SizedBox(height: 8),
+                  MyTextfield(
+                    labelText: translate.amount,
+                    decoration: const InputDecoration(hintText: '0'),
+                    textInputType: TextInputType.number,
+                    onChanged: (value) {
+                      final intValue = int.tryParse(value);
+                      if (intValue == null) {
+                        appstateProvider.resetNet();
+                        return;
+                      }
+                      appstateProvider.setNet(intValue);
+                      log('net=${appstate.net} gros=${appstate.gros}');
+                    },
+                  ),
+                ],
               ),
             ),
           ),
+        ),
 
-          // === RATING ===
-          Text(
-            translate.rating,
-            style: const TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 15,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                RatingBar.builder(
-                  minRating: 1,
-                  maxRating: 3,
-                  itemCount: 3,
-                  initialRating: appstate.quality.stars.toDouble(),
-                  itemSize: 50,
-                  itemPadding: const EdgeInsets.symmetric(horizontal: 5),
-                  itemBuilder: (context, _) => const Icon(
-                    Icons.star,
-                    color: Colors.amber,
+        // Ocjena usluge
+        SliverToBoxAdapter(
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              child: Column(
+                children: [
+                  Text(translate.rating,
+                      style: Theme.of(context).textTheme.titleMedium),
+                  const SizedBox(height: 8),
+                  RatingBar.builder(
+                    minRating: 1,
+                    maxRating: 3,
+                    itemCount: 3,
+                    initialRating: appstate.quality.stars.toDouble(),
+                    itemSize: 40,
+                    itemPadding: const EdgeInsets.symmetric(horizontal: 6),
+                    itemBuilder: (context, _) => const Icon(Icons.star),
+                    updateOnDrag: true,
+                    onRatingUpdate: (rating) =>
+                        appstateProvider.setQualityByStars(rating.toInt()),
                   ),
-                  updateOnDrag: true,
-                  onRatingUpdate: (rating) {
-                    appstateProvider.setQualityByStars(rating.toInt());
-                  },
-                ),
-              ],
+                ],
+              ),
             ),
           ),
+        ),
 
-          // === EMOJI ===
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  switch (appstate.quality) {
-                    Quality.low => parser.emojify(':neutral_face:'),
-                    Quality.mid => parser.emojify(':wink:'),
-                    Quality.high => parser.emojify(':sunglasses:'),
-                  },
-                  style: const TextStyle(fontSize: 42),
-                ),
-              ],
+        // Rezultati (tip + total) — s blagom animacijom
+        SliverToBoxAdapter(
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 220),
+                transitionBuilder: (c, a) =>
+                    FadeTransition(opacity: a, child: c),
+                child: const AmountsDisplay(key: ValueKey('amounts')),
+              ),
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          //   child: SizedBox(
-          //     // height: 50,
-          //     child: Text(
-          //       '${translate.tippAmount}: ${appstate.tippFormatted}',
-          //       style: const TextStyle(fontSize: 25),
-          //     ),
-          //   ),
-          // ),
-          // Text(
-          //   translate.totalAmount,
-          //   style: const TextStyle(
-          //     fontSize: 25,
-          //   ),
-          // ),
-          // Text(
-          //   appstate.grossFormatted,
-          //   style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          // ),
-          AmountsDisplay(
-            key: ValueKey(mode),
-          ),
-        ],
-      ),
+        ),
+        const SliverPadding(padding: EdgeInsets.only(bottom: 24)),
+      ],
     );
   }
 }

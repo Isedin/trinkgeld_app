@@ -1,9 +1,13 @@
 import 'dart:developer';
 import 'dart:math' as math;
+import 'package:intl/intl.dart';
+
 import 'country.dart';
 import 'language.dart';
 import 'override.dart';
 import 'quality.dart';
+
+enum DisplayCurrency { local, usd }
 
 /// Klasse, die den Zustand der App repräsentiert
 class Appstate {
@@ -31,6 +35,9 @@ class Appstate {
   /// Individueller Trinkgeldbetrag
   final int ownTippingAmount;
 
+  /// Währung, in der die Beträge angezeigt werden
+  final DisplayCurrency displayCurrency;
+
   /// Konstruktor für die Initialisierung des Zustands
   const Appstate({
     required this.countries,
@@ -41,6 +48,7 @@ class Appstate {
     required this.overrides,
     required this.selectedLanguage,
     required this.ownTippingAmount,
+    required this.displayCurrency,
   });
 
   /// Methode zum Erstellen einer Kopie des Zustands mit möglichen Änderungen
@@ -53,6 +61,7 @@ class Appstate {
     List<TippOverride>? overrides,
     Language? selectedLanguage,
     int? ownTippingAmount,
+    DisplayCurrency? displayCurrency,
   }) =>
       Appstate(
         countries: countries ?? this.countries,
@@ -63,6 +72,7 @@ class Appstate {
         overrides: overrides ?? this.overrides,
         selectedLanguage: selectedLanguage ?? this.selectedLanguage,
         ownTippingAmount: ownTippingAmount ?? this.ownTippingAmount,
+        displayCurrency: displayCurrency ?? this.displayCurrency,
       );
 
   /// Methode zur Rückgabe des ausgewählten Landes als Objekt
@@ -82,7 +92,19 @@ class Appstate {
             percentageHigh: 0,
             afterComma: 2,
             flag: ':grey_question:',
+            currencyCode: '—',
+            locale: 'en_US',
           );
+  }
+
+  /// Methode zur Formatierung eines Geldbetrags basierend auf dem ausgewählten Land
+  String formatMoney(double amount) {
+    final c = selectedCountryObject;
+    final f = NumberFormat.simpleCurrency(
+      locale: c.locale,
+      name: c.currencyCode,
+    );
+    return f.format(amount);
   }
 
   /// Methode zur Berechnung des Bruttobetrags (Nettobetrag + Trinkgeld)

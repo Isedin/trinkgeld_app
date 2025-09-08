@@ -95,6 +95,10 @@ class AppstateProvider extends Notifier<Appstate> {
     state = state.copyWith(net: 0);
   }
 
+  void setDisplayCurrencyMode(DisplayCurrency mode) {
+    state = state.copyWith(displayCurrency: mode);
+  }
+
   static const _example = Appstate(
     countries: [
       Country(
@@ -106,6 +110,8 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 15,
         afterComma: 2,
         flag: ':flag-de:',
+        currencyCode: 'EUR',
+        locale: 'de_DE',
       ),
       Country(
         id: '2',
@@ -116,6 +122,8 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 35,
         afterComma: 2,
         flag: ':flag-us:',
+        currencyCode: 'USD',
+        locale: 'en_US',
       ),
       Country(
         id: '3',
@@ -126,6 +134,8 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 30,
         afterComma: 0,
         flag: ':flag-tr:',
+        currencyCode: 'TRY',
+        locale: 'tr_TR',
       ),
       Country(
         id: '4',
@@ -136,6 +146,8 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 15,
         afterComma: 0,
         flag: ':flag-cn:',
+        currencyCode: 'CNY',
+        locale: 'zh_CN',
       ),
       Country(
         id: '5',
@@ -146,6 +158,8 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 15,
         afterComma: 2,
         flag: ':flag-fr:',
+        currencyCode: 'EUR',
+        locale: 'fr_FR',
       ),
       Country(
         id: '6',
@@ -156,6 +170,8 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 15,
         afterComma: 2,
         flag: ':flag-it:',
+        currencyCode: 'EUR',
+        locale: 'it_IT',
       ),
       Country(
         id: '7',
@@ -166,6 +182,8 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 15,
         afterComma: 2,
         flag: ':flag-es:',
+        currencyCode: 'EUR',
+        locale: 'es_ES',
       ),
       Country(
         id: '8',
@@ -176,6 +194,8 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 15,
         afterComma: 2,
         flag: ':flag-hr:',
+        currencyCode: 'EUR',
+        locale: 'hr_HR',
       ),
       Country(
         id: '9',
@@ -186,6 +206,8 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 15,
         afterComma: 2,
         flag: ':flag-gb:',
+        currencyCode: 'GBP',
+        locale: 'en_GB',
       ),
       Country(
         id: '10',
@@ -196,6 +218,8 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 15,
         afterComma: 2,
         flag: ':flag-at:',
+        currencyCode: 'EUR',
+        locale: 'de_AT',
       ),
       Country(
         id: '11',
@@ -206,6 +230,8 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 20,
         afterComma: 2,
         flag: ':flag-ba:',
+        currencyCode: 'BAM',
+        locale: 'bs_BA',
       ),
       Country(
         id: '12',
@@ -216,6 +242,8 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 35,
         afterComma: 2,
         flag: ':flag-ca:',
+        currencyCode: 'CAD',
+        locale: 'en_CA',
       ),
       Country(
         id: '13',
@@ -226,6 +254,8 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 35,
         afterComma: 2,
         flag: ':flag-ch:',
+        currencyCode: 'CHF',
+        locale: 'de_CH',
       ),
       Country(
         id: '14',
@@ -236,6 +266,8 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 20,
         afterComma: 2,
         flag: ':flag-au:',
+        currencyCode: 'AUD',
+        locale: 'en_AU',
       ),
       Country(
         id: '15',
@@ -246,6 +278,8 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 35,
         afterComma: 2,
         flag: ':flag-gr:',
+        currencyCode: 'EUR',
+        locale: 'el_GR',
       ),
       Country(
         id: '16',
@@ -256,6 +290,8 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 50,
         afterComma: 2,
         flag: ':flag-ae:',
+        currencyCode: 'AED',
+        locale: 'ar_AE',
       ),
       Country(
         id: '17',
@@ -266,6 +302,8 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 15,
         afterComma: 2,
         flag: ':flag-si:',
+        currencyCode: 'EUR',
+        locale: 'sl_SI',
       ),
       Country(
         id: '18',
@@ -276,6 +314,8 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 30,
         afterComma: 2,
         flag: ':flag-mv:',
+        currencyCode: 'MVR',
+        locale: 'dv_MV',
       ),
       Country(
         id: '19',
@@ -286,6 +326,8 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 35,
         afterComma: 2,
         flag: ':flag-br:',
+        currencyCode: 'BRL',
+        locale: 'pt_BR',
       ),
       Country(
         id: '20',
@@ -296,7 +338,20 @@ class AppstateProvider extends Notifier<Appstate> {
         percentageHigh: 20,
         afterComma: 2,
         flag: ':flag-eg:',
+        currencyCode: 'EGP',
+        locale: 'ar_EG',
       ),
+      Country(
+          id: '21',
+          name: 'Japan',
+          iso: 'JP',
+          percentageLow: 10,
+          percentageMid: 15,
+          percentageHigh: 20,
+          afterComma: 2,
+          flag: ':flag-jp:',
+          currencyCode: 'JPY',
+          locale: 'ja_JP')
     ],
     net: 100,
     quality: Quality.mid,
@@ -305,5 +360,6 @@ class AppstateProvider extends Notifier<Appstate> {
     overrides: [TippOverride(id: '1', quality: Quality.high, percentage: 20)],
     ownTippingAmount: 20,
     selectedLanguage: German(),
+    displayCurrency: DisplayCurrency.local,
   );
 }

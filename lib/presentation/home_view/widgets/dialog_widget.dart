@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/models/quality.dart';
 import 'package:trinkgeld_app/providers/_providers.dart';
 
-import '../../../models/quality.dart';
-import '../../../providers/_providers.dart';
+// import '../../../models/quality.dart';
+// import '../../../providers/_providers.dart';
 import 'macard.dart';
 
 /// Die Klasse DialogWidget repräsentiert ein StatefulWidget für die Anzeige von Dialogen.

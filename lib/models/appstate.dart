@@ -36,7 +36,7 @@ class Appstate {
   final int ownTippingAmount;
 
   /// Währung, in der die Beträge angezeigt werden
-  final DisplayCurrency displayCurrency;
+  final DisplayCurrency displayCurrencyMode;
 
   /// Konstruktor für die Initialisierung des Zustands
   const Appstate({
@@ -48,7 +48,7 @@ class Appstate {
     required this.overrides,
     required this.selectedLanguage,
     required this.ownTippingAmount,
-    required this.displayCurrency,
+    required this.displayCurrencyMode,
   });
 
   /// Methode zum Erstellen einer Kopie des Zustands mit möglichen Änderungen
@@ -61,7 +61,7 @@ class Appstate {
     List<TippOverride>? overrides,
     Language? selectedLanguage,
     int? ownTippingAmount,
-    DisplayCurrency? displayCurrency,
+    DisplayCurrency? displayCurrencyMode,
   }) =>
       Appstate(
         countries: countries ?? this.countries,
@@ -72,7 +72,7 @@ class Appstate {
         overrides: overrides ?? this.overrides,
         selectedLanguage: selectedLanguage ?? this.selectedLanguage,
         ownTippingAmount: ownTippingAmount ?? this.ownTippingAmount,
-        displayCurrency: displayCurrency ?? this.displayCurrency,
+        displayCurrencyMode: displayCurrencyMode ?? this.displayCurrencyMode,
       );
 
   /// Methode zur Rückgabe des ausgewählten Landes als Objekt
@@ -100,8 +100,18 @@ class Appstate {
   /// Methode zur Formatierung eines Geldbetrags basierend auf dem ausgewählten Land
   String formatMoney(double amount) {
     final c = selectedCountryObject;
+
+    String _safe(String loc) {
+      try {
+        NumberFormat('', loc);
+        return loc;
+      } catch (_) {
+        return 'en_US';
+      }
+    }
+
     final f = NumberFormat.simpleCurrency(
-      locale: c.locale,
+      locale: _safe(c.locale),
       name: c.currencyCode,
     );
     return f.format(amount);

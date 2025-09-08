@@ -11,16 +11,15 @@ class MyTextfield extends StatelessWidget {
   /// Callback-Funktion, die aufgerufen wird, wenn sich der Text ändert (optional).
   final void Function(String)? onChanged;
 
-  final Widget? suffixIcon;
+  final InputDecoration decoration;
 
   /// Konstruktor für die Initialisierung der erforderlichen Felder und optionalen Parameter.
   const MyTextfield({
     required this.labelText,
-    required InputDecoration decoration,
+    required this.decoration,
     super.key,
     this.textInputType,
     this.onChanged,
-    this.suffixIcon,
   });
 
   @override
@@ -29,23 +28,7 @@ class MyTextfield extends StatelessWidget {
         child: TextField(
           keyboardType: textInputType,
           onChanged: onChanged,
-          decoration: InputDecoration(
-            suffixIcon: suffixIcon ?? const Icon(Icons.euro),
-            enabledBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30),
-                ),
-                borderSide:
-                    BorderSide(color: Color.fromARGB(255, 170, 29, 29))),
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade400)),
-            fillColor: const Color.fromARGB(255, 193, 209, 174),
-            filled: true,
-            labelText: labelText,
-            hintStyle: TextStyle(
-              color: Colors.grey[500],
-            ),
-          ),
+          decoration: decoration.copyWith(labelText: labelText),
         ),
       );
 }

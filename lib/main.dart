@@ -5,9 +5,9 @@ import 'package:trinkgeld_app/presentation/home_view/home_view.dart';
 import 'package:trinkgeld_app/presentation/home_view/widgets/bug_report_form.dart';
 import 'package:trinkgeld_app/providers/_providers.dart';
 
-import 'presentation/home_view/home_view.dart';
-import 'presentation/home_view/widgets/bug_report_form.dart';
-import 'providers/_providers.dart';
+// import 'presentation/home_view/home_view.dart';
+// import 'presentation/home_view/widgets/bug_report_form.dart';
+// import 'providers/_providers.dart';
 
 /// Variable, die eine Referenz auf den Anwendungszustand enthält
 void main() {

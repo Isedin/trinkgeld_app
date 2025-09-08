@@ -96,7 +96,7 @@ class AppstateProvider extends Notifier<Appstate> {
   }
 
   void setDisplayCurrencyMode(DisplayCurrency mode) {
-    state = state.copyWith(displayCurrency: mode);
+    state = state.copyWith(displayCurrencyMode: mode);
   }
 
   static const _example = Appstate(
@@ -360,6 +360,6 @@ class AppstateProvider extends Notifier<Appstate> {
     overrides: [TippOverride(id: '1', quality: Quality.high, percentage: 20)],
     ownTippingAmount: 20,
     selectedLanguage: German(),
-    displayCurrency: DisplayCurrency.local,
+    displayCurrencyMode: DisplayCurrency.local,
   );
 }

@@ -4,7 +4,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trinkgeld_app/models/quality.dart';
 import 'package:trinkgeld_app/presentation/home_view/widgets/amounts_display.dart';
-import 'package:trinkgeld_app/presentation/home_view/widgets/currency_suffix.dart';
 import 'package:trinkgeld_app/presentation/home_view/widgets/currency_toggle.dart';
 import 'package:trinkgeld_app/presentation/home_view/widgets/my_text_field.dart';
 import 'package:trinkgeld_app/presentation/shared/header_card.dart';
@@ -23,14 +22,14 @@ class InputSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mode = ref.watch(displayCurrencyModeProvider);
-    const borderMainSide = OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(30)),
-      borderSide: BorderSide(
-        width: 2.0,
-      ),
-    );
-    final parser = ref.watch(refEmojiParser);
+    // final mode = ref.watch(displayCurrencyModeProvider);
+    // const borderMainSide = OutlineInputBorder(
+    //   borderRadius: BorderRadius.all(Radius.circular(30)),
+    //   borderSide: BorderSide(
+    //     width: 2.0,
+    //   ),
+    // );
+    // final parser = ref.watch(refEmojiParser);
     final appstate = ref.watch(refAppState);
     final translate = appstate.selectedLanguage;
     final appstateProvider = ref.read(

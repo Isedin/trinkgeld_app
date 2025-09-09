@@ -353,7 +353,7 @@ class AppstateProvider extends Notifier<Appstate> {
           currencyCode: 'JPY',
           locale: 'ja_JP')
     ],
-    net: 100,
+    net: 0,
     quality: Quality.mid,
     selectedCountry: '1',
     darkMode: false,

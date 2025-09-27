@@ -9,10 +9,6 @@ import 'package:trinkgeld_app/presentation/home_view/widgets/my_text_field.dart'
 import 'package:trinkgeld_app/presentation/shared/header_card.dart';
 import 'package:trinkgeld_app/providers/_providers.dart';
 
-// import '../../models/appstate.dart';
-
-// import '../../providers/_providers.dart';
-
 /// Klasse für eine Eingabe-Sektion, erweitert von ConsumerWidget
 class InputSection extends ConsumerWidget {
   /// Konstruktor für die InputSection-Klasse mit optionalem Schlüssel
@@ -22,14 +18,7 @@ class InputSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final mode = ref.watch(displayCurrencyModeProvider);
-    // const borderMainSide = OutlineInputBorder(
-    //   borderRadius: BorderRadius.all(Radius.circular(30)),
-    //   borderSide: BorderSide(
-    //     width: 2.0,
-    //   ),
-    // );
-    // final parser = ref.watch(refEmojiParser);
+  
     final appstate = ref.watch(refAppState);
     final translate = appstate.selectedLanguage;
     final appstateProvider = ref.read(
@@ -38,17 +27,22 @@ class InputSection extends ConsumerWidget {
 
     final localCurrencyCode = appstate.selectedCountryObject.currencyCode;
 
+    // we take the localized name
+  final countryName = appstate
+      .selectedCountryObject
+      .localizedName(translate.languageCode); // ← uses extension
+
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
           child: HeaderCard(
             title: translate.title,
-            subtitle: appstate.selectedCountryObject.name,
+            subtitle: countryName,
             trailing: CurrencyToggle(localCode: localCurrencyCode),
           ),
         ),
 
-        // Unos iznosa
+        // Amount input
         SliverToBoxAdapter(
           child: Card(
             child: Padding(
@@ -79,7 +73,7 @@ class InputSection extends ConsumerWidget {
           ),
         ),
 
-        // Ocjena usluge
+        // Service rating
         SliverToBoxAdapter(
           child: Card(
             child: Padding(
@@ -107,7 +101,7 @@ class InputSection extends ConsumerWidget {
           ),
         ),
 
-        // Rezultati (tip + total) — s blagom animacijom
+        // Results (tip + total) — with subtle animation
         SliverToBoxAdapter(
           child: Card(
             child: Padding(

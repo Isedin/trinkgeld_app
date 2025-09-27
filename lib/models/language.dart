@@ -1,6 +1,6 @@
 /// Abstrakte Klasse Language, die als Schnittstelle für verschiedene Sprachen dient.
 abstract class Language {
-  // const Language._();
+  String get languageCode; // z.B. 'de' oder 'en'
   ///auf Deutsch: "Trinkgeld App" und auf English: "Tipping App".
   String get title;
 
@@ -75,6 +75,9 @@ abstract class Language {
 class German implements Language {
   ///Die Variable German, die die Überschriften und etc. im Deutschen speichert.
   const German();
+
+  @override
+  String get languageCode => 'de';
 
   @override
   String get impressum => 'Impressum';
@@ -152,6 +155,9 @@ class English implements Language {
   ///Die Variable English, die die Überschriften und etc. im Englischen speichert.
 
   const English();
+
+  @override
+  String get languageCode => 'en';
 
   @override
   String get impressum => 'Impressum';

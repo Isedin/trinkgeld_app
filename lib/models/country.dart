@@ -7,6 +7,8 @@ class Country {
   ///Name
   final String name;
 
+  final Map<String, String>? names; // <langCode, localizedName>
+
   ///iso Zeichen von dem einzelnen Land
   final String iso;
 
@@ -35,6 +37,7 @@ class Country {
   const Country({
     required this.id,
     required this.name,
+    this.names,
     required this.iso,
     required this.percentageLow,
     required this.percentageMid,
@@ -49,6 +52,7 @@ class Country {
   Country copyWith({
     String? id,
     String? name,
+    Map<String, String>? names,
     String? iso,
     int? percentageLow,
     int? percentageMid,
@@ -61,6 +65,7 @@ class Country {
       Country(
         id: id ?? this.id,
         name: name ?? this.name,
+        names: names ?? this.names,
         iso: iso ?? this.iso,
         percentageLow: percentageLow ?? this.percentageLow,
         percentageMid: percentageMid ?? this.percentageMid,
@@ -75,6 +80,7 @@ class Country {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
+        'names': names,
         'iso': iso,
         'percentageLow': percentageLow,
         'percentageMid': percentageMid,
@@ -89,6 +95,10 @@ class Country {
   factory Country.fromJson(Map<String, dynamic> json) => Country(
         id: json['id'] as String,
         name: json['name'] as String,
+        names: (json['names'] as Map<String, dynamic>?)?.map(
+          (k, e) => MapEntry(k, e as String),
+        ),
+        // names: (json['names'] as Map?)?.cast<String, String>(),
         iso: json['iso'] as String,
         percentageLow: json['percentageLow'] as int,
         percentageMid: json['percentageMid'] as int,
@@ -98,6 +108,10 @@ class Country {
         currencyCode: json['currencyCode'] as String,
         locale: json['locale'] as String,
       );
+
+      /// Returns the localized name according to the app language; fallback to `name`.
+  String localizedName(String langCode) =>
+      names?[langCode] ?? name;
   @override
   String toString() =>
       'Country{id: $id, name: $name, percentageLow: $percentageLow, percentageMid: $percentageMid, percentageHigh: $percentageHigh, afterComma: $afterComma, flag: $flag, currencyCode: $currencyCode, locale: $locale}';

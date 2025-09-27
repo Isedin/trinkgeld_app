@@ -6,7 +6,6 @@ import 'package:trinkgeld_app/utils/safe_locale.dart';
 
 /// Widget to display calculated tip and total amounts
 class AmountsDisplay extends ConsumerWidget {
-  /// Constructor for AmountsDisplay widget
   const AmountsDisplay({super.key});
 
   @override
@@ -27,9 +26,6 @@ class AmountsDisplay extends ConsumerWidget {
         NumberFormat.simpleCurrency(name: targetCode, locale: targetLocale);
     final fmtLocal =
         NumberFormat.simpleCurrency(name: localCode, locale: localSafe);
-
-// debug:
-    print('[ui] targetCode=$targetCode, local=$localCode');
 
     // take converted amounts from provider
     final amounts = ref.watch(selectedDisplayAmountsProvider);
@@ -52,19 +48,11 @@ class AmountsDisplay extends ConsumerWidget {
               fmtTarget.format(a.gross),
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 6),
-            Text(
-              '↳ ${a.from} → ${a.to} @ ${a.rate.toStringAsFixed(6)}',
-              style: const TextStyle(
-                  fontSize: 12,
-                  fontStyle: FontStyle.italic,
-                  color: Colors.grey),
-            ),
             if (targetCode != localCode) ...[
               const SizedBox(height: 6),
               Text(
-                '≈ ${fmtLocal.format(appstate.grossRounded)} local',
-                style: const TextStyle(fontSize: 12, color: Colors.grey),
+                '≈ ${fmtLocal.format(appstate.grossRounded)}',
+                style: const TextStyle(fontSize: 13, color: Colors.grey),
               ),
             ],
           ],
@@ -73,34 +61,29 @@ class AmountsDisplay extends ConsumerWidget {
           padding: EdgeInsets.all(8.0),
           child: CircularProgressIndicator.adaptive(strokeWidth: 2),
         ),
-        // Fallback: local format in case of an error
-        error: (err, stack) {
-          // ignore: avoid_print
-          print('[AmountsDisplay][error] $err\n$stack');
-          return Column(
-            children: [
-              Text(
-                '${translate.tippAmount}: ${appstate.tippFormatted}',
-                style: const TextStyle(fontSize: 25),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                translate.totalAmount,
-                style: const TextStyle(fontSize: 25),
-              ),
-              Text(
-                appstate.grossFormatted,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 6),
-              const Text(
-                'Fallback (local currency) caused by an error',
-                style: TextStyle(fontSize: 12, color: Colors.redAccent),
-              ),
-            ],
-          );
-        },
+        error: (_, __) => Column(
+          children: [
+            Text(
+              '${translate.tippAmount}: ${appstate.tippFormatted}',
+              style: const TextStyle(fontSize: 25),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              translate.totalAmount,
+              style: const TextStyle(fontSize: 25),
+            ),
+            Text(
+              appstate.grossFormatted,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 6),
+            const Text(
+              '⚠️ Trenutno prikazano u lokalnoj valuti (nije dostupna konverzija)',
+              style: TextStyle(fontSize: 12, color: Colors.redAccent),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }

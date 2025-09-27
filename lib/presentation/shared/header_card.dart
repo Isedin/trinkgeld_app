@@ -15,9 +15,9 @@ class HeaderCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         gradient: LinearGradient(
           begin: Alignment.topLeft, end: Alignment.bottomRight,
-          colors: [cs.primary.withOpacity(.12), cs.surface.withOpacity(.7)],
+          colors: [cs.primary.withValues(alpha: 31), cs.surface.withValues(alpha: 179)],
         ),
-        border: Border.all(color: cs.primary.withOpacity(.15)),
+        border: Border.all(color: cs.primary.withValues(alpha: 38)),
       ),
       child: ListTile(
         title: Text(title, style: Theme.of(context).textTheme.titleMedium),

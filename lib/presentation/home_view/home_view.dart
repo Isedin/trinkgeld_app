@@ -43,32 +43,36 @@ class _HomeViewState extends ConsumerState<HomeView> {
         centerTitle: true,
         actions: [
           DropdownButton(
-              padding: const EdgeInsets.only(right: 12),
-              hint: Text(
-                emojiParser.emojify(flagEmoji),
-              ),
-              items: appstate.countries
-                  .map((country) => DropdownMenuItem(
-                        value: country,
-                        child: Row(
-                          children: [
-                            Text(
-                              emojiParser.emojify(country.flag),
-                            ),
-                            Text(
-                              emojiParser.emojify(country.iso),
-                              style: const TextStyle(fontSize: 14.0),
-                            ),
-                          ],
-                        ),
-                      ))
-                  .toList(),
-              onChanged: (value) {
-                log(value.toString());
-                if (value != null) {
-                  appstateProvider.changeCountry(value);
-                }
-              }),
+            padding: const EdgeInsets.only(right: 12),
+            dropdownColor: Theme.of(context).colorScheme.surface, // podloga menija
+            hint: Text(
+              emojiParser.emojify(flagEmoji),
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+            ),
+            items: appstate.countries.map((country) => DropdownMenuItem(
+                value: country,
+                child: Row(
+                  children: [
+                    Text(
+                      emojiParser.emojify(country.flag),
+                      style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      emojiParser.emojify(country.iso),
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Theme.of(context).colorScheme.onSurface, // TAMNIJE
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              )).toList(),
+            onChanged: (value) {
+              if (value != null) appstateProvider.changeCountry(value);
+            },
+          ),
         ],
       ),
       body: PageView(

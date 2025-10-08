@@ -33,37 +33,49 @@ class SettingsSection extends ConsumerWidget {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: DropdownButtonFormField(
+            child: DropdownButtonFormField<Language>(
               decoration: InputDecoration(
                 enabledBorder: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(30),
-                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
                 ),
-                border: settingsButtonsBorder,
+                border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                ),
                 label: Text(appstate.selectedLanguage.ownName),
               ),
-              items: [const German(), const English()]
-                  .map(
-                    (e) => DropdownMenuItem(
-                      value: e,
-                      child: Text(
-                        e.ownName,
-                        style: const TextStyle(
-                          backgroundColor: Color.fromARGB(255, 190, 195, 184),
-                        ),
+              // Menu color
+              dropdownColor: Theme.of(context).colorScheme.surface, 
+              // Menu items
+              items: const [German(), English()].map((lang) => DropdownMenuItem<Language>(
+                  value: lang,
+                  child: Text(
+                    lang.ownName,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                )).toList(),
+              selectedItemBuilder: (context) => const [German(), English()].map((lang) {
+                  return Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      lang.ownName,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                  )
-                  .toList(),
+                  );
+                }).toList(),
               onChanged: (value) {
-                log('onChanged Language $value');
                 if (value != null) {
                   appstateProvider.changeLanguage(value);
                 }
               },
             ),
           ),
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
             child: SingleChildScrollView(

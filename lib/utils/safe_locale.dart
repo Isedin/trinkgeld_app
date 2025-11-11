@@ -2,8 +2,8 @@ import 'package:intl/intl.dart';
 
 String safeLocale(String desired, {String fallback = 'en_US'}) {
   try {
-    // Pokušaj inicijalizirati bilo koji formatter s traženim locale-om.
-    // Ako baci, locale nije podržan.
+    // try to initialize any formatter with the desired locale.
+    // if it doesn't throw, we can use it safely
     NumberFormat('', desired);
     return desired;
   } catch (_) {

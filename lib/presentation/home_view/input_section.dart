@@ -18,7 +18,6 @@ class InputSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-  
     final appstate = ref.watch(refAppState);
     final translate = appstate.selectedLanguage;
     final appstateProvider = ref.read(
@@ -28,9 +27,8 @@ class InputSection extends ConsumerWidget {
     final localCurrencyCode = appstate.selectedCountryObject.currencyCode;
 
     // we take the localized name
-  final countryName = appstate
-      .selectedCountryObject
-      .localizedName(translate.languageCode); // ← uses extension
+    final countryName = appstate.selectedCountryObject
+        .localizedName(translate.languageCode); // ← uses extension
 
     return CustomScrollView(
       slivers: [
@@ -88,7 +86,6 @@ class InputSection extends ConsumerWidget {
                     maxRating: 3,
                     itemCount: 3,
                     initialRating: appstate.quality.stars.toDouble(),
-                    itemSize: 40,
                     itemPadding: const EdgeInsets.symmetric(horizontal: 6),
                     itemBuilder: (context, _) => const Icon(Icons.star),
                     updateOnDrag: true,

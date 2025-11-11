@@ -78,7 +78,7 @@ class AmountsDisplay extends ConsumerWidget {
             ),
             const SizedBox(height: 6),
             const Text(
-              '⚠️ Trenutno prikazano u lokalnoj valuti (nije dostupna konverzija)',
+              'Currency conversion failed, showing local amounts only.',
               style: TextStyle(fontSize: 12, color: Colors.redAccent),
               textAlign: TextAlign.center,
             ),
